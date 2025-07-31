@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://bqkdcvcop5k06"]
+
+[ext_resource type="Texture2D" uid="uid://b51l63qahh8xq" path="res://Games/UnderworldPlatformer/Arta/Tiles/Transparent/tile_0002.png" id="1_rss4a"]
+[ext_resource type="Script" uid="uid://crw7loc7otg8u" path="res://Games/UnderworldPlatformer/Assets/Scripts/UnderworldCoin.gd" id="2_sknaa"]
+[ext_resource type="AudioStream" uid="uid://dr6acf1p7u3l8" path="res://Games/UnderworldPlatformer/Arta/Sunet/Coin/coin_1.wav" id="3_c6que"]
+[ext_resource type="AudioStream" uid="uid://b2n54tc0ds1g6" path="res://Games/UnderworldPlatformer/Arta/Sunet/Coin/coin_2.wav" id="4_hoe1y"]
+[ext_resource type="AudioStream" uid="uid://dagksnc3nr5fs" path="res://Games/UnderworldPlatformer/Arta/Sunet/Coin/coin_3.wav" id="5_16v10"]
+[ext_resource type="AudioStream" uid="uid://3ld3tp4q3cwa" path="res://Games/UnderworldPlatformer/Arta/Sunet/Coin/coin_4.wav" id="6_tivnu"]
+[ext_resource type="AudioStream" uid="uid://dfn6u7eb374jt" path="res://Games/UnderworldPlatformer/Arta/Sunet/Coin/coin_5.wav" id="7_nrrxb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ejw76"]
+size = Vector2(14, 14)
+
+[sub_resource type="Animation" id="Animation_hoe1y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_c6que"]
+resource_name = "default"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1.51572, 1, 1.41421, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 1), Vector2(0, 0), Vector2(0, -1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_16v10"]
+_data = {
+&"RESET": SubResource("Animation_hoe1y"),
+&"default": SubResource("Animation_c6que")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wm4ua"]
+playback_mode = 1
+random_pitch = 1.21
+streams_count = 5
+stream_0/stream = ExtResource("3_c6que")
+stream_1/stream = ExtResource("4_hoe1y")
+stream_2/stream = ExtResource("5_16v10")
+stream_3/stream = ExtResource("6_tivnu")
+stream_4/stream = ExtResource("7_nrrxb")
+
+[node name="Coin" type="Area2D"]
+script = ExtResource("2_sknaa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ejw76")
+
+[node name="CoinSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_rss4a")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CoinSprite"]
+libraries = {
+&"": SubResource("AnimationLibrary_16v10")
+}
+autoplay = "default"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_wm4ua")
+volume_db = -7.518
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

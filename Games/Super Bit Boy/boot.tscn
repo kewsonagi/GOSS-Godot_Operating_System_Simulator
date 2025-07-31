@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdor2s0hydipy"]
+
+[ext_resource type="Script" uid="uid://bhlhtgsbak380" path="res://Games/boot_game.gd" id="1_cf8jl"]
+[ext_resource type="PackedScene" uid="uid://t3fobsr7gklg" path="res://Games/Super Bit Boy/Scenes/Levels/level_1.tscn" id="2_svyph"]
+
+[node name="BootGame" type="Node2D"]
+script = ExtResource("1_cf8jl")
+mainGameScene = ExtResource("2_svyph")

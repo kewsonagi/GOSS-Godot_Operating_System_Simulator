@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dujib0uv126o2"]
+
+[ext_resource type="Script" uid="uid://bhlhtgsbak380" path="res://Games/boot_game.gd" id="1_ciwti"]
+[ext_resource type="PackedScene" uid="uid://bv4345bf1wisa" path="res://Games/minesweeper/minesweeper.tscn" id="2_ciwti"]
+
+[node name="BootGame" type="Node2D"]
+script = ExtResource("1_ciwti")
+mainGameScene = ExtResource("2_ciwti")

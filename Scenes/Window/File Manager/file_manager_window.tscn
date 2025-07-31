@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://i03dt4l5msgl"]
+
+[ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_xona8"]
+[ext_resource type="Texture2D" uid="uid://bsh2ulbkq6car" path="res://Art/GuiAssets/Retro Icons 256px 002/Layer 9.png" id="2_x5fsl"]
+[ext_resource type="PackedScene" uid="uid://ufo3bc72b2rq" path="res://Scenes/Window/File Manager/file_manager.tscn" id="3_x5fsl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq0su"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1355058, 7.288199e-05, 0.18264979, 1)
+draw_center = false
+corner_detail = 5
+shadow_color = Color(0, 0, 0, 0.0784314)
+
+[node name="Window" node_paths=PackedStringArray("closeButton") instance=ExtResource("1_xona8")]
+offset_left = -267.5
+offset_right = 267.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_wq0su")
+closeButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Close Button")
+
+[node name="SubViewport" parent="SubViewportContainer" index="0"]
+size = Vector2i(535, 407)
+
+[node name="MarginContainer" parent="SubViewportContainer/SubViewport" index="0"]
+mouse_filter = 2
+
+[node name="SubViewportContainer_SubViewport_TransitionNode_Top Bar#TransitionNode_Top Bar#Top Bar#Top Bar#Back Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="3"]
+custom_minimum_size = Vector2(40, 24)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 40.0
+offset_top = 2.0
+offset_right = 80.0
+offset_bottom = 26.0
+focus_mode = 0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(0.6886501, 0.7359163, 0.8594238, 1)
+theme_override_colors/icon_pressed_color = Color(0.55145574, 0.6175318, 0.9393671, 1)
+theme_override_colors/icon_hover_color = Color(0.6001294, 0.73128843, 0.9390657, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.13756527, 0.5412501, 0.99999994, 1)
+icon = ExtResource("2_x5fsl")
+expand_icon = true
+
+[node name="FileManagerWindow" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="2" node_paths=PackedStringArray("windowTitle", "parentWindow") groups=["file_manager_window"] instance=ExtResource("3_x5fsl")]
+layout_mode = 1
+offset_left = 5.0
+offset_right = -5.0
+windowTitle = NodePath("../Top Bar/Title Text")
+parentWindow = NodePath("../../../../..")
+
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/SubViewportContainer_SubViewport_TransitionNode_Top Bar#TransitionNode_Top Bar#Top Bar#Top Bar#Back Button" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/FileManagerWindow" method="_on_back_button_pressed"]
+
+[editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar"]
+[editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots"]

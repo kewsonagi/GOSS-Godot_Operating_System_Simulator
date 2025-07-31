@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://4vvax0rv67ll"
+path="res://.godot/imported/Night Time - SoundTrack @Alas39.wav-53271925174ff62216d6f45b7d7d16c5.sample"
+
+[deps]
+
+source_file="res://examples/Lo-Fi SoundTracks @Alas39/Night Time - SoundTrack @Alas39.wav"
+dest_files=["res://.godot/imported/Night Time - SoundTrack @Alas39.wav-53271925174ff62216d6f45b7d7d16c5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ohgwvdetih50"]
+
+[ext_resource type="Script" uid="uid://bhlhtgsbak380" path="res://Games/boot_game.gd" id="1_5fp3y"]
+[ext_resource type="PackedScene" uid="uid://6e6rkceymrxy" path="res://Games/Snake/snake_scene.tscn" id="2_xhkj5"]
+
+[node name="BootGame" type="Node2D"]
+script = ExtResource("1_5fp3y")
+mainGameScene = ExtResource("2_xhkj5")

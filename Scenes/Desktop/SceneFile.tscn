@@ -1,0 +1,163 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8ufm8ymt53lu"]
+
+[ext_resource type="Script" uid="uid://bpbmfpk3sybjh" path="res://Scenes/Desktop/cSceneFile.gd" id="1_s1cio"]
+[ext_resource type="Texture2D" uid="uid://bnvcfipxcfprr" path="res://Art/Icons - icones/photo-software.png" id="2_c2lr8"]
+[ext_resource type="Texture2D" uid="uid://bvvdctur6sisw" path="res://icon.svg" id="2_m7au3"]
+[ext_resource type="Script" uid="uid://csxjm2dry3dji" path="res://Scenes/Desktop/folder_title_edit.gd" id="3_m7au3"]
+[ext_resource type="PackedScene" uid="uid://dyffbipc6kbic" path="res://Scenes/Autoloads/RClick Menu Manager/ClickHandler.tscn" id="5_m7au3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fr400"]
+bg_color = Color(0.41463205, 0.4489593, 0.6677051, 0.78431374)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3l4r3"]
+bg_color = Color(0.5271636, 0.42567655, 0.8396229, 0.9411765)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.4862745, 0.94509804, 0.6117647)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hkig"]
+bg_color = Color(0, 0, 0, 0.784314)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r1fwe"]
+
+[node name="Folder" type="Control" node_paths=PackedStringArray("hoverHighlightControl", "selectedHighlightControl", "fileTexture", "doubleClickTimer", "titleEditBox", "fileTitleControl") groups=["folder"]]
+custom_minimum_size = Vector2(80, 110)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 10.0
+offset_right = 90.0
+offset_bottom = 110.0
+size_flags_horizontal = 4
+script = ExtResource("1_s1cio")
+eFileType = 3
+fileIcon = ExtResource("2_m7au3")
+fileColor = Color(0.76868504, 0.8450467, 0.91185397, 1)
+hoverHighlightControl = NodePath("Hover Highlight")
+selectedHighlightControl = NodePath("Selected Highlight")
+fileTexture = NodePath("Folder/TextureRect")
+doubleClickTimer = NodePath("Double Click")
+titleEditBox = NodePath("Control/Title Edit Container/Folder Title Edit")
+fileTitleControl = NodePath("Control/CenterContainer/Folder Title")
+
+[node name="Hover Highlight" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -10.0
+offset_right = 90.0
+offset_bottom = 114.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fr400")
+
+[node name="Selected Highlight" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -10.0
+offset_right = 90.0
+offset_bottom = 114.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3l4r3")
+
+[node name="Folder" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(80, 100)
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 100.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 30
+
+[node name="TextureRect" type="TextureRect" parent="Folder"]
+modulate = Color(0.8631563, 0.83977675, 0.6900709, 1)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_c2lr8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Double Click" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="Control" type="Control" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(100, 0)
+anchors_preset = 0
+offset_left = -10.0
+offset_top = 72.5
+offset_right = 90.0
+offset_bottom = 112.5
+mouse_filter = 2
+
+[node name="TitleButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+flat = true
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Folder Title" type="RichTextLabel" parent="Control/CenterContainer"]
+custom_minimum_size = Vector2(95, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]Hello World!
+Hello World."
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Title Edit Container" type="CenterContainer" parent="Control"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Folder Title Edit" type="TextEdit" parent="Control/Title Edit Container" node_paths=PackedStringArray("fileToRenameSelectedIndicator", "fileToRename", "fileLabelControl")]
+visible = false
+clip_contents = false
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_1hkig")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_r1fwe")
+context_menu_enabled = false
+wrap_mode = 1
+autowrap_mode = 1
+scroll_fit_content_height = true
+script = ExtResource("3_m7au3")
+fileToRenameSelectedIndicator = NodePath("../../../Selected Highlight")
+fileToRename = NodePath("../../..")
+fileLabelControl = NodePath("../../CenterContainer/Folder Title")
+
+[node name="ClickHandler" parent="." instance=ExtResource("5_m7au3")]
+layout_mode = 1
+
+[connection signal="pressed" from="Control/TitleButton" to="." method="_on_title_button_pressed"]
+[connection signal="text_changed" from="Control/Title Edit Container/Folder Title Edit" to="." method="_on_folder_title_edit_text_changed"]

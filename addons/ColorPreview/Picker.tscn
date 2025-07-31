@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dlhe1fiimv8if"]
+
+[node name="Popup" type="PopupPanel"]
+oversampling_override = 1.0
+size = Vector2i(465, 775)
+visible = true
+
+[node name="ColorPreviewPicker" type="ColorPicker" parent="."]
+unique_name_in_owner = true
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 461.0
+offset_bottom = 771.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.129412, 0.145098, 0.176471, 1)
+deferred_mode = true

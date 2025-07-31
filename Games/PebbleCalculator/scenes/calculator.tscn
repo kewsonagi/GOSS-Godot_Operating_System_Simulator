@@ -1,0 +1,266 @@
+[gd_scene load_steps=24 format=4 uid="uid://fp0yue7q0fx2"]
+
+[ext_resource type="PackedScene" uid="uid://buqni23oni4ry" path="res://Games/PebbleCalculator/scenes/small_button.tscn" id="1_47tay"]
+[ext_resource type="Script" uid="uid://bxne65ot3wacg" path="res://Games/PebbleCalculator/scripts/calculator.gd" id="1_j8sg6"]
+[ext_resource type="FontFile" uid="uid://bvxcmhayw335r" path="res://Games/PebbleCalculator/assets/fonts/tiny-and-chunky-font/TinyAndChunkyRegular-m2Dz5.ttf" id="2_iofbv"]
+[ext_resource type="Texture2D" uid="uid://c31g5locxxfyx" path="res://Games/PebbleCalculator/assets/sprites/background_tile.png" id="4_q1y2q"]
+[ext_resource type="Texture2D" uid="uid://b80ol1u8e73tc" path="res://Games/PebbleCalculator/assets/sprites/screen-tile.png" id="5_sio27"]
+[ext_resource type="Texture2D" uid="uid://bw1mpx8rlm8ob" path="res://Games/PebbleCalculator/assets/sprites/swirl_roll.png" id="6_jgmda"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sio27"]
+texture = ExtResource("4_q1y2q")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jgmda"]
+texture = ExtResource("5_sio27")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_jgmda"]
+sources/2 = SubResource("TileSetAtlasSource_sio27")
+sources/3 = SubResource("TileSetAtlasSource_jgmda")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4a2e8"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(0, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pm7w1"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(64, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_864p1"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(128, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7y4d"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(192, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlk2w"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(256, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pspxm"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(320, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uajx3"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(384, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmndt"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(320, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hjiu"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(256, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ybf4"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(192, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kog5"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(128, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i40wg"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(64, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2s8h"]
+atlas = ExtResource("6_jgmda")
+region = Rect2(0, 0, 64, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lu1o0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4a2e8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm7w1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_864p1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7y4d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlk2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pspxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uajx3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmndt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hjiu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ybf4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kog5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i40wg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2s8h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Calculator" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_j8sg6")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(72, 88)
+zoom = Vector2(4, 4)
+
+[node name="DecimalButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(20, 126)
+scale = Vector2(1, 0.99181)
+value = "."
+
+[node name="EqualButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(90, 126)
+scale = Vector2(1, 0.99181)
+value = "="
+
+[node name="MultiplyButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(124, 98)
+scale = Vector2(1, 0.99181)
+value = "x"
+
+[node name="DivideButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(124, 126)
+scale = Vector2(1, 0.99181)
+value = "÷"
+
+[node name="AddButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(124, 42)
+scale = Vector2(1, 0.99181)
+value = "+"
+
+[node name="SubtractButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(124, 70)
+scale = Vector2(1, 0.99181)
+value = "-"
+
+[node name="ClearButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(124, 154)
+scale = Vector2(1, 0.99181)
+value = "C"
+
+[node name="ZeroButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(55, 126)
+scale = Vector2(1, 0.99181)
+
+[node name="OneButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(20, 98)
+value = "1"
+
+[node name="TwoButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(55, 98)
+scale = Vector2(1, 0.99181)
+value = "2"
+
+[node name="ThreeButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(90, 98)
+scale = Vector2(1, 0.99181)
+value = "3"
+
+[node name="FourButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(20, 70)
+scale = Vector2(1, 0.99181)
+value = "4"
+
+[node name="FiveButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(55, 70)
+scale = Vector2(1, 0.99181)
+value = "5"
+
+[node name="SixButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(90, 70)
+scale = Vector2(1, 0.99181)
+value = "6"
+
+[node name="SevenButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(20, 42)
+scale = Vector2(1, 0.99181)
+value = "7"
+
+[node name="EightButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(55, 42)
+scale = Vector2(1, 0.99181)
+value = "8"
+
+[node name="NineButton" parent="." instance=ExtResource("1_47tay")]
+position = Vector2(90, 42)
+scale = Vector2(1, 0.99181)
+value = "9"
+
+[node name="Output" type="Label" parent="."]
+z_index = 1
+offset_left = 12.0
+offset_top = 3.0
+offset_right = 138.0
+offset_bottom = 34.0
+theme_override_colors/font_color = Color(0.184314, 0.243137, 0.27451, 1)
+theme_override_colors/font_shadow_color = Color(0.917647, 0.705882, 0.392157, 1)
+theme_override_fonts/font = ExtResource("2_iofbv")
+theme_override_font_sizes/font_size = 10
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAoAAgAAAAMAAAAHAAoAAgACAAMAAAAAAAIAAgAAAAAAAAAHAAIAAgACAAAAAAABAAoAAgABAAMAAAACAAoAAgABAAMAAAADAAoAAgABAAMAAAAEAAoAAgABAAMAAAAFAAoAAgABAAMAAAAGAAoAAgABAAMAAAAHAAkAAgABAAEAAAAHAAgAAgABAAIAAAAHAAcAAgABAAIAAAAHAAYAAgABAAIAAAAHAAUAAgABAAIAAAAHAAQAAgABAAIAAAAHAAMAAgABAAIAAAAAAAMAAgAAAAIAAAAAAAQAAgAAAAIAAAAAAAUAAgAAAAIAAAAAAAYAAgAAAAIAAAAAAAcAAgAAAAIAAAAAAAgAAgAAAAIAAAAAAAkAAgAAAAIAAAABAAkAAgABAAEAAAACAAkAAgABAAEAAAADAAkAAgABAAEAAAAEAAkAAgABAAEAAAAFAAkAAgABAAEAAAAGAAkAAgABAAEAAAAGAAgAAgABAAEAAAAFAAgAAgABAAEAAAAEAAgAAgABAAEAAAADAAgAAgABAAEAAAACAAgAAgABAAEAAAABAAgAAgABAAEAAAABAAcAAgABAAEAAAACAAcAAgABAAEAAAADAAcAAgABAAEAAAAEAAcAAgABAAEAAAAFAAcAAgABAAEAAAAGAAcAAgABAAEAAAAGAAYAAgABAAEAAAAFAAYAAgABAAEAAAAEAAYAAgABAAEAAAADAAYAAgABAAEAAAACAAYAAgABAAEAAAABAAYAAgABAAEAAAABAAUAAgABAAEAAAACAAUAAgABAAEAAAADAAUAAgABAAEAAAAEAAUAAgABAAEAAAAFAAUAAgABAAEAAAAGAAUAAgABAAEAAAAGAAQAAgABAAEAAAAFAAQAAgABAAEAAAAEAAQAAgABAAEAAAADAAQAAgABAAEAAAACAAQAAgABAAEAAAABAAQAAgABAAEAAAABAAMAAgABAAEAAAACAAMAAgABAAEAAAADAAMAAgABAAEAAAAEAAMAAgABAAEAAAAFAAMAAgABAAEAAAAGAAMAAgABAAEAAAABAAIAAgACAAAAAAACAAIAAgACAAAAAAADAAIAAgACAAAAAAAEAAIAAgACAAAAAAAFAAIAAgACAAAAAAAGAAIAAgACAAAAAAAIAAIAAgADAAAAAAAIAAMAAgADAAEAAAAIAAQAAgADAAEAAAAIAAUAAgADAAEAAAAIAAYAAgADAAEAAAAIAAcAAgADAAEAAAAIAAgAAgADAAEAAAAIAAkAAgADAAEAAAAIAAoAAgADAAMAAAAAAAAAAwAAAAAAAAAIAAAAAwADAAAAAAAHAAAAAwACAAAAAAAGAAAAAwACAAAAAAAFAAAAAwACAAAAAAAEAAAAAwACAAAAAAADAAAAAwACAAAAAAACAAAAAwACAAAAAAABAAAAAwACAAAAAAABAAEAAwABAAEAAAACAAEAAwABAAEAAAADAAEAAwABAAEAAAAEAAEAAwABAAEAAAAFAAEAAwABAAEAAAAGAAEAAwABAAEAAAAHAAEAAwABAAEAAAAAAAEAAwAAAAMAAAAIAAEAAwADAAMAAAA=")
+tile_set = SubResource("TileSet_jgmda")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(56, 157)
+sprite_frames = SubResource("SpriteFrames_lu1o0")
+autoplay = "default"
+frame_progress = 0.894623

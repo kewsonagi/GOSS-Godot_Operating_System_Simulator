@@ -1,0 +1,123 @@
+[gd_scene load_steps=15 format=3 uid="uid://deqe6xbj4gvy2"]
+
+[ext_resource type="Texture2D" uid="uid://dp8f3s4a5i5nk" path="res://Games/UnderworldPlatformer/Arta/Tilemap/platforms.png" id="1_27tra"]
+[ext_resource type="Script" path="res://Games/UnderworldPlatformer/Assets/Scripts/Underworldmoving_platform.gd" id="1_khqr3"]
+[ext_resource type="Texture2D" uid="uid://bnnvbvfihl17l" path="res://Games/UnderworldPlatformer/Arta/Tilemap/Individual/082.png" id="2_0ssc0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20ssy"]
+atlas = ExtResource("2_0ssc0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khqr3"]
+atlas = ExtResource("1_27tra")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4vx3"]
+atlas = ExtResource("1_27tra")
+region = Rect2(0, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_id2up"]
+atlas = ExtResource("1_27tra")
+region = Rect2(32, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykygk"]
+atlas = ExtResource("1_27tra")
+region = Rect2(32, 16, 48, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kavbk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20ssy")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khqr3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4vx3")
+}],
+"loop": true,
+"name": &"2",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_id2up")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykygk")
+}],
+"loop": true,
+"name": &"3",
+"speed": 0.0
+}]
+
+[sub_resource type="Animation" id="Animation_1hasy"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 1, 1.4, 2),
+"transitions": PackedFloat32Array(1, 3.13835, 0.148651, 1.62451, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 1), Vector2(0, 0), Vector2(0, -1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_377m4"]
+_data = {
+&"default": SubResource("Animation_1hasy")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xjr4a"]
+size = Vector2(48, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ruao"]
+size = Vector2(32, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_45u74"]
+size = Vector2(16, 8)
+
+[node name="Custom Platform" type="CharacterBody2D"]
+collision_layer = 4
+motion_mode = 1
+platform_floor_layers = 4294967040
+platform_wall_layers = 1
+script = ExtResource("1_khqr3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kavbk")
+animation = &"2"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D"]
+reset_on_save = false
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_377m4")
+}
+speed_scale = 5.0
+
+[node name="3" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_xjr4a")
+disabled = true
+one_way_collision = true
+
+[node name="2" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_0ruao")
+one_way_collision = true
+
+[node name="1" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_45u74")
+disabled = true
+one_way_collision = true

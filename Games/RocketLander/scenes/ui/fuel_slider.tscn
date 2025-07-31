@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bds3pc6arkgvv"]
+
+[ext_resource type="Texture2D" uid="uid://b5wcn006sn2kw" path="res://Games/RocketLander/assets/sprites/Fuel gauge - rocket game.png" id="1_ts72v"]
+
+[sub_resource type="Gradient" id="Gradient_64sbd"]
+offsets = PackedFloat32Array(0, 0.535211, 1)
+colors = PackedColorArray(0, 0.933333, 0, 1, 0.913725, 0.913725, 0.0156863, 1, 0.918317, 0.000424345, 0.058697, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i2gyu"]
+gradient = SubResource("Gradient_64sbd")
+width = 65
+height = 240
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t4w6t"]
+
+[node name="FuelSlider" type="TextureProgressBar"]
+offset_left = 77.0
+offset_top = 447.0
+offset_right = 141.0
+offset_bottom = 815.0
+size_flags_horizontal = 3
+value = 100.0
+fill_mode = 2
+texture_progress = SubResource("GradientTexture2D_i2gyu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_t4w6t")
+position = Vector2(35.04, 130.45)
+scale = Vector2(5, 5)
+texture = ExtResource("1_ts72v")

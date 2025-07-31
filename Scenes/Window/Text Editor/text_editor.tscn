@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://t8c17cefd8nc"]
+
+[ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_sycuj"]
+[ext_resource type="Script" uid="uid://btrd7whll061f" path="res://Scenes/Window/Text Editor/text_editor.gd" id="2_4wajo"]
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="2_i7yd4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plqrr"]
+bg_color = Color(0.50879073, 0.66457385, 0.8441278, 1)
+draw_center = false
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.0784314)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uonls"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jhtvb"]
+
+[node name="Window" instance=ExtResource("1_sycuj")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_plqrr")
+
+[node name="SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="17"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 30.0
+offset_bottom = 0.33499146
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_i7yd4")
+
+[node name="Text Editor" type="CodeEdit" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer" index="0" node_paths=PackedStringArray("parentWindow") groups=["text_editor_window"]]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 1
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.67058825, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_uonls")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jhtvb")
+placeholder_text = "Start writing!"
+wrap_mode = 1
+caret_blink = true
+highlight_all_occurrences = true
+draw_tabs = true
+gutters_draw_line_numbers = true
+script = ExtResource("2_4wajo")
+parentWindow = NodePath("../../../../../..")
+
+[connection signal="text_changed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer/Text Editor" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer/Text Editor" method="_on_text_changed"]

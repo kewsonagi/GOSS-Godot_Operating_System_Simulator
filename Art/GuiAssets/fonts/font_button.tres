@@ -1,0 +1,10 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://ddwytxci5k3b5"]
+
+[ext_resource type="FontFile" uid="uid://co0gh0dxjwg04" path="res://Games/UnderworldPlatformer/Arta/Retro Gaming.ttf" id="1_ddt4a"]
+
+[resource]
+fallbacks = Array[Font]([ExtResource("1_ddt4a")])
+opentype_features = {
+1667329140: 0
+}
+spacing_top = 1

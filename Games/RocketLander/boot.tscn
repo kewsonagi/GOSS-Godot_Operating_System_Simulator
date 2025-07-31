@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://1mg6dmwk6m1b"]
+
+[ext_resource type="Script" uid="uid://bhlhtgsbak380" path="res://Games/boot_game.gd" id="1_f5koo"]
+[ext_resource type="PackedScene" uid="uid://r17hoxo08r2f" path="res://Games/RocketLander/scenes/main_menu.tscn" id="2_a0i7n"]
+
+[node name="BootGame" type="Node2D"]
+script = ExtResource("1_f5koo")
+mainGameScene = ExtResource("2_a0i7n")

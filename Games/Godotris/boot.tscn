@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://02l6g8fyuv7e"]
+
+[ext_resource type="Script" uid="uid://bhlhtgsbak380" path="res://Games/boot_game.gd" id="1_lnkov"]
+[ext_resource type="PackedScene" uid="uid://xl674gbk881y" path="res://Games/Godotris/Game/godotris_game.tscn" id="2_j4o7y"]
+
+[node name="BootGame" type="Node2D"]
+script = ExtResource("1_lnkov")
+mainGameScene = ExtResource("2_j4o7y")

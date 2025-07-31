@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://ufo3bc72b2rq"]
+
+[ext_resource type="Script" uid="uid://0e08uudim1di" path="res://Scenes/Window/File Manager/file_manager_window.gd" id="1_w4ovl"]
+[ext_resource type="PackedScene" uid="uid://chw3lje7gvraw" path="res://Scenes/Desktop/BaseFile.tscn" id="2_1lel7"]
+[ext_resource type="PackedScene" uid="uid://blxpspp2wqdbs" path="res://Scenes/Desktop/TextFile.tscn" id="3_gg3p0"]
+[ext_resource type="PackedScene" uid="uid://cf8xeflv0r6pd" path="res://Scenes/Desktop/ImageFile.tscn" id="4_3fi6d"]
+[ext_resource type="PackedScene" uid="uid://b8ufm8ymt53lu" path="res://Scenes/Desktop/SceneFile.tscn" id="5_1lel7"]
+[ext_resource type="PackedScene" uid="uid://cwsu2o7l3rfm4" path="res://Scenes/Desktop/FolderFile.tscn" id="5_dg2rn"]
+
+[node name="FileManagerWindow" type="Control" node_paths=PackedStringArray("childContainer")]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 30.0
+offset_bottom = 0.8500061
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_w4ovl")
+baseFile = ExtResource("2_1lel7")
+textFile = ExtResource("3_gg3p0")
+imageFile = ExtResource("4_3fi6d")
+sceneFile = ExtResource("5_1lel7")
+folderFile = ExtResource("5_dg2rn")
+pathToIcons = "res://Art/free-file-icons-master/512px/"
+animSpeed = 0.3000000000029104
+hSpacing = 15
+vSpacing = 15
+leftMargin = 15
+rightMargin = 15
+bottomMargin = 10
+childContainer = NodePath("ContainerChild")
+metadata/_custom_type_script = "uid://0e08uudim1di"
+
+[node name="ContainerChild" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1

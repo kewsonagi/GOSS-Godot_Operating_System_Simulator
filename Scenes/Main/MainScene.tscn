@@ -1,0 +1,106 @@
+[gd_scene load_steps=12 format=3 uid="uid://bmjyglrsf04uo"]
+
+[ext_resource type="Script" uid="uid://crccellk2oo41" path="res://Scenes/Main/desktop_file_manager.gd" id="1_c0q37"]
+[ext_resource type="Script" uid="uid://fgth35grbgyv" path="res://Scenes/Main/wallpaper.gd" id="1_xkkt2"]
+[ext_resource type="PackedScene" uid="uid://cfj5p5pgfnywp" path="res://Scenes/Taskbar/taskbar.tscn" id="2_35ao4"]
+[ext_resource type="PackedScene" uid="uid://blxpspp2wqdbs" path="res://Scenes/Desktop/TextFile.tscn" id="3_ctt6t"]
+[ext_resource type="PackedScene" uid="uid://bwyybu5i3kid" path="res://Scenes/Main/Boot Splash/boot_splash.tscn" id="3_ifoxq"]
+[ext_resource type="PackedScene" uid="uid://chw3lje7gvraw" path="res://Scenes/Desktop/BaseFile.tscn" id="3_rgj25"]
+[ext_resource type="PackedScene" uid="uid://cf8xeflv0r6pd" path="res://Scenes/Desktop/ImageFile.tscn" id="4_rgj25"]
+[ext_resource type="PackedScene" uid="uid://cwsu2o7l3rfm4" path="res://Scenes/Desktop/FolderFile.tscn" id="5_r8g3u"]
+
+[sub_resource type="GDScript" id="GDScript_fyyaf"]
+resource_name = "MainScene"
+script/source = "extends Control
+
+func _ready() -> void:
+	# Just shoves this back on ready so autoloads like the context menu can be in front
+	get_parent().move_child.call_deferred(self, 0)
+"
+
+[sub_resource type="Gradient" id="Gradient_g3gwb"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_agg5v"]
+gradient = SubResource("Gradient_g3gwb")
+width = 1
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_fyyaf")
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.301961, 0.301961, 0.301961, 1)
+
+[node name="Wallpaper" type="TextureRect" parent="."]
+texture_filter = 6
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 3
+stretch_mode = 6
+script = ExtResource("1_xkkt2")
+
+[node name="Fade" type="TextureRect" parent="Wallpaper"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_agg5v")
+
+[node name="DesktopFileManager" type="Control" parent="." node_paths=PackedStringArray("childContainer") groups=["desktop_file_manager"]]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c0q37")
+defaultFilesLocation = "res://Default Files/"
+baseFile = ExtResource("3_rgj25")
+textFile = ExtResource("3_ctt6t")
+imageFile = ExtResource("4_rgj25")
+folderFile = ExtResource("5_r8g3u")
+pathToIcons = "res://Art/free-file-icons-master/512px/"
+direction = "Vertical"
+hSpacing = 15
+vSpacing = 15
+leftMargin = 15
+rightMargin = 15
+bottomMargin = 10
+childContainer = NodePath("FileContainer")
+
+[node name="FileContainer" type="Control" parent="DesktopFileManager"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Taskbar" parent="." instance=ExtResource("2_35ao4")]
+layout_mode = 1
+
+[node name="Boot Splash" parent="." instance=ExtResource("3_ifoxq")]
+visible = false

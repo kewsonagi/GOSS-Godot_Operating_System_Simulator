@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://5w8f8rfvi5x5"]
+
+[ext_resource type="Material" uid="uid://b5c507hor1smc" path="res://Games/RocketLander/materials/glow_green.tres" id="1_2js41"]
+[ext_resource type="Script" uid="uid://ju04761ldv71" path="res://Games/RocketLander/levels/landing_pad.gd" id="1_8o65u"]
+[ext_resource type="PackedScene" uid="uid://brs3why3rugsi" path="res://Games/RocketLander/scenes/player/player.tscn" id="2_nacxr"]
+[ext_resource type="PackedScene" uid="uid://bexur4xjjutc" path="res://Games/RocketLander/scenes/moving_hazard.tscn" id="3_7xwgo"]
+[ext_resource type="PackedScene" uid="uid://cabj5tagd7116" path="res://Games/RocketLander/environments/cave_1.tscn" id="4_hpvho"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_340e8"]
+albedo_color = Color(0.28975, 0.408702, 1, 1)
+
+[node name="Level2" type="Node3D"]
+
+[node name="LaunchPad" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.1, 0.005)
+use_collision = true
+size = Vector3(3, 0.2, 3)
+material = SubResource("StandardMaterial3D_340e8")
+
+[node name="LandingPad" type="CSGBox3D" parent="." groups=["Goal"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.1, 0)
+use_collision = true
+size = Vector3(3, 0.2, 3)
+material = ExtResource("1_2js41")
+script = ExtResource("1_8o65u")
+file_path = "uid://ydm0ic5jc0ol"
+
+[node name="Player" parent="." instance=ExtResource("2_nacxr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.2, 0.005)
+current_level_name = "res://Games/RocketLander/levels/level_3.tscn"
+
+[node name="MovingHazard" parent="." instance=ExtResource("3_7xwgo")]
+transform = Transform3D(1, -1.33349e-07, 1.13088e-07, 0, 0.64679, 0.762668, -1.74846e-07, -0.762668, 0.64679, -6.27485, 1.95837, -0.0074501)
+desired_position = Vector3(0, 3, 0)
+desired_rotation = Vector3(0, 10, 0)
+desired_scale = Vector3(1, 1.5, 1)
+
+[node name="Floor" parent="." instance=ExtResource("4_hpvho")]

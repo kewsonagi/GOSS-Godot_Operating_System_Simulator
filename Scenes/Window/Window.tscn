@@ -1,0 +1,155 @@
+[gd_scene load_steps=7 format=3 uid="uid://cojrqff5vocjv"]
+
+[ext_resource type="Script" uid="uid://cgo0a8abexc23" path="res://Scenes/Window/window.gd" id="1_c3iwi"]
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_kp4o0"]
+[ext_resource type="PackedScene" uid="uid://bg17qb4r5h3c8" path="res://Scenes/Window/top_bar.tscn" id="5_6iq3t"]
+[ext_resource type="PackedScene" uid="uid://bg78g4tvmukio" path="res://Scenes/Window/resize_spots.tscn" id="6_pe6wv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kp4o0"]
+bg_color = Color(0.27450982, 0.25882357, 0.36862746, 0)
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gwhiu"]
+bg_color = Color(0.10588235, 0.039215688, 0.16078432, 1)
+border_color = Color(0.99999994, 0.26361933, 0.70212764, 1)
+border_blend = true
+corner_detail = 6
+shadow_color = Color(0, 0, 0, 0)
+shadow_size = 6
+shadow_offset = Vector2(3, 3)
+
+[node name="Window" type="Panel" node_paths=PackedStringArray("top_bar", "maximizeButton", "minimizeButton", "closeButton", "titleText", "titlebarIcon", "marginContainer", "transitionsNode", "previewCaptureViewport") groups=["window"]]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(250, 150)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -316.0
+offset_top = -203.5
+offset_right = 316.0
+offset_bottom = 203.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_kp4o0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kp4o0")
+script = ExtResource("1_c3iwi")
+top_bar = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar")
+maximizeButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Maximize Button")
+minimizeButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Minimize Button")
+closeButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Close Button")
+titleText = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/Title Text")
+titlebarIcon = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/Icon")
+marginContainer = NodePath("SubViewportContainer/SubViewport/MarginContainer")
+transitionsNode = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode")
+previewCaptureViewport = NodePath("SubViewportContainer/SubViewport")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(632, 407)
+render_target_clear_mode = 2
+render_target_update_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TransitionNode" type="Panel" parent="SubViewportContainer/SubViewport/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme = ExtResource("1_kp4o0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gwhiu")
+
+[node name="Top Bar" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" instance=ExtResource("5_6iq3t")]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+
+[node name="Title Text" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="0"]
+custom_minimum_size = Vector2(0, 30)
+anchors_preset = -1
+vertical_alignment = 1
+
+[node name="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="1"]
+anchors_preset = -1
+offset_left = -128.0
+offset_top = -13.0
+offset_bottom = 13.0
+
+[node name="Icon" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="2"]
+offset_top = 2.0
+offset_bottom = 28.0
+
+[node name="Resize Spots" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" instance=ExtResource("6_pe6wv")]
+layout_mode = 1
+mouse_filter = 2
+
+[node name="Resize Drag SpotTopRight" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="0" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag SpotBottomLeft" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="2" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag Spot Left" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="4" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag Spot Right" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="6" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag Spot Bottom" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="8" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag Spot Top" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="10" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag SpotTopLeft" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="12" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag Spot" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="14" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[connection signal="gui_input" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" to="." method="_on_top_bar_gui_input"]
+[connection signal="mouse_entered" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" to="." method="_on_top_bar_mouse_entered"]
+[connection signal="mouse_exited" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" to="." method="_on_top_bar_mouse_exited"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Minimize Button" to="." method="_on_minimize_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Maximize Button" to="." method="_on_maximize_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Close Button" to="." method="_on_close_button_pressed"]
+
+[editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar"]
+[editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots"]

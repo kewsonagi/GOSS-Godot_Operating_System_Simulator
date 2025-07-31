@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b76r00gtgrncy"]
+
+[ext_resource type="Script" uid="uid://bhlhtgsbak380" path="res://Games/boot_game.gd" id="1_416p0"]
+[ext_resource type="PackedScene" uid="uid://fp0yue7q0fx2" path="res://Games/PebbleCalculator/scenes/calculator.tscn" id="2_416p0"]
+
+[node name="BootGame" type="Node2D"]
+script = ExtResource("1_416p0")
+mainGameScene = ExtResource("2_416p0")

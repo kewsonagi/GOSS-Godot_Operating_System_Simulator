@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b87j7is5oqea1"
+path="res://.godot/imported/Hit 6.wav-0f7f2fc4003fb188778cc1fc73572da4.sample"
+
+[deps]
+
+source_file="res://Games/RocketLander/assets/sound/Version_1/Hit 6.wav"
+dest_files=["res://.godot/imported/Hit 6.wav-0f7f2fc4003fb188778cc1fc73572da4.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

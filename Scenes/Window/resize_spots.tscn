@@ -1,0 +1,279 @@
+[gd_scene load_steps=7 format=3 uid="uid://bg78g4tvmukio"]
+
+[ext_resource type="Script" uid="uid://chdl3m2p86twh" path="res://Scenes/Window/resize_drag_spot.gd" id="1_xmpac"]
+[ext_resource type="Texture2D" uid="uid://detscivjcbnpi" path="res://Art/Icons/corner-handle.png" id="2_hav11"]
+[ext_resource type="Texture2D" uid="uid://ceageci1dyb42" path="res://Art/assets/bar/left.png" id="3_c742e"]
+[ext_resource type="Texture2D" uid="uid://dyfhumu58w0f7" path="res://Art/assets/bar/right.png" id="4_3pmcp"]
+[ext_resource type="Texture2D" uid="uid://ca5xdjnfyhja8" path="res://Art/assets/bar/bottom.png" id="5_0myo4"]
+[ext_resource type="Texture2D" uid="uid://de5lop1s13e0n" path="res://Art/assets/bar/top.png" id="6_e3pf2"]
+
+[node name="Resize Spots" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resize Drag SpotTopRight" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -15.0
+offset_top = 12.0
+offset_right = 8.0
+offset_bottom = 35.000008
+grow_horizontal = 0
+scale = Vector2(1, -1)
+mouse_filter = 1
+mouse_default_cursor_shape = 11
+script = ExtResource("1_xmpac")
+
+[node name="CornerHandleTopRight" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.76862746)
+self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -21.0
+offset_top = 15.0
+offset_right = 3.0
+offset_bottom = 39.000015
+grow_horizontal = 0
+scale = Vector2(1, -1)
+pivot_offset = Vector2(3, 3)
+mouse_filter = 2
+texture = ExtResource("2_hav11")
+expand_mode = 1
+
+[node name="Resize Drag SpotBottomLeft" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_top = -11.0
+offset_right = 11.0
+offset_bottom = 12.0
+grow_vertical = 0
+scale = Vector2(-1, 1)
+pivot_offset = Vector2(12, 12)
+mouse_filter = 1
+mouse_default_cursor_shape = 11
+script = ExtResource("1_xmpac")
+
+[node name="CornerHandleBottomLeft" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.76862746)
+self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -21.0
+offset_right = 21.0
+offset_bottom = 3.0
+grow_vertical = 0
+scale = Vector2(-1, 1)
+pivot_offset = Vector2(12, 12)
+mouse_filter = 2
+texture = ExtResource("2_hav11")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Resize Drag Spot Left" type="Control" parent="."]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 1
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_bottom = -0.00030517578
+grow_vertical = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 10
+script = ExtResource("1_xmpac")
+bTopLeft = true
+bResizeY = false
+
+[node name="CornerHandleLeft" type="NinePatchRect" parent="."]
+modulate = Color(1, 1, 1, 0.76862746)
+self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_bottom = 5.0
+grow_vertical = 2
+texture = ExtResource("3_c742e")
+region_rect = Rect2(0, 4, 525, 27)
+axis_stretch_vertical = 1
+
+[node name="Resize Drag Spot Right" type="Control" parent="."]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_bottom = -0.00030517578
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(-1, 1)
+pivot_offset = Vector2(10, 0)
+mouse_filter = 1
+mouse_default_cursor_shape = 10
+script = ExtResource("1_xmpac")
+bResizeY = false
+
+[node name="CornerHandleRight" type="NinePatchRect" parent="."]
+modulate = Color(1, 1, 1, 0.76862746)
+self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -4.905239
+offset_bottom = 4.7562866
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(-1, 1)
+pivot_offset = Vector2(5, 0)
+texture = ExtResource("4_3pmcp")
+region_rect = Rect2(0, 4, 525, 27)
+axis_stretch_vertical = 1
+
+[node name="Resize Drag Spot Bottom" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1, -1)
+pivot_offset = Vector2(0, 10)
+mouse_filter = 1
+mouse_default_cursor_shape = 9
+script = ExtResource("1_xmpac")
+bResizeX = false
+
+[node name="CornerHandleRightBottom" type="NinePatchRect" parent="."]
+modulate = Color(1, 1, 1, 0.76862746)
+self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1, -1)
+pivot_offset = Vector2(0, 5)
+texture = ExtResource("5_0myo4")
+region_rect = Rect2(5, 0, 26, 525)
+axis_stretch_horizontal = 1
+
+[node name="Resize Drag Spot Top" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 1
+anchor_right = 1.0
+offset_bottom = 10.000008
+grow_horizontal = 2
+scale = Vector2(1, -1)
+mouse_filter = 1
+mouse_default_cursor_shape = 9
+script = ExtResource("1_xmpac")
+bTopLeft = true
+bResizeX = false
+
+[node name="CornerHandleRightTop" type="NinePatchRect" parent="."]
+modulate = Color(1, 1, 1, 0.76862746)
+self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+grow_horizontal = 2
+texture = ExtResource("6_e3pf2")
+region_rect = Rect2(5, 0, 26, 525)
+axis_stretch_horizontal = 1
+
+[node name="Resize Drag SpotTopLeft" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 23.0
+offset_bottom = 23.000008
+scale = Vector2(-1, -1)
+pivot_offset = Vector2(6, 6)
+mouse_filter = 1
+mouse_default_cursor_shape = 12
+script = ExtResource("1_xmpac")
+bTopLeft = true
+
+[node name="CornerHandleTopLeft" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.76862746)
+self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
+layout_mode = 0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 21.0
+offset_bottom = 21.000015
+scale = Vector2(-1, -1)
+pivot_offset = Vector2(12, 12)
+mouse_filter = 2
+texture = ExtResource("2_hav11")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Resize Drag Spot" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -17.0
+offset_top = -17.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 1
+mouse_default_cursor_shape = 12
+script = ExtResource("1_xmpac")
+
+[node name="CornerHandle" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.76862746)
+self_modulate = Color(0.883438, 0.32446435, 0.11331072, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_top = -21.0
+offset_right = 3.0
+offset_bottom = 3.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 6.2831855
+pivot_offset = Vector2(3, 3)
+mouse_filter = 2
+texture = ExtResource("2_hav11")
+expand_mode = 1

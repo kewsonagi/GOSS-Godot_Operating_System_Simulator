@@ -1,0 +1,323 @@
+[gd_scene load_steps=30 format=3 uid="uid://cfj5p5pgfnywp"]
+
+[ext_resource type="Script" uid="uid://clkes7h7romou" path="res://Scenes/Taskbar/start_button.gd" id="1_aypgd"]
+[ext_resource type="Texture2D" uid="uid://copqhcnqdgm3b" path="res://Art/shaded/Power.png" id="2_0bho0"]
+[ext_resource type="PackedScene" uid="uid://da4oly47yx3ja" path="res://Scenes/Taskbar/start_menu_option.tscn" id="2_1ualm"]
+[ext_resource type="PackedScene" uid="uid://02l6g8fyuv7e" path="res://Games/Godotris/boot.tscn" id="2_aknao"]
+[ext_resource type="PackedScene" uid="uid://ohgwvdetih50" path="res://Games/Snake/boot.tscn" id="3_0yb84"]
+[ext_resource type="Script" uid="uid://ovt5fnqwt48p" path="res://Scenes/Taskbar/power_button.gd" id="4_cnyss"]
+[ext_resource type="PackedScene" uid="uid://dfodxrenoxf8w" path="res://Scenes/Main/Boot Splash/shutdown_splash.tscn" id="4_esxxc"]
+[ext_resource type="PackedScene" uid="uid://c5ak0ylkbsh6c" path="res://Games/Pong/boot.tscn" id="4_x4hik"]
+[ext_resource type="Texture2D" uid="uid://c52c3p0h1475m" path="res://Art/shaded/02-cog.png" id="5_0bho0"]
+[ext_resource type="PackedScene" uid="uid://lmxmnq0enui8" path="res://Games/Cube Scene/boot.tscn" id="5_br71q"]
+[ext_resource type="Script" uid="uid://bcvlao324av3w" path="res://Scenes/Taskbar/settings_button.gd" id="6_38i4x"]
+[ext_resource type="PackedScene" uid="uid://1mg6dmwk6m1b" path="res://Games/RocketLander/boot.tscn" id="6_fgoe0"]
+[ext_resource type="Script" uid="uid://33k2ree3e2yt" path="res://Scenes/Taskbar/taskbar_time.gd" id="7_2yhho"]
+[ext_resource type="PackedScene" uid="uid://w1l6tjahy86p" path="res://Games/UnderworldPlatformer/boot.tscn" id="7_7g4n6"]
+[ext_resource type="Texture2D" uid="uid://ct0c60k3q1y7x" path="res://Games/RocketLander/assets/images/main_menu.jpg" id="7_br71q"]
+[ext_resource type="Texture2D" uid="uid://bolksinmvxt0v" path="res://Games/UnderworldPlatformer/Arta/Tiles/Transparent/tile_0243.png" id="9_fgoe0"]
+[ext_resource type="PackedScene" uid="uid://b76r00gtgrncy" path="res://Games/PebbleCalculator/boot.tscn" id="10_x4hik"]
+[ext_resource type="Texture2D" uid="uid://blo1afxx8ll7m" path="res://Games/PebbleCalculator/assets/title_demo.png" id="11_br71q"]
+[ext_resource type="PackedScene" uid="uid://dujib0uv126o2" path="res://Games/minesweeper/boot.tscn" id="12_fgoe0"]
+[ext_resource type="Texture2D" uid="uid://mpc1qb2w4tfq" path="res://Games/minesweeper/tiles.png" id="13_7g4n6"]
+[ext_resource type="Texture2D" uid="uid://bvvdctur6sisw" path="res://icon.svg" id="18_fgoe0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bho0"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.14973955, 0.00024895632, 0.26567283, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxws7"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbmie"]
+bg_color = Color(1, 0.247059, 0.188235, 0.588235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnonj"]
+bg_color = Color(0.666667, 0, 0, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dh2v"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
+corner_radius_top_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bm3y2"]
+bg_color = Color(0.4, 0.4, 0.4, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bd8k4"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 0.392157)
+corner_radius_top_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxh1o"]
+bg_color = Color(0.17959514, 6.952487e-05, 0.21560241, 0.9019608)
+
+[node name="Taskbar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StartMenuAnchor" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -60.0
+offset_right = 60.0
+grow_vertical = 0
+pivot_offset = Vector2(30, 30)
+
+[node name="Start Menu" type="Panel" parent="StartMenuAnchor"]
+layout_mode = 1
+offset_left = 5.0
+offset_top = 60.0
+offset_right = 355.0
+offset_bottom = 616.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0bho0")
+
+[node name="Panel" type="Panel" parent="StartMenuAnchor/Start Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="GridContainer" parent="StartMenuAnchor/Start Menu/Panel"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -360.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 3
+
+[node name="Godotris Option" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
+layout_mode = 2
+game_scene = "res://Games/Godotris/Game/boot.tscn"
+gameScene = ExtResource("2_aknao")
+title_text = "Godotris"
+description_text = "Stack blocks, clear lines!"
+
+[node name="Snake Option" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
+layout_mode = 2
+game_scene = "res://Games/Snake/boot.tscn"
+gameScene = ExtResource("3_0yb84")
+title_text = "Snake"
+description_text = "Eat fruit, grow long!"
+
+[node name="Pong Option" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
+layout_mode = 2
+game_scene = "res://Games/Pong/boot.tscn"
+gameScene = ExtResource("4_x4hik")
+title_text = "Pong"
+description_text = "Timeless Classic"
+
+[node name="Cube Scene Option" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
+layout_mode = 2
+game_scene = "res://Games/Cube Scene/boot.tscn"
+gameScene = ExtResource("5_br71q")
+title_text = "Cube Scene"
+description_text = "THE CUBE. THE CUBE. THE CUBE."
+
+[node name="Rocket Lander" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
+layout_mode = 2
+game_scene = "res://Games/RocketLander/boot.tscn"
+gameScene = ExtResource("6_fgoe0")
+title_text = "Rocket Lander"
+description_text = "Rocket Lander mocup"
+programIcon = ExtResource("7_br71q")
+
+[node name="UnderworldPlatformer" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
+layout_mode = 2
+game_scene = "res://Games/UnderworldPlatformer/boot.tscn"
+gameScene = ExtResource("7_7g4n6")
+title_text = "Underworld tales"
+description_text = "Underworld platformer with inverting worlds"
+programIcon = ExtResource("9_fgoe0")
+
+[node name="Calculator" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
+layout_mode = 2
+game_scene = "res://Scenes/PebbleCalculator/boot.tscn"
+gameScene = ExtResource("10_x4hik")
+title_text = "Pebble Calc"
+description_text = "Pixel Calculator"
+programIcon = ExtResource("11_br71q")
+use_generic_pause_menu = false
+
+[node name="Minesweeper" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
+layout_mode = 2
+game_scene = "res://Games/minesweeper/boot.tscn"
+gameScene = ExtResource("12_fgoe0")
+title_text = "Minesweeper"
+description_text = "Sweep some mines"
+programIcon = ExtResource("13_7g4n6")
+use_generic_pause_menu = false
+
+[node name="Power Button" type="Button" parent="StartMenuAnchor/Start Menu"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_lxws7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nbmie")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lnonj")
+action_mode = 0
+icon = ExtResource("2_0bho0")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_cnyss")
+boot_splash_scene = ExtResource("4_esxxc")
+
+[node name="Settings Button" type="Button" parent="StartMenuAnchor/Start Menu"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -40.0
+offset_right = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_2dh2v")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bm3y2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bd8k4")
+action_mode = 0
+icon = ExtResource("5_0bho0")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("6_38i4x")
+
+[node name="Taskbar" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mxh1o")
+
+[node name="Start Button" type="MarginContainer" parent="Taskbar" node_paths=PackedStringArray("start_menu")]
+layout_mode = 1
+offset_right = 60.0
+offset_bottom = 60.0
+pivot_offset = Vector2(30, 30)
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+script = ExtResource("1_aypgd")
+start_menu = NodePath("../../StartMenuAnchor/Start Menu")
+
+[node name="TextureRect" type="TextureRect" parent="Taskbar/Start Button"]
+texture_filter = 4
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("18_fgoe0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Taskbar"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_right = -94.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Taskbar/ScrollContainer" groups=["taskbar_buttons"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="TimeAndDate" type="Control" parent="Taskbar"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -30.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("7_2yhho")
+
+[node name="TimeText" type="RichTextLabel" parent="Taskbar/TimeAndDate"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+bbcode_enabled = true
+text = "[center]22:22 PM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DateText" type="RichTextLabel" parent="Taskbar/TimeAndDate"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]69/69/2024"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="Taskbar/TimeAndDate"]
+wait_time = 10.0
+autostart = true
+
+[connection signal="mouse_entered" from="StartMenuAnchor/Start Menu" to="Taskbar/Start Button" method="_on_start_menu_mouse_entered"]
+[connection signal="mouse_exited" from="StartMenuAnchor/Start Menu" to="Taskbar/Start Button" method="_on_start_menu_mouse_exited"]
+[connection signal="pressed" from="StartMenuAnchor/Start Menu/Power Button" to="StartMenuAnchor/Start Menu/Power Button" method="_on_pressed"]
+[connection signal="pressed" from="StartMenuAnchor/Start Menu/Settings Button" to="StartMenuAnchor/Start Menu/Settings Button" method="_on_pressed"]
+[connection signal="mouse_entered" from="Taskbar/Start Button" to="Taskbar/Start Button" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Taskbar/Start Button" to="Taskbar/Start Button" method="_on_mouse_exited"]
+[connection signal="timeout" from="Taskbar/TimeAndDate/Timer" to="Taskbar/TimeAndDate" method="_on_timer_timeout"]

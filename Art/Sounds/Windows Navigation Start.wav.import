@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bg36n7qvvx7ai"
+path="res://.godot/imported/Windows Navigation Start.wav-59276a30db1ff6046cab852cbb7e8f48.sample"
+
+[deps]
+
+source_file="res://Art/Sounds/Windows Navigation Start.wav"
+dest_files=["res://.godot/imported/Windows Navigation Start.wav-59276a30db1ff6046cab852cbb7e8f48.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

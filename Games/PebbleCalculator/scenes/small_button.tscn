@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://buqni23oni4ry"]
+
+[ext_resource type="Texture2D" uid="uid://brkldbstg226u" path="res://Games/PebbleCalculator/assets/sprites/Blank-Colored-Sm-Key.png" id="1_2411m"]
+[ext_resource type="Script" uid="uid://dnm8rswhs2c0h" path="res://Games/PebbleCalculator/scripts/small_button.gd" id="1_ceva8"]
+[ext_resource type="FontFile" uid="uid://bvxcmhayw335r" path="res://Games/PebbleCalculator/assets/fonts/tiny-and-chunky-font/TinyAndChunkyRegular-m2Dz5.ttf" id="3_4g0uo"]
+[ext_resource type="AudioStream" uid="uid://7n0wmirm108v" path="res://Games/PebbleCalculator/assets/sounds/kenney_interface-sounds/Audio/switch_002.ogg" id="4_bem2g"]
+[ext_resource type="Script" uid="uid://6wjhmdpjcy38" path="res://Games/PebbleCalculator/scripts/press_sfx.gd" id="5_j3lb0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ceva8"]
+size = Vector2(26, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4g0uo"]
+atlas = ExtResource("1_2411m")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bem2g"]
+atlas = ExtResource("1_2411m")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j3lb0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4g0uo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bem2g")
+}],
+"loop": true,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[node name="SmallButton" type="Area2D"]
+z_index = 1
+texture_filter = 1
+script = ExtResource("1_ceva8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ceva8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_j3lb0")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+offset_left = -9.0
+offset_top = -14.0
+offset_right = 12.0
+offset_bottom = 9.0
+theme_override_colors/font_color = Color(0.792157, 0.823529, 0.772549, 1)
+theme_override_fonts/font = ExtResource("3_4g0uo")
+theme_override_font_sizes/font_size = 15
+text = "9"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_bem2g")
+script = ExtResource("5_j3lb0")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

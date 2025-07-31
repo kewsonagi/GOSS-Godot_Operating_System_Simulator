@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://w1l6tjahy86p"]
+
+[ext_resource type="Script" uid="uid://bhlhtgsbak380" path="res://Games/boot_game.gd" id="1_s8i00"]
+[ext_resource type="PackedScene" uid="uid://b8pbocqrpassl" path="res://Games/UnderworldPlatformer/Game.tscn" id="2_nlcgm"]
+
+[node name="BootGame" type="Node2D"]
+script = ExtResource("1_s8i00")
+mainGameScene = ExtResource("2_nlcgm")

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc6higwdbswel"]
+
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_3822f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ruojt"]
+bg_color = Color(0.8715771, 0.45445555, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95178336, 0.58023775, 7.70092e-07, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 1
+anti_aliasing_size = 0.1
+
+[node name="HSeparator" type="HSeparator"]
+custom_minimum_size = Vector2(180, 6)
+offset_right = 180.0
+offset_bottom = 6.0
+theme = ExtResource("1_3822f")
+theme_override_styles/separator = SubResource("StyleBoxFlat_ruojt")

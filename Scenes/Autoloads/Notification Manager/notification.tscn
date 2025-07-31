@@ -1,0 +1,101 @@
+[gd_scene load_steps=7 format=3 uid="uid://dgrw5q1qwsr33"]
+
+[ext_resource type="Script" uid="uid://cv6vbo4w5ecmt" path="res://Scenes/Autoloads/Notification Manager/notification.gd" id="1_0ehe8"]
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="2_83q5w"]
+[ext_resource type="Texture2D" uid="uid://c76mefvskmeuq" path="res://Art/shaded/10-notification-bell-circle.png" id="3_fsilr"]
+[ext_resource type="PackedScene" uid="uid://dyffbipc6kbic" path="res://Scenes/Autoloads/RClick Menu Manager/ClickHandler.tscn" id="4_nt1fy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsilr"]
+bg_color = Color(0.27451, 0.258824, 0.368627, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.933333, 0.8, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nt1fy"]
+bg_color = Color(0.36387867, 0.15074176, 0.5099657, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.933333, 0.8, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[node name="Notification" type="Panel" node_paths=PackedStringArray("mainText", "title", "background", "icon")]
+offset_right = 400.0
+offset_bottom = 150.0
+pivot_offset = Vector2(150, 100)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_83q5w")
+theme_override_styles/panel = SubResource("StyleBoxFlat_fsilr")
+script = ExtResource("1_0ehe8")
+mainText = NodePath("Notification Text")
+title = NodePath("Title")
+background = NodePath("Background")
+icon = NodePath("Icon")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_83q5w")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nt1fy")
+
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+mouse_filter = 2
+theme = ExtResource("2_83q5w")
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "Title"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Notification Text" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_83q5w")
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+bbcode_enabled = true
+text = "[center]Hello, World!"
+fit_content = true
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 39.0
+offset_bottom = 39.0
+mouse_filter = 2
+texture = ExtResource("3_fsilr")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ClickHandler" parent="." instance=ExtResource("4_nt1fy")]
+layout_mode = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

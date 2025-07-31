@@ -1,0 +1,107 @@
+[gd_scene load_steps=4 format=3 uid="uid://da4oly47yx3ja"]
+
+[ext_resource type="Script" uid="uid://b4pjauo2jicy2" path="res://Scenes/Taskbar/start_menu_option.gd" id="1_2fneu"]
+[ext_resource type="Texture2D" uid="uid://c0ovs3dnopxua" path="res://Art/Icons - icones/games-01.png" id="2_j6xxd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0gkon"]
+bg_color = Color(0.77936745, 0.6259147, 1, 0.7254902)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 0.952941, 1)
+
+[node name="Start Menu Option" type="Panel" node_paths=PackedStringArray("MenuTitle", "MenuDescription", "MenuIcon", "backgroundPanel", "taskbarIcon")]
+clip_contents = true
+custom_minimum_size = Vector2(120, 120)
+pivot_offset = Vector2(60, 60)
+script = ExtResource("1_2fneu")
+game_scene = "res://Games/CatPlatformer/scenes/spashscreen.tscn"
+use_generic_pause_menu = true
+MenuTitle = NodePath("HBoxContainer/Control/Menu Title")
+MenuDescription = NodePath("HBoxContainer/Control/Menu Description")
+MenuIcon = NodePath("MarginContainer/TextureRect")
+backgroundPanel = NodePath("Background Panel")
+taskbarIcon = NodePath("MarginContainer/TextureRect")
+
+[node name="Background Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0gkon")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 10.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+modulate = Color(0.9746259, 0.97744745, 0.9767489, 1)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_j6xxd")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Menu Title" type="RichTextLabel" parent="HBoxContainer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 25.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+bbcode_enabled = true
+text = "[center]Game Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menu Description" type="RichTextLabel" parent="HBoxContainer/Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[center]Your very cool game description"
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

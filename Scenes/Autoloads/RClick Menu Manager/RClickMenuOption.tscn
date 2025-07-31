@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctmotds7d1sr1"]
+
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_mcrnf"]
+[ext_resource type="Script" uid="uid://byviqoelki8mk" path="res://Scenes/Autoloads/RClick Menu Manager/RClickMenuOption.gd" id="2_n2bka"]
+[ext_resource type="Texture2D" uid="uid://b34jpilo33jmk" path="res://Art/shaded/27-pen-edit.png" id="3_3x2p3"]
+[ext_resource type="PackedScene" uid="uid://dyffbipc6kbic" path="res://Scenes/Autoloads/RClick Menu Manager/ClickHandler.tscn" id="4_n2bka"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mcrnf"]
+bg_color = Color(0.35742635, 0.18129122, 0.46128613, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.7485199, 0.5676661, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 4
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 4
+
+[node name="Context Menu Option" type="Panel" node_paths=PackedStringArray("optionText", "optionIcon")]
+self_modulate = Color(1, 1, 1, 0.4509804)
+custom_minimum_size = Vector2(0, 30)
+offset_right = 180.0
+offset_bottom = 30.0
+theme = ExtResource("1_mcrnf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_mcrnf")
+script = ExtResource("2_n2bka")
+optionText = NodePath("CenterContainer/Option Text")
+optionIcon = NodePath("TextureRect")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_right = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_mcrnf")
+
+[node name="Option Text" type="RichTextLabel" parent="CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_mcrnf")
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 14
+theme_override_font_sizes/italics_font_size = 12
+bbcode_enabled = true
+text = "Hello, World!"
+fit_content = true
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -10.0
+offset_right = 25.0
+offset_bottom = 10.0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_3x2p3")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ClickHandler" parent="." instance=ExtResource("4_n2bka")]
+layout_mode = 1

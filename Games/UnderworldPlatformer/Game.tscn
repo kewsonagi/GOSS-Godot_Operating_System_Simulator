@@ -1,0 +1,337 @@
+[gd_scene load_steps=23 format=3 uid="uid://b8pbocqrpassl"]
+
+[ext_resource type="Script" uid="uid://cqxh8r6w3ii8r" path="res://Games/UnderworldPlatformer/GlobalScripts/Underworldscene_switcher.gd" id="1_2yf3g"]
+[ext_resource type="AudioStream" uid="uid://dxok84gxgngoj" path="res://Games/UnderworldPlatformer/Arta/Sunet/dark-ambient-music-312290.mp3" id="2_joorw"]
+[ext_resource type="AudioStream" uid="uid://chxancgtplk30" path="res://Games/UnderworldPlatformer/Arta/Sunet/Underground.mp3" id="3_2vekm"]
+[ext_resource type="PackedScene" uid="uid://c1mre2qrte5s2" path="res://Games/UnderworldPlatformer/Player/player.tscn" id="3_3i4ib"]
+[ext_resource type="Theme" uid="uid://beoh5k5sb22ui" path="res://Games/UnderworldPlatformer/Arta/Theme.tres" id="4_2mq4s"]
+[ext_resource type="AudioStream" uid="uid://iryjs7tleeb3" path="res://Games/UnderworldPlatformer/Arta/Sunet/dark-horror-ambience-296781.mp3" id="4_2vekm"]
+[ext_resource type="PackedScene" uid="uid://jlgwph233g4d" path="res://Games/UnderworldPlatformer/Levels/Menu.tscn" id="4_r0x5m"]
+[ext_resource type="Script" uid="uid://biqk7kx2p7vwk" path="res://Games/UnderworldPlatformer/GlobalScripts/UnderworldTransition_Manager.gd" id="5_e4p4d"]
+[ext_resource type="Shader" uid="uid://b3dt8qteb0773" path="res://Games/UnderworldPlatformer/Assets/Shaders/Vignette.gdshader" id="9_yx171"]
+[ext_resource type="Shader" uid="uid://b6q51gtbxwms4" path="res://Games/UnderworldPlatformer/Assets/Shaders/Contrast.gdshader" id="10_yx171"]
+
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_2vekm"]
+clip_count = 3
+clip_0/name = &"Menu"
+clip_0/stream = ExtResource("2_joorw")
+clip_0/auto_advance = 0
+clip_1/name = &"Underground"
+clip_1/stream = ExtResource("3_2vekm")
+clip_1/auto_advance = 0
+clip_2/name = &"UndergroundBonus"
+clip_2/stream = ExtResource("3_2vekm")
+clip_2/auto_advance = 0
+_transitions = {
+Vector2i(-1, -1): {
+"fade_beats": 3.0,
+"fade_mode": 3,
+"from_time": 0,
+"to_time": 1
+},
+Vector2i(0, 0): {
+"fade_beats": 1.0,
+"fade_mode": 3,
+"from_time": 0,
+"to_time": 0
+},
+Vector2i(1, 1): {
+"fade_beats": 1.0,
+"fade_mode": 0,
+"from_time": 0,
+"to_time": 0
+},
+Vector2i(1, 2): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"to_time": 0
+},
+Vector2i(2, 1): {
+"fade_beats": 1.0,
+"fade_mode": 4,
+"from_time": 0,
+"to_time": 0
+},
+Vector2i(2, 2): {
+"fade_beats": 1.0,
+"fade_mode": 0,
+"from_time": 0,
+"to_time": 0
+}
+}
+
+[sub_resource type="Animation" id="Animation_ewint"]
+resource_name = "Death_Fade_In"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dead_Text:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BlackScreen:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_l8fyw"]
+resource_name = "Death_Fade_Out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Dead_Text:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8m04h"]
+resource_name = "Fade_In"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ga6uh"]
+resource_name = "Fade_Out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3mrqo"]
+resource_name = "InvertColor_FadeIn"
+length = 0.14
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../CanvasLayer/Contrast+Invert:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2vekm"]
+resource_name = "InvertColor_FadeOut"
+length = 0.14
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../CanvasLayer/Contrast+Invert:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_joorw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Player:speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [95.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4wr8q"]
+_data = {
+&"Death_Fade_In": SubResource("Animation_ewint"),
+&"Death_Fade_Out": SubResource("Animation_l8fyw"),
+&"Fade_In": SubResource("Animation_8m04h"),
+&"Fade_Out": SubResource("Animation_ga6uh"),
+&"InvertColor_FadeIn": SubResource("Animation_3mrqo"),
+&"InvertColor_FadeOut": SubResource("Animation_2vekm"),
+&"RESET": SubResource("Animation_joorw")
+}
+
+[sub_resource type="Environment" id="Environment_ds612"]
+background_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 1.28
+glow_strength = 0.53
+glow_bloom = 0.42
+glow_blend_mode = 1
+adjustment_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhmtn"]
+shader = ExtResource("10_yx171")
+shader_parameter/contrast = 1.0
+shader_parameter/brightness = 0.0
+shader_parameter/invert_strength = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yx171"]
+shader = ExtResource("9_yx171")
+shader_parameter/outerRadius = 1.751
+shader_parameter/MainAlpha = 1.0
+shader_parameter/feathering = 0.516
+
+[node name="SceneManager" type="Node" groups=["scene_manager"]]
+script = ExtResource("1_2yf3g")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." groups=["Music_Player"]]
+stream = SubResource("AudioStreamInteractive_2vekm")
+autoplay = true
+
+[node name="Ambience Audio" type="Node" parent="."]
+
+[node name="Ambience" type="AudioStreamPlayer" parent="Ambience Audio"]
+stream = ExtResource("4_2vekm")
+autoplay = true
+
+[node name="TransitionManager" type="AnimationPlayer" parent="." groups=["screen_animator"]]
+root_node = NodePath("../Fade")
+libraries = {
+&"": SubResource("AnimationLibrary_4wr8q")
+}
+script = ExtResource("5_e4p4d")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." groups=["world_environment"]]
+environment = SubResource("Environment_ds612")
+
+[node name="Player" parent="." instance=ExtResource("3_3i4ib")]
+position = Vector2(0, 9)
+
+[node name="Menu" parent="." instance=ExtResource("4_r0x5m")]
+
+[node name="Fade" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="BlackScreen" type="ColorRect" parent="Fade"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Dead_Text" type="Label" parent="Fade"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_2mq4s")
+theme_override_font_sizes/font_size = 56
+text = "You died"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Feel" type="Label" parent="Fade/Dead_Text"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -149.0
+offset_top = -10.465
+offset_right = 149.0
+offset_bottom = 10.535
+grow_horizontal = 2
+grow_vertical = 0
+text = "How does that make you feel?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorManager" type="AnimationPlayer" parent="." groups=["screen_animator"]]
+root_node = NodePath("../Fade")
+libraries = {
+&"": SubResource("AnimationLibrary_4wr8q")
+}
+script = ExtResource("5_e4p4d")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Contrast+Invert" type="ColorRect" parent="CanvasLayer" groups=["color+contrast_shader"]]
+material = SubResource("ShaderMaterial_yhmtn")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Vignette" type="ColorRect" parent="CanvasLayer" groups=["vignette_shader"]]
+material = SubResource("ShaderMaterial_yx171")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="animation_finished" from="TransitionManager" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="TransitionManager" to="Player" method="_on_transition_manager_animation_finished"]
+[connection signal="animation_finished" from="ColorManager" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="ColorManager" to="Player" method="_on_transition_manager_animation_finished"]

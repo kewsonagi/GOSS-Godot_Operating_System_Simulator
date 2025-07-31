@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="InterfaceIcon" load_steps=2 format=3 uid="uid://da0vj8k8o2d2o"]
+
+[ext_resource type="Script" uid="uid://xpwum3qxxtem" path="res://Scenes/Autoloads/ResourceManager/InterfaceIcon.gd" id="1_nselt"]
+
+[resource]
+script = ExtResource("1_nselt")

@@ -1,0 +1,36 @@
+{
+    "folder-color.pathColors": [
+        {
+            "folderPath": "GodotOS\\Games\\",
+            "color": "foldercolorizer.color_ff6600"
+        },
+        {
+            "folderPath": "GodotOS\\Scenes\\",
+            "color": "foldercolorizer.color_00cccc"
+        },
+        {
+            "folderPath": "GodotOS\\Art\\",
+            "color": "foldercolorizer.color_ffff33"
+        },
+        {
+            "folderPath": "GodotOS\\addons\\",
+            "color": "foldercolorizer.color_ffcc33"
+        },
+        {
+            "folderPath": "GodotOS\\Scenes\\Autoloads\\",
+            "color": "foldercolorizer.color_00ff99"
+        },
+        {
+            "folderPath": "GodotOS\\Scenes\\Window\\",
+            "color": "foldercolorizer.color_cc66ff"
+        },
+        {
+            "folderPath": "GodotOS\\Scenes\\Taskbar\\",
+            "color": "foldercolorizer.color_ff6600"
+        },
+        {
+            "folderPath": "GodotOS\\Scenes\\Main\\",
+            "color": "foldercolorizer.color_0066ff"
+        }
+    ]
+}

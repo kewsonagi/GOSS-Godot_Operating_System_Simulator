@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://cxl0f781joa6d"]
+
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_s3lot"]
+[ext_resource type="Script" uid="uid://bywj1yigcpxao" path="res://Scenes/Autoloads/RClick Menu Manager/RClickMenuManager.gd" id="2_s3lot"]
+[ext_resource type="PackedScene" uid="uid://ctmotds7d1sr1" path="res://Scenes/Autoloads/RClick Menu Manager/RClickMenuOption.tscn" id="3_ss3sn"]
+[ext_resource type="PackedScene" uid="uid://dc6higwdbswel" path="res://Scenes/Autoloads/RClick Menu Manager/RClickMenuSeparator.tscn" id="4_pwu5g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n6wkr"]
+bg_color = Color(0.27451, 0.258824, 0.368627, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.933333, 0.8, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_knx5u"]
+bg_color = Color(0.27451, 0.258824, 0.368627, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.933333, 0.8, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_xxnke"]
+color = Color(1, 0.933333, 0.8, 1)
+thickness = 2
+
+[node name="RClick Menu" type="Panel" node_paths=PackedStringArray("itemContainer", "title")]
+clip_contents = true
+offset_right = 180.0
+offset_bottom = 26.0
+theme = ExtResource("1_s3lot")
+theme_override_styles/panel = SubResource("StyleBoxFlat_n6wkr")
+script = ExtResource("2_s3lot")
+itemContainer = NodePath("VBoxContainer")
+title = NodePath("MenuTitle")
+
+[node name="MenuTitle" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 1
+text = "Menu Title"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Context Menu Option" parent="VBoxContainer" instance=ExtResource("3_ss3sn")]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_knx5u")
+
+[node name="HSeparator" parent="VBoxContainer" instance=ExtResource("4_pwu5g")]
+visible = false
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/separator = SubResource("StyleBoxLine_xxnke")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

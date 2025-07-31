@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5ak0ylkbsh6c"]
+
+[ext_resource type="Script" uid="uid://bhlhtgsbak380" path="res://Games/boot_game.gd" id="1_s8i00"]
+[ext_resource type="PackedScene" uid="uid://dui0012ehv8h0" path="res://Games/Pong/Scenes/pong_main_menu.tscn" id="2_hatjb"]
+
+[node name="BootGame" type="Node2D"]
+script = ExtResource("1_s8i00")
+mainGameScene = ExtResource("2_hatjb")
