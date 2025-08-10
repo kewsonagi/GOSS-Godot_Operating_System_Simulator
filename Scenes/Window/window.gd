@@ -126,7 +126,8 @@ func _ready() -> void:
 	select_window(false)
 	
 	viewportToCheck.size_changed.connect(_on_viewport_size_changed)
-	UIAnimation.animate_pop(self)
+	#UIAnimation.animate_pop(self)
+	TweenAnimator.pop_in(self)
 	TweenAnimator.fade_in(self, 0.2)
 	maximize_icon = ResourceManager.GetResource("Plus")
 	unmaximize_icon = ResourceManager.GetResource("WindowRestore")

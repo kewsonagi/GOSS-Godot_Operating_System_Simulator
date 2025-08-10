@@ -55,12 +55,12 @@ func trigger_rename() -> void:
 		print(old_folder_name)
 		var new_folder_name: String = "%s.%s" % [text, folder.szFileName.split('.')[-1]]
 		print(new_folder_name)
-		if FileAccess.file_exists("user://files/%s/%s" % [folder.szFilePath, new_folder_name]):
+		if FileAccess.file_exists("%s%s/%s" % [ResourceManager.GetPathToUserFiles(), folder.szFilePath, new_folder_name]):
 			cancel_rename()
 			NotificationManager.ShowNotification("That file already exists!", NotificationManager.E_NOTIFICATION_TYPE.ERROR, "Error")
 			return
 		folder.szFileName = new_folder_name
-		DirAccess.rename_absolute("user://files/%s/%s" % [folder.szFilePath, old_folder_name], "user://files/%s/%s" % [folder.szFilePath, folder.szFileName])
+		DirAccess.rename_absolute("%s%s/%s" % [ResourceManager.GetPathToUserFiles(), folder.szFilePath, old_folder_name], "%s%s/%s" % [ResourceManager.GetPathToUserFiles(),folder.szFilePath, folder.szFileName])
 		fileLabelControl.text = "%s" % folder.szFileName.get_basename()
 		
 		FileManagerWindow.RefreshAllFileManagers()
@@ -83,20 +83,20 @@ func trigger_rename() -> void:
 		
 		if old_folder_path.contains("/"):
 			var new_folder_path: String = "%s%s" % [folder.szFilePath.trim_suffix(old_folder_name), text]
-			if DirAccess.dir_exists_absolute("user://files/%s" % new_folder_path):
+			if DirAccess.dir_exists_absolute("%s%s" % [ResourceManager.GetPathToUserFiles(), new_folder_path]):
 				cancel_rename()
 				NotificationManager.ShowNotification("That folder already exists!", NotificationManager.E_NOTIFICATION_TYPE.ERROR, "Error")
 				return
 			folder.szFilePath = new_folder_path
 		else:
-			if DirAccess.dir_exists_absolute("user://files/%s" % text):
+			if DirAccess.dir_exists_absolute("%s%s" % [ResourceManager.GetPathToUserFiles(),text]):
 				cancel_rename()
 				NotificationManager.ShowNotification("That folder already exists!", NotificationManager.E_NOTIFICATION_TYPE.ERROR, "Error")
 				return
 			folder.szFilePath = text
 		folder.szFileName = text
 		fileLabelControl.text = "%s" % folder.szFileName
-		DirAccess.rename_absolute("user://files/%s" % old_folder_path, "user://files/%s" % folder.szFilePath)
+		DirAccess.rename_absolute("%s%s" % [ResourceManager.GetPathToUserFiles(),old_folder_path], "%s%s" % [ResourceManager.GetPathToUserFiles(),folder.szFilePath])
 		
 		if folder.get_parent() is DesktopFileManager:
 			folder.get_parent().sort_folders()

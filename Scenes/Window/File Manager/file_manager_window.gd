@@ -6,8 +6,12 @@ class_name FileManagerWindow
 func _ready() -> void:
 	if(parentWindow.creationData.has("StartPath")):
 		szFilePath = parentWindow.creationData["StartPath"]
-	populate_file_manager()
+	
+	super._ready()
 	parentWindow.resized.connect(UpdateItems)
+	clickHandler.BackButtonPressed.connect(_on_back_button_pressed)
+	populate_file_manager()
+	DefaultValues.CallOnDelay(0.05, RefreshManager)
 
 func reload_window(folder_path: String) -> void:
 	# Reload the same path if not given folder_path
@@ -19,6 +23,8 @@ func reload_window(folder_path: String) -> void:
 	# 		RemoveChild(child)
 	# 		child.queue_free()
 	#ClearAll()
+	if(szFilePath != folder_path):
+		ClearAll()
 	Refresh()
 	#populate_file_manager()
 	

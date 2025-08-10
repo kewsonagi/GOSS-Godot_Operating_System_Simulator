@@ -16,10 +16,10 @@ func _ready() -> void:
 
 
 func import_image(file_path: String) -> void:
-	if !FileAccess.file_exists("user://files/%s" % file_path):
+	if !FileAccess.file_exists("%s%s" % [ResourceManager.GetPathToUserFiles(),file_path]):
 		NotificationManager.ShowNotification("Error: Cannot find file (was it moved or deleted?)", NotificationManager.E_NOTIFICATION_TYPE.ERROR)
 		return
-	var image: Image = Image.load_from_file("user://files/%s" % file_path)
+	var image: Image = Image.load_from_file("%s%s" % [ResourceManager.GetPathToUserFiles(),file_path])
 	image.generate_mipmaps()
 	var texture_import: ImageTexture = ImageTexture.create_from_image(image)
 	texture = texture_import

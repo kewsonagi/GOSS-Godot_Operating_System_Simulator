@@ -1,0 +1,15 @@
+[remap]
+
+importer="import_gif_to_sprite_frames"
+type="SpriteFrames"
+uid="uid://cxqsg1o8r2dtf"
+path="res://.godot/imported/keyboard buttons gif.gif-29c6568dc444d61e7f32b2ca70999c4e.tres"
+
+[deps]
+
+source_file="res://Art/GuiAssets/keyboard buttons gif.gif"
+dest_files=["res://.godot/imported/keyboard buttons gif.gif-29c6568dc444d61e7f32b2ca70999c4e.tres"]
+
+[params]
+
+frames_per_second=30

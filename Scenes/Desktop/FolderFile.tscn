@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwsu2o7l3rfm4"]
+[gd_scene load_steps=8 format=3 uid="uid://cwsu2o7l3rfm4"]
 
 [ext_resource type="Script" uid="uid://cqjcv47fivuah" path="res://Scenes/Desktop/cFolderFile.gd" id="1_y12s4"]
 [ext_resource type="Texture2D" uid="uid://b7b7g5pvlthfu" path="res://Art/Icons - icones/folder-03.png" id="2_y12s4"]
 [ext_resource type="Script" uid="uid://csxjm2dry3dji" path="res://Scenes/Desktop/folder_title_edit.gd" id="3_1tbfb"]
-[ext_resource type="PackedScene" uid="uid://dyffbipc6kbic" path="res://Scenes/Autoloads/RClick Menu Manager/ClickHandler.tscn" id="4_rmh2y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fr400"]
 bg_color = Color(0.41463205, 0.4489593, 0.6677051, 0.78431374)
@@ -33,11 +32,11 @@ bg_color = Color(0, 0, 0, 0.784314)
 [node name="Folder" type="Control" node_paths=PackedStringArray("hoverHighlightControl", "selectedHighlightControl", "fileTexture", "doubleClickTimer", "titleEditBox", "fileTitleControl") groups=["folder"]]
 custom_minimum_size = Vector2(80, 110)
 layout_mode = 3
-anchors_preset = 0
 offset_left = 10.0
 offset_right = 90.0
 offset_bottom = 110.0
 size_flags_horizontal = 4
+mouse_filter = 1
 script = ExtResource("1_y12s4")
 fileIcon = ExtResource("2_y12s4")
 fileColor = Color(0.8417413, 0.84973186, 0.6599077, 1)
@@ -153,9 +152,6 @@ script = ExtResource("3_1tbfb")
 fileToRenameSelectedIndicator = NodePath("../../../Selected Highlight")
 fileToRename = NodePath("../../..")
 fileLabelControl = NodePath("../../CenterContainer/Folder Title")
-
-[node name="ClickHandler" parent="." instance=ExtResource("4_rmh2y")]
-layout_mode = 1
 
 [connection signal="pressed" from="Control/TitleButton" to="." method="_on_title_button_pressed"]
 [connection signal="text_changed" from="Control/Title Edit Container/Folder Title Edit" to="." method="_on_folder_title_edit_text_changed"]

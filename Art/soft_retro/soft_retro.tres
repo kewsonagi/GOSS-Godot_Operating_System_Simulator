@@ -1,11 +1,14 @@
-[gd_resource type="Theme" load_steps=54 format=3 uid="uid://b3klx57slj0l3"]
+[gd_resource type="Theme" load_steps=58 format=3 uid="uid://b3klx57slj0l3"]
 
 [ext_resource type="FontFile" uid="uid://ccis5jdmr1vl3" path="res://Art/GuiAssets/fonts/ZeroCool.ttf" id="1_lws7m"]
 [ext_resource type="Texture2D" uid="uid://udawlj7nryla" path="res://Art/soft_retro/art/checked.svg" id="2_k0c1y"]
 [ext_resource type="Texture2D" uid="uid://dl5qlemud0d4j" path="res://Art/soft_retro/art/toggle_on.svg" id="2_myavk"]
 [ext_resource type="Texture2D" uid="uid://gameaex7fm1g" path="res://Art/soft_retro/art/toggle_off.svg" id="3_208pi"]
 [ext_resource type="Texture2D" uid="uid://cbwip815aqfhq" path="res://Art/soft_retro/art/unchecked.svg" id="3_cwkfx"]
-[ext_resource type="Texture2D" uid="uid://bbl50qp6b1eq8" path="res://Art/soft_retro/art/slider_grabber.svg" id="6_cwkfx"]
+[ext_resource type="Texture2D" uid="uid://bnaecudh6u4hj" path="res://Default Files/scrollbar/horizontal_hover_thumb.png" id="6_lws7m"]
+[ext_resource type="Texture2D" uid="uid://c6hdb3pmb3ou6" path="res://Default Files/scrollbar/vertical_hover_thumb.png" id="7_muebh"]
+[ext_resource type="Texture2D" uid="uid://c0sqamj1kts0w" path="res://Art/assets/ScrollBar_Blank_Pointer (Custom) (1).png" id="7_rdkmb"]
+[ext_resource type="Texture2D" uid="uid://duuihj4d7kymy" path="res://Art/Icons/Software_Signs_Maths_Plus_Addition_Bonus_Add_New.png" id="8_gomis"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0c1y"]
 bg_color = Color(1, 0.690196, 0.639216, 1)
@@ -253,8 +256,14 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 2
 corner_detail = 6
 
+[sub_resource type="ImageTexture" id="ImageTexture_4mt6q"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y214y"]
 bg_color = Color(1, 0.933333, 0.8, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 
@@ -345,7 +354,10 @@ HScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_adq26")
 HScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_wjpxi")
 HScrollBar/styles/scroll = SubResource("StyleBoxFlat_s6qsw")
 HSeparator/styles/separator = SubResource("StyleBoxLine_k0c1y")
-HSlider/icons/grabber = ExtResource("6_cwkfx")
+HSlider/icons/grabber = ExtResource("6_lws7m")
+HSlider/icons/grabber_disabled = ExtResource("6_lws7m")
+HSlider/icons/grabber_highlight = ExtResource("6_lws7m")
+HSlider/icons/tick = ExtResource("6_lws7m")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_cwkfx")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_1b0k0")
 HSlider/styles/slider = SubResource("StyleBoxFlat_14r85")
@@ -433,13 +445,22 @@ TextEdit/icons/tab = null
 TextEdit/styles/focus = SubResource("StyleBoxFlat_muebh")
 TextEdit/styles/normal = SubResource("StyleBoxFlat_rdkmb")
 TextEdit/styles/read_only = null
+VScrollBar/icons/decrement = ExtResource("7_rdkmb")
+VScrollBar/icons/decrement_highlight = SubResource("ImageTexture_4mt6q")
+VScrollBar/icons/decrement_pressed = SubResource("ImageTexture_4mt6q")
+VScrollBar/icons/increment = ExtResource("8_gomis")
+VScrollBar/icons/increment_highlight = SubResource("ImageTexture_4mt6q")
+VScrollBar/icons/increment_pressed = SubResource("ImageTexture_4mt6q")
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_y214y")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_h653x")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_erami")
 VScrollBar/styles/scroll = SubResource("StyleBoxFlat_c7d7l")
 VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_s6qsw")
 VSeparator/styles/separator = SubResource("StyleBoxLine_cwkfx")
-VSlider/icons/grabber = ExtResource("6_cwkfx")
+VSlider/icons/grabber = ExtResource("7_muebh")
+VSlider/icons/grabber_disabled = ExtResource("7_muebh")
+VSlider/icons/grabber_highlight = ExtResource("7_muebh")
+VSlider/icons/tick = ExtResource("7_muebh")
 VSlider/styles/grabber_area = SubResource("StyleBoxFlat_g2lif")
 VSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_b3cdw")
 VSlider/styles/slider = SubResource("StyleBoxFlat_l34ym")

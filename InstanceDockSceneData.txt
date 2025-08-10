@@ -1,0 +1,59 @@
+{
+"tab_data": [{
+"name": "Scenes",
+"scenes": [{
+"scene": "uid://bmjyglrsf04uo"
+}, {
+"scene": "uid://chw3lje7gvraw"
+}, {
+"scene": "uid://cf8xeflv0r6pd"
+}, {
+"scene": "uid://b8ufm8ymt53lu"
+}, {
+"scene": "uid://blxpspp2wqdbs"
+}, {
+"scene": "uid://cfj5p5pgfnywp"
+}, {
+"scene": "uid://b7mejsbueubva"
+}, {
+"scene": "uid://da4oly47yx3ja"
+}]
+}, {
+"name": "Windows",
+"scenes": [{
+"scene": "uid://cojrqff5vocjv"
+}, {
+"scene": "uid://bg17qb4r5h3c8"
+}, {
+"scene": "uid://bg78g4tvmukio"
+}, {
+"scene": "uid://t8c17cefd8nc"
+}, {
+"scene": "uid://cpplnljmvaknu"
+}, {
+"scene": "uid://bw213qcym41ma"
+}, {
+"scene": "uid://c73tsgfxmn37a"
+}, {
+"scene": "uid://i03dt4l5msgl"
+}, {
+"scene": "uid://ufo3bc72b2rq"
+}]
+}, {
+"name": "Managers",
+"scenes": [{
+"scene": "uid://dgrw5q1qwsr33"
+}, {
+"scene": "uid://c5rok2ine5c1c"
+}, {
+"scene": "uid://dyffbipc6kbic"
+}, {
+"scene": "uid://cxl0f781joa6d"
+}, {
+"scene": "uid://ctmotds7d1sr1"
+}, {
+"scene": "uid://b0s8ey703a0i6"
+}]
+}],
+"version": 0
+}

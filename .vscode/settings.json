@@ -1,36 +1,56 @@
 {
     "folder-color.pathColors": [
         {
-            "folderPath": "GodotOS\\Games\\",
-            "color": "foldercolorizer.color_ff6600"
+            "folderPath": "GOSS\\Scenes\\",
+            "color": "foldercolorizer.color_33cc00",
+            "isFolderOnly": true
         },
         {
-            "folderPath": "GodotOS\\Scenes\\",
-            "color": "foldercolorizer.color_00cccc"
+            "folderPath": "GOSS\\Scenes\\Window\\",
+            "color": "foldercolorizer.color_ff33ff"
         },
         {
-            "folderPath": "GodotOS\\Art\\",
-            "color": "foldercolorizer.color_ffff33"
+            "folderPath": "GOSS\\Scenes\\Main\\",
+            "color": "foldercolorizer.color_66ccff"
         },
         {
-            "folderPath": "GodotOS\\addons\\",
+            "folderPath": "GOSS\\Scenes\\Desktop\\",
+            "color": "foldercolorizer.color_ff9933"
+        },
+        {
+            "folderPath": "GOSS\\Scenes\\Autoloads\\",
+            "color": "foldercolorizer.color_ffff66"
+        },
+        {
+            "folderPath": "GOSS\\Scenes\\Containers\\",
+            "color": "foldercolorizer.color_ccffff"
+        },
+        {
+            "folderPath": "GOSS\\Scenes\\Autoloads\\ResourceManager\\",
+            "color": "foldercolorizer.color_cc00ff"
+        },
+        {
+            "folderPath": "GOSS\\Scenes\\Autoloads\\RClick Menu Manager\\",
+            "color": "foldercolorizer.color_ff0066"
+        },
+        {
+            "folderPath": "GOSS\\Scenes\\Autoloads\\Notification Manager\\",
+            "color": "foldercolorizer.color_33cccc"
+        },
+        {
+            "folderPath": "GOSS\\Scenes\\Autoloads\\GlobalValues\\",
             "color": "foldercolorizer.color_ffcc33"
         },
         {
-            "folderPath": "GodotOS\\Scenes\\Autoloads\\",
-            "color": "foldercolorizer.color_00ff99"
+            "folderPath": "GOSS\\Scenes\\Autoloads\\Hotkey Manager\\"
         },
         {
-            "folderPath": "GodotOS\\Scenes\\Window\\",
-            "color": "foldercolorizer.color_cc66ff"
+            "folderPath": "GOSS\\addons\\",
+            "color": "foldercolorizer.color_ee0000"
         },
         {
-            "folderPath": "GodotOS\\Scenes\\Taskbar\\",
-            "color": "foldercolorizer.color_ff6600"
-        },
-        {
-            "folderPath": "GodotOS\\Scenes\\Main\\",
-            "color": "foldercolorizer.color_0066ff"
+            "folderPath": "GOSS\\Scenes\\Taskbar\\",
+            "color": "foldercolorizer.color_cc9900"
         }
     ]
 }

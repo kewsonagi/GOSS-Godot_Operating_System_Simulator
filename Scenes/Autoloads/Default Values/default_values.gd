@@ -3,8 +3,9 @@ extends Node
 
 var wallpaper_name: String
 var wallpaper_stretch_mode: TextureRect.StretchMode # int from 0 to 6
-@onready var background_color_rect: ColorRect = $"/root/Control/BackgroundColor"
-@onready var wallpaper: Wallpaper = $"/root/Control/Wallpaper"
+@export var background_color_rect: ColorRect# = $"/root/Control/BackgroundColor"
+@export var wallpaper: Wallpaper# = $"/root/Control/Wallpaper"
+@export var clickHandler: PackedScene = preload("res://Scenes/Autoloads/RClick Menu Manager/ClickHandler.tscn")
 #var soundManager2D: AudioStreamPlayer2D
 #var soundManager3D: AudioStreamPlayer3D
 static var windows: Array[FakeWindow] = []
@@ -26,6 +27,9 @@ func _ready() -> void:
 
 	save_state()
 
+func CallOnDelay(f: float, c: Callable) -> void:
+	get_tree().create_timer(f).timeout.connect(c)
+	
 func save_state() -> void:
 	globalSettingsSave.data["WallpaperName"] = wallpaper_name
 	globalSettingsSave.data["WallpaperStretchMode"] = wallpaper_stretch_mode
@@ -54,7 +58,7 @@ func load_state() -> void:
 func save_wallpaperByName(filePath: String, fileName: String) -> void:
 	delete_wallpaper()
 	
-	var from: String = "user://files/%s/%s" % [filePath, fileName]
+	var from: String = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), filePath, fileName]
 	var to: String = "user://%s" % fileName
 	DirAccess.copy_absolute(from, to)
 	wallpaper_name = fileName
@@ -62,15 +66,15 @@ func save_wallpaperByName(filePath: String, fileName: String) -> void:
 func save_wallpaper(wallpaper_file: BaseFile) -> void:
 	delete_wallpaper()
 	
-	var from: String = "user://files/%s/%s" % [wallpaper_file.szFilePath, wallpaper_file.szFileName]
-	var to: String = "user://%s" % wallpaper_file.szFileName
+	var from: String = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), wallpaper_file.szFilePath, wallpaper_file.szFileName]
+	var to: String = ProjectSettings.globalize_path("user://%s" % wallpaper_file.szFileName)
 	DirAccess.copy_absolute(from, to)
 	wallpaper_name = wallpaper_file.szFileName
 	save_state()
 
 func delete_wallpaper() -> void:
 	if !wallpaper_name.is_empty():
-		DirAccess.remove_absolute("user://%s" % wallpaper_name)
+		DirAccess.remove_absolute(ProjectSettings.globalize_path("user://%s" % wallpaper_name))
 	wallpaper_name = ""
 	save_state()
 
@@ -137,3 +141,11 @@ func CloseWindow(window: FakeWindow) -> void:
 	
 func _exit_tree() -> void:
 	windows.clear()
+
+func AddClickHandler(node: Node) -> HandleClick:
+	if(node):
+		var handler: HandleClick = clickHandler.instantiate()
+		node.add_child(handler)
+		node.move_child(handler, 0)
+		return handler
+	return null

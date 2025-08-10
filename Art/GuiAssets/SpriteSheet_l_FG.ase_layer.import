@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://c4cogaparqanr"
+path="res://.godot/imported/SpriteSheet_l_FG.ase_layer-7847c44fe33bf5dbb5619bf8449186cc.res"
+
+[deps]
+
+files=["res://.godot/imported/SpriteSheet_l_FG.ase_layer-7847c44fe33bf5dbb5619bf8449186cc.FG.texture.res"]
+
+source_file="res://Art/GuiAssets/SpriteSheet_l_FG.ase_layer"
+dest_files=["res://.godot/imported/SpriteSheet_l_FG.ase_layer-7847c44fe33bf5dbb5619bf8449186cc.res", "res://.godot/imported/SpriteSheet_l_FG.ase_layer-7847c44fe33bf5dbb5619bf8449186cc.FG.texture.res"]
+
+[params]
+

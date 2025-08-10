@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://dcdyeju6emmfr"
+path="res://.godot/imported/SpriteSheet_l_BG.ase_layer-4baa2029f2ad8c38a27f107192301b17.res"
+
+[deps]
+
+files=["res://.godot/imported/SpriteSheet_l_BG.ase_layer-4baa2029f2ad8c38a27f107192301b17.BG.texture.res"]
+
+source_file="res://Art/GuiAssets/SpriteSheet_l_BG.ase_layer"
+dest_files=["res://.godot/imported/SpriteSheet_l_BG.ase_layer-4baa2029f2ad8c38a27f107192301b17.res", "res://.godot/imported/SpriteSheet_l_BG.ase_layer-4baa2029f2ad8c38a27f107192301b17.BG.texture.res"]
+
+[params]
+

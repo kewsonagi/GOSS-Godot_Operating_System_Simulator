@@ -41,11 +41,13 @@ func ShowMenu(menuName: String, caller: Control) -> void:
 	
 	title.text = menuName
 
-	global_position = get_global_mouse_position() + Vector2(10, 15)
+	global_position = get_global_mouse_position() + Vector2(-10, -10)
 	clamp_inside_viewport()
 	modulate.a = 0
 	var tween: Tween = create_tween()
 	tween.tween_property(self, "modulate:a", 1, 0.15)
+	is_mouse_over = true
+
 
 #add new item to the menu with a callback for what to do
 func AddMenuItem(itemName: String, callback: Callable, itemIcon: Texture2D=null) -> void:
@@ -70,17 +72,23 @@ func AddMenuItem(itemName: String, callback: Callable, itemIcon: Texture2D=null)
 	size.y += newItem.size.y + separator.size.y
 
 	clamp_inside_viewport()
+	is_mouse_over = true
 
 
 func _input(event: InputEvent) -> void:
-	if(event.is_action_pressed(&"LeftClick")):
-		if(self.visible and !is_mouse_over):
-			var thisContainer: Rect2
-			thisContainer.position = self.global_position
-			thisContainer.size = self.size
-			if(!thisContainer.has_point(get_global_mouse_position())):
-				await get_tree().process_frame
-				DismissMenu()
+	if(!self.visible): return
+
+	var thisContainer: Rect2
+	thisContainer.position = self.global_position
+	thisContainer.size = self.size
+	if(!thisContainer.has_point(get_global_mouse_position())):
+		is_mouse_over = false
+	else:
+		is_mouse_over = true
+	
+	if(!is_mouse_over and event.is_pressed()):
+		DismissMenu()
+		return
 			#HideMenu()
 	# if event is InputEventMouseButton and event.is_pressed():
 	# 	if event.button_index == 1 and self.visible:
@@ -96,11 +104,11 @@ func DismissMenu() -> void:
 			ResourceManager.ReturnResourceByResource(item.optionIcon.texture)
 	Dismissed.emit()
 
-func _on_mouse_entered() -> void:
-	is_mouse_over = true
+# func _on_mouse_entered() -> void:
+# 	is_mouse_over = true
 
-func _on_mouse_exited() -> void:
-	is_mouse_over = false
+# func _on_mouse_exited() -> void:
+# 	is_mouse_over = false
 
 func play_cooldown() -> void:
 	is_shown_recently = true

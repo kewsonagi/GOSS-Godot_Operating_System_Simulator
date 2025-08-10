@@ -3,11 +3,13 @@
 [ext_resource type="Script" uid="uid://bmpvmdv5vvbe6" path="res://addons/scene_scripts_panel/scene_scripts_panel.gd" id="1_7232o"]
 
 [node name="SceneScriptsPanel" type="ItemList"]
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -3.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+item_count = 1
+item_0/text = "scene_scripts_panel.gd"
 script = ExtResource("1_7232o")

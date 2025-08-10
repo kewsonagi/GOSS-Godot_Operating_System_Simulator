@@ -22,17 +22,20 @@ var bMouseOver: bool
 @export var titleEditBox: TextEdit
 @export var fileTitleControl: RichTextLabel
 var clickHandler: HandleClick
-
+static var selectedFiles: Array[Node]
+static var selectedFilesOld: Array[Node]
 
 func _ready() -> void:
-	clickHandler = get_node_or_null("ClickHandler")
+	clickHandler = DefaultValues.AddClickHandler(self)
 	if(clickHandler):
 		clickHandler.LeftClick.connect(LeftClicked)
-		clickHandler.RightClick.connect(HandleRightClick)
+		clickHandler.RightClickRelease.connect(HandleRightClick)
 		clickHandler.HoveringStart.connect(HoverStart)
 		clickHandler.HoveringEnd.connect(HoverEnd)
+		clickHandler.DragStart.connect(DragStart)
+		clickHandler.DragEnd.connect(DragEnd)
 		clickHandler.DoubleClick.connect(DoubleClicked)
-		clickHandler.NotClicked.connect(NotClicked)
+		clickHandler.NotClickedRelease.connect(NotClicked)
 		
 	hoverHighlightControl.self_modulate.a = 0
 	selectedHighlightControl.visible = false
@@ -77,15 +80,37 @@ func HoverEnd() -> void:
 
 func DoubleClicked() -> void:
 	OpenFile()
+	selectedFiles.clear()
 func LeftClicked() -> void:
 	show_selected_highlight()
 
+var bDragging: bool = false
+func DragStart() -> void:
+	bDragging = true
+	selectedFilesOld.clear()
+	selectedFilesOld.append_array(selectedFiles)
+	selectedFiles.clear()
+
+func DragEnd() -> void:
+	await get_tree().process_frame
+
 func NotClicked() -> void:
-	hide_selected_highlight()
+	# for file in selectedFiles:
+	# 	if(file == self):
+	# 		return
+	if(!bDragging):
+		hide_selected_highlight()
+	bDragging = false
 
 func _get_drag_data(_at_position: Vector2) -> Variant:
+	var alreadyAdded: bool = false
+	for file in selectedFiles:
+		if(file == self):
+			alreadyAdded = true
+	if(!alreadyAdded):
+		selectedFiles.append(self)
 	set_drag_preview(fileTexture.get_parent().duplicate())
-	return self
+	return selectedFilesOld
 
 # ------
 
@@ -101,13 +126,22 @@ func hide_hover_highlight() -> void:
 
 func show_selected_highlight() -> void:
 	selectedHighlightControl.visible = true
+	var alreadyAdded: bool = false
+	for file in selectedFiles:
+		if(file == self):
+			alreadyAdded = true
+	if(!alreadyAdded):
+		selectedFiles.append(self)
 
 func hide_selected_highlight() -> void:
 	selectedHighlightControl.visible = false
+	for file in selectedFiles:
+		if(file == self):
+			selectedFiles.erase(self)
 
 func delete_file() -> void:
 	if eFileType == E_FILE_TYPE.FOLDER:
-		var delete_path: String = "user://files/%s" % szFilePath
+		var delete_path: String = ProjectSettings.globalize_path("%s%s" % [ResourceManager.GetPathToUserFiles(),szFilePath])
 		if !DirAccess.dir_exists_absolute(delete_path):
 			return
 		OS.move_to_trash(delete_path)
@@ -120,7 +154,7 @@ func delete_file() -> void:
 				file_manager.delete_file_with_name(szFileName)
 				file_manager.UpdateItems()
 	else:
-		var delete_path: String = "user://files/%s/%s" % [szFilePath, szFileName]
+		var delete_path: String = ProjectSettings.globalize_path("%s%s/%s" % [ResourceManager.GetPathToUserFiles(), szFilePath, szFileName])
 		if !FileAccess.file_exists(delete_path):
 			return
 		OS.move_to_trash(delete_path)
@@ -129,20 +163,50 @@ func delete_file() -> void:
 				file_manager.delete_file_with_name(szFileName)
 				file_manager.SortFolders()
 	
-	if szFilePath.is_empty() or (eFileType == E_FILE_TYPE.FOLDER and len(szFilePath.split('/')) == 1):
-		var desktop_file_manager: DesktopFileManager = get_tree().get_first_node_in_group("desktop_file_manager")
-		desktop_file_manager.delete_file_with_name(szFileName)
-		desktop_file_manager.SortFolders()
+	#if szFilePath.is_empty() or (eFileType == E_FILE_TYPE.FOLDER and len(szFilePath.split('/')) == 1):
+		#var desktop_file_manager: DesktopFileManager = get_tree().get_first_node_in_group("desktop_file_manager")
+		#desktop_file_manager.delete_file_with_name(szFileName)
+		#desktop_file_manager.SortFolders()
 	# TODO make the color file_type dependent?
 	NotificationManager.ShowNotification("Moved [color=59ea90][wave freq=7]%s[/wave][/color] to trash!" % szFileName)
 	queue_free()
 
 func OpenFile() -> void:
-	var filePath: String = "user://files/%s/%s" % [szFilePath, szFileName]
+	var filePath: String = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), szFilePath, szFileName]
 	OS.shell_open(filePath)
 	return
 func DeleteFile() -> void:
-	delete_file()
+	for file: Node in selectedFiles:
+		if(file and !file.is_queued_for_deletion() and file is BaseFile):
+			var f: BaseFile = file
+
+			#########################
+			if(f.eFileType == E_FILE_TYPE.FOLDER):
+				var delete_path: String = ProjectSettings.globalize_path("%s%s" % [ResourceManager.GetPathToUserFiles(),f.szFilePath])
+				if !DirAccess.dir_exists_absolute(delete_path):
+					return
+				OS.move_to_trash(delete_path)
+				#looking for a file manager currently open with the deleted folder
+				#if found, close it
+				for file_manager: BaseFileManager in BaseFileManager.masterFileManagerList:
+					if file_manager.szFilePath.begins_with(f.szFilePath) and !(file_manager is DesktopFileManager):
+						file_manager.Close()
+					elif get_parent() is BaseFileManager and file_manager.szFilePath == f.get_parent().szFilePath:
+						file_manager.delete_file_with_name(f.szFileName)
+						file_manager.UpdateItems()
+			else:
+				var delete_path: String = ProjectSettings.globalize_path("%s%s/%s" % [ResourceManager.GetPathToUserFiles(), f.szFilePath, f.szFileName])
+				if !FileAccess.file_exists(delete_path):
+					return
+				OS.move_to_trash(delete_path)
+				for file_manager: BaseFileManager in BaseFileManager.masterFileManagerList:
+					if file_manager.szFilePath == f.szFilePath:
+						file_manager.delete_file_with_name(f.szFileName)
+						file_manager.SortFolders()
+			#########################
+			
+	selectedFiles.clear()
+	selectedFilesOld.clear()
 	return
 
 func HandleRightClick() -> void:
@@ -159,10 +223,12 @@ func HandleRightClick() -> void:
 	titleEditBox.visible = false
 
 func CopyFile() -> void:
-	CopyPasteManager.copy_folder(self)
+	#CopyPasteManager.copy_folder(self)
+	CopyPasteManager.CopyMultiple(selectedFiles)
 
 func CutFile() -> void:
-	CopyPasteManager.cut_folder(self)
+	#CopyPasteManager.cut_folder(self)
+	CopyPasteManager.CutMultiple(selectedFiles)
 
 #handle renaming controls
 func RenameFile() -> void:

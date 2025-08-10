@@ -5,25 +5,26 @@ class_name DesktopFileManager
 @export var defaultFilesLocation: String
 
 func _ready() -> void:
-	var user_dir: DirAccess = DirAccess.open("user://")
+	await get_tree().process_frame
+	var user_dir: DirAccess = DirAccess.open(ProjectSettings.globalize_path("user://"))
 	if !user_dir.dir_exists("files"):
 		# Can't just use absolute paths due to https://github.com/godotengine/godot/issues/82550
 		# Also DirAccess can't open on res:// at export, but FileAccess does...
 		user_dir.make_dir_recursive("files/Welcome Folder")
 		user_dir.make_dir_recursive("files/Wallpapers")
-		copy_from_res("res://Default Files/Welcome.txt", "user://files/Welcome Folder/Welcome.txt")
-		copy_from_res("res://Default Files/Credits.txt", "user://files/Welcome Folder/Credits.txt")
-		copy_from_res("res://Default Files/GodotOS Handbook.txt", "user://files/Welcome Folder/GodotOS Handbook.txt")
-		copy_from_res("res://Default Files/default wall.webp", "user://files/Wallpapers/default wall.webp")
+		copy_from_res("res://Default Files/Welcome.txt", ProjectSettings.globalize_path("user://files/Welcome Folder/Welcome.txt"))
+		copy_from_res("res://Default Files/Credits.txt", ProjectSettings.globalize_path("user://files/Welcome Folder/Credits.txt"))
+		copy_from_res("res://Default Files/GodotOS Handbook.txt", ProjectSettings.globalize_path("user://files/Welcome Folder/GodotOS Handbook.txt"))
+		copy_from_res("res://Default Files/default wall.webp", ProjectSettings.globalize_path("user://files/Wallpapers/default wall.webp"))
 		
 		#Additional wallpapers
-		copy_from_res("res://Default Files/wallpaper_chill.webp", "user://files/Wallpapers/chill.webp")
-		copy_from_res("res://Default Files/wallpaper_minimalism.webp", "user://files/Wallpapers/minimalism.webp")
+		copy_from_res("res://Default Files/wallpaper_chill.webp", ProjectSettings.globalize_path("user://files/Wallpapers/chill.webp"))
+		copy_from_res("res://Default Files/wallpaper_minimalism.webp", ProjectSettings.globalize_path("user://files/Wallpapers/minimalism.webp"))
 
-		var wallpaper: Wallpaper = $"/root/Control/Wallpaper"
+		var wallpaper: Wallpaper = DefaultValues.wallpaper
 		wallpaper.apply_wallpaper_from_path("files/Wallpapers/default wall.webp")
 		
-		copy_from_res("res://Default Files/default wall.webp", "user://default wall.webp")
+		copy_from_res("res://Default Files/default wall.webp", ProjectSettings.globalize_path("user://default wall.webp"))
 		DefaultValues.wallpaper_name = "default wall.webp"
 		DefaultValues.save_state()
 		NotificationManager.ShowNotification("Getting things ready...", NotificationManager.E_NOTIFICATION_TYPE.NORMAL, "Welcome!")
@@ -32,8 +33,14 @@ func _ready() -> void:
 		#CopyPasteManager.CopyAllFilesOrFolders([defaultFilesLocation])
 	
 	super._ready();
+	
+	#if(!BaseFileManager.masterFileManagerList.has(self as BaseFileManager)):
+	#BaseFileManager.masterFileManagerList.append(self)
 	get_window().size_changed.connect(UpdateItems)
 	get_window().focus_entered.connect(_on_window_focus)
+	populate_file_manager()
+
+	DefaultValues.CallOnDelay(0.05, RefreshManager)
 
 func copy_from_res(from: String, to: String) -> void:
 	var file_from: FileAccess = FileAccess.open(from, FileAccess.READ)
@@ -55,9 +62,9 @@ func _on_window_focus() -> void:
 		current_file_names.append(child.szFileName)
 	
 	var new_file_names: Array[String] = []
-	for file_name in DirAccess.get_files_at("user://files/"):
+	for file_name in DirAccess.get_files_at(ResourceManager.GetPathToUserFiles()):
 		new_file_names.append(file_name)
-	for folder_name in DirAccess.get_directories_at("user://files/"):
+	for folder_name in DirAccess.get_directories_at(ResourceManager.GetPathToUserFiles()):
 		new_file_names.append(folder_name)
 	
 	if current_file_names.size() != new_file_names.size():
@@ -79,6 +86,7 @@ func HandleRightClick() -> void:
 
 func Paste() -> void:
 	CopyPasteManager.paste_folder(szFilePath)
+	BaseFileManager.RefreshAllFileManagers()
 
 func NewFolder() -> void:
 	CreateNewFolder()
@@ -94,15 +102,18 @@ func Properties() -> void:
 
 
 func _enter_tree() -> void:
-	masterFileManagerList.append(self)
+	#masterFileManagerList.append(self)
+	super._enter_tree()
 	get_viewport().files_dropped.connect(OnDroppedFolders)
 func _exit_tree() -> void:
+	super._exit_tree()
 	get_viewport().files_dropped.disconnect(OnDroppedFolders)
-	masterFileManagerList.erase(self)
+	#masterFileManagerList.erase(self)
 
 func OnDroppedFolders(files: PackedStringArray) -> void:
 	#default to the desktop path
-	var filepathTo: String = "user://files/"
+	var managersWithin: Array[BaseFileManager] = [self]
+	var filepathTo: String = ResourceManager.GetPathToUserFiles()#"user://files/"
 
 	#look to see if the pointer is inside a filemanager window
 	for filemanager in masterFileManagerList:
@@ -110,14 +121,19 @@ func OnDroppedFolders(files: PackedStringArray) -> void:
 
 		if(window):
 			if(window.is_selected):
-				filepathTo = "user://files/%s/" % filemanager.szFilePath
+				filepathTo = "%s%s/" % [ResourceManager.GetPathToUserFiles(),filemanager.szFilePath]
 			var pos: Vector2 = window.global_position
 			var windowSize: Vector2 = window.size
 			var mousePos: Vector2 = get_global_mouse_position()
 			#if the mouse pointer is inside this window, add the dropped file here
 			if(mousePos.x > pos.x && mousePos.x < pos.x+windowSize.x && mousePos.y > pos.y && mousePos.y < pos.y+windowSize.y):
-				filepathTo = "user://files/%s/" % filemanager.szFilePath
+				filepathTo = "%s%s/" % [ResourceManager.GetPathToUserFiles(),filemanager.szFilePath]
+				managersWithin.append(filemanager)
+				#filemanagerWithin = filemanager
 
 	CopyPasteManager.CopyAllFilesOrFolders(files, filepathTo)
+	
 		# get_tree().get_first_node_in_group("desktop_file_manager").populate_file_manager()
-	RefreshAllFileManagers()
+	#RefreshAllFileManagers()
+	for filemanagerWithin: BaseFileManager in managersWithin:
+		DefaultValues.CallOnDelay(0.1, filemanagerWithin.RefreshManager)

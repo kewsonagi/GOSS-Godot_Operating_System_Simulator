@@ -7,7 +7,7 @@ class ResourceHolder:
 	var path: String
 	var resource: Resource
 
-	func _init(res: Resource, indx: int):
+	func _init(res: Resource, indx: int) -> void:
 		resource = res
 		refs = 0
 		path = res.resource_path
@@ -49,6 +49,11 @@ static func RegisterResource(key: String, resource: Resource) -> void:
 		registeredAssets[key] = assetList.size() - 1
 		registeredAssetsByResource[resource.resource_path] = assetList.size() - 1
 
+static func GetResourceOrNull(key: String) -> Resource:
+	if(registeredAssets.has(key)):
+		return GetResource(key)
+	return null
+	
 static func GetResource(key: String) -> Resource:
 	var indx: int = 0
 	if(registeredAssets.has(key)):
@@ -80,3 +85,12 @@ static func DeregisterResourceByResource(resource: Resource) -> void:
 	if (registeredAssetsByResource.has(resource.resource_path)):
 		var indx: int = registeredAssetsByResource[resource.resource_pathkey]
 		assetList[indx].Unload(false)
+
+static func GetPathToSave() -> String:
+	return ProjectSettings.globalize_path("user://settings/save/")
+static func GetPathToUser() -> String:
+	return ProjectSettings.globalize_path("user://settings/user/")
+static func GetPathToUserFiles() -> String:
+	return ProjectSettings.globalize_path("user://files/")
+static func GetPathToWindowSettings() -> String:
+	return ProjectSettings.globalize_path("user://settings/window/")

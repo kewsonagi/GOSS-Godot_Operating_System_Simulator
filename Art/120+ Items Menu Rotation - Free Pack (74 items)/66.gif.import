@@ -1,0 +1,15 @@
+[remap]
+
+importer="import_gif_to_sprite_frames"
+type="SpriteFrames"
+uid="uid://c3md4grk0kolx"
+path="res://.godot/imported/66.gif-787470608e6234bc5677c538f322cde1.tres"
+
+[deps]
+
+source_file="res://Art/120+ Items Menu Rotation - Free Pack (74 items)/66.gif"
+dest_files=["res://.godot/imported/66.gif-787470608e6234bc5677c538f322cde1.tres"]
+
+[params]
+
+frames_per_second=30

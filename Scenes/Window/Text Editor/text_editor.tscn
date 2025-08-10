@@ -20,9 +20,9 @@ shadow_color = Color(0, 0, 0, 0.0784314)
 [node name="Window" instance=ExtResource("1_sycuj")]
 theme_override_styles/panel = SubResource("StyleBoxFlat_plqrr")
 
-[node name="SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="17"]
+[node name="SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="1"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 30.0
@@ -49,3 +49,6 @@ script = ExtResource("2_4wajo")
 parentWindow = NodePath("../../../../../..")
 
 [connection signal="text_changed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer/Text Editor" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer/Text Editor" method="_on_text_changed"]
+
+[editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar"]
+[editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots"]

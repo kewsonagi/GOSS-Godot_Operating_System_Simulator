@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://blxpspp2wqdbs"]
+[gd_scene load_steps=8 format=3 uid="uid://blxpspp2wqdbs"]
 
 [ext_resource type="Script" uid="uid://0niro4fccs6f" path="res://Scenes/Desktop/cTextFile.gd" id="1_i1hps"]
 [ext_resource type="Texture2D" uid="uid://cib3o43x5hml6" path="res://Art/Icons - icones/notepad-02.png" id="2_dflsb"]
 [ext_resource type="Script" uid="uid://csxjm2dry3dji" path="res://Scenes/Desktop/folder_title_edit.gd" id="4_brv4l"]
-[ext_resource type="PackedScene" uid="uid://dyffbipc6kbic" path="res://Scenes/Autoloads/RClick Menu Manager/ClickHandler.tscn" id="4_nuysp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fr400"]
 bg_color = Color(0.41463205, 0.4489593, 0.6677051, 0.78431374)
@@ -33,11 +32,11 @@ bg_color = Color(0, 0, 0, 0.784314)
 [node name="Folder" type="Control" node_paths=PackedStringArray("hoverHighlightControl", "selectedHighlightControl", "fileTexture", "doubleClickTimer", "titleEditBox", "fileTitleControl") groups=["folder"]]
 custom_minimum_size = Vector2(80, 110)
 layout_mode = 3
-anchors_preset = 0
 offset_left = 10.0
 offset_right = 90.0
 offset_bottom = 110.0
 size_flags_horizontal = 4
+mouse_filter = 1
 script = ExtResource("1_i1hps")
 eFileType = 1
 fileIcon = ExtResource("2_dflsb")
@@ -102,7 +101,7 @@ mouse_filter = 2
 
 [node name="TitleButton" type="Button" parent="Control"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2.0
@@ -156,9 +155,6 @@ script = ExtResource("4_brv4l")
 fileToRenameSelectedIndicator = NodePath("../../../Selected Highlight")
 fileToRename = NodePath("../../..")
 fileLabelControl = NodePath("../../CenterContainer/Folder Title")
-
-[node name="ClickHandler" parent="." instance=ExtResource("4_nuysp")]
-layout_mode = 1
 
 [connection signal="pressed" from="Control/TitleButton" to="." method="_on_title_button_pressed"]
 [connection signal="text_changed" from="Control/Title Edit Container/Folder Title Edit" to="." method="_on_folder_title_edit_text_changed"]

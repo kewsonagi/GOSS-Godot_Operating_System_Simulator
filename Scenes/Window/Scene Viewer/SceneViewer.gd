@@ -4,7 +4,7 @@ extends SubViewport
 
 @export var parentWindow: FakeWindow
 @export var pauseMenuManager: ScenePauseMenu
-@export var startingUserDirectory: String = "user://files/"
+@export var startingUserDirectory: String = ResourceManager.GetPathToUserFiles()
 var cachedResources: Array[Resource] = []
 
 func _ready() -> void:
@@ -30,7 +30,7 @@ func _ready() -> void:
 			var foundGodotProjectDir: String = ""
 			var foundProjectDir: bool = false
 			while(!foundProjectDir):
-				if(!redirectFilename.contains("user://files")):
+				if(!redirectFilename.contains(ProjectSettings.globalize_path("user://files"))):
 					break
 				for files in DirAccess.get_files_at(redirectFilename):
 					if(files.contains(".godot")):

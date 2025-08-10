@@ -8,12 +8,12 @@ class_name BaseFileManager
 @export var szFilePath: String
 var directories: PackedStringArray
 var itemLocations: Dictionary = {}
-@export var startingUserDirectory: String = "user://files/"
+@export var startingUserDirectory: String = ProjectSettings.globalize_path("user://files/")
 @export var baseFile: PackedScene # = preload("res://Scenes/Desktop/TextFile.tscn")
 @export var textFile: PackedScene # = preload("res://Scenes/Desktop/TextFile.tscn")
-@export var extensionsForText: PackedStringArray = ["txt", "md"]
+@export var extensionsForText: PackedStringArray = ["txt", "md", "gd", "cs", "c", "js", "py", "log"]
 @export var imageFile: PackedScene # = preload("res://Scenes/Desktop/ImageFile.tscn")
-@export var extensionsForImage: PackedStringArray = ["png", "jpg", "jpeg", "webp", "tif", "ico", "svg"]
+@export var extensionsForImage: PackedStringArray = ["png", "jpg", "jpeg", "webp", "tif", "ico", "svg", "gif", "cur", "bmp"]
 @export var sceneFile: PackedScene # = preload("res://Scenes/Desktop/ImageFile.tscn")
 @export var extensionsForScene: PackedStringArray = ["tscn"]
 @export var folderFile: PackedScene # = preload("res://Scenes/Desktop/FolderFile.tscn")
@@ -24,24 +24,30 @@ static var iconList: Dictionary = {}
 
 func _ready() -> void:
 	super._ready()
-	if(iconList.is_empty()):
-		var iconFiles: PackedStringArray = DirAccess.get_files_at(pathToIcons)
-		for iconFile in iconFiles:
-			if(extensionsForImage.has(iconFile.get_extension())):
-				# print("base filename %s" % iconFile.get_basename())
-				# print("path to load %s/%s" % [pathToIcons.get_base_dir(), iconFile])
-				iconList[iconFile.get_basename()] = "%s/%s" % [pathToIcons.get_base_dir(), iconFile]
+
+	ClearAll()
+	DragSelecting.connect(DragSelectingItems)
+	DraggingSelectionEnd.connect(DragSelectingItemsEnded)
+
+	DraggingSelectedBegin.connect(DragSelectedItemsBegin)
+	DraggingSelection.connect(DraggingSelectedItems)
+	DropSelection.connect(DropItems)
+	RightClickEnd.connect(RightClickedSelection)
 
 func populate_file_manager() -> void:
 	# for child in GetChildren():
 	# 	if child is BaseFile:
 	# 		RemoveChild(child)
 	# 		child.queue_free()
-	ClearAll()
+	
+	itemLocations.clear()
+	RefreshManager()
 
+func RefreshManager() -> void:
+	ClearAll()
 	directories.clear()
 	directories = DirAccess.get_directories_at("%s%s" % [startingUserDirectory, szFilePath])
-	itemLocations.clear()
+	#itemLocations.clear()
 	if (directories):
 		for folder_name in directories:
 			if szFilePath.is_empty():
@@ -70,50 +76,17 @@ func populate_file_manager() -> void:
 			return
 		# queue_free()
 	directories.clear()
-	await get_tree().process_frame
-	await get_tree().process_frame # TODO fix whatever's causing a race condition :/
-	SortFolders()
-
+	
+	DefaultValues.CallOnDelay(0.05, SortFolders)
+	
 	if(windowTitle):
 		windowTitle.text = "%s" % [szFilePath]
 
-func RefreshManager() -> void:
-	directories.clear()
-	directories = DirAccess.get_directories_at("%s%s" % [startingUserDirectory, szFilePath])
-	itemLocations.clear()
-	if (directories):
-		for folder_name in directories:
-			if szFilePath.is_empty():
-				PopulateWithFolder(folder_name, folder_name)
-			else:
-				PopulateWithFolder(folder_name, "%s/%s" % [szFilePath, folder_name])
-	
-	directories.clear()
-	directories = DirAccess.get_files_at("%s%s" % [startingUserDirectory, szFilePath])
-	for file_name: String in directories:
-		if(extensionsForText.has(file_name.get_extension())):
-		# if file_name.ends_with(".txt") or file_name.ends_with(".md"):
-			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.TEXT_FILE)
-		# elif file_name.ends_with(".png") or file_name.ends_with(".jpg") or file_name.ends_with(".jpeg") \
-		# or file_name.ends_with(".webp"):
-		elif (extensionsForImage.has(file_name.get_extension())):
-			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.IMAGE)
-		elif (extensionsForScene.has(file_name.get_extension())):
-			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.SCENE_FILE)
-		else:
-			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.UNKNOWN)
-	
-	if(!DirAccess.dir_exists_absolute("%s%s" % [startingUserDirectory, szFilePath])):
-		if(parentWindow):
-			parentWindow._on_close_button_pressed()
-			return
-		# queue_free()
-	directories.clear()
-	await get_tree().process_frame
-	await get_tree().process_frame # TODO fix whatever's causing a race condition :/
-	SortFolders()
-
 func PopulateWithFolder(fileName: String, path: String) -> void:
+	for folder: Node in currentChildren:
+		var f: BaseFile = folder as BaseFile
+		if f and f.eFileType == BaseFile.E_FILE_TYPE.FOLDER and f.szFilePath == path:
+			return
 	var folder: BaseFile = folderFile.instantiate()
 	var fileType: BaseFile.E_FILE_TYPE = BaseFile.E_FILE_TYPE.FOLDER
 	folder.szFileName = fileName
@@ -123,6 +96,10 @@ func PopulateWithFolder(fileName: String, path: String) -> void:
 	itemLocations["%s%s" % [path, fileName]] = Vector2(0, 0)
 
 func PopulateWithFile(fileName: String, path: String, fileType: BaseFile.E_FILE_TYPE) -> void:
+	for folder: Node in currentChildren:
+		var f: BaseFile = folder as BaseFile
+		if f and f.eFileType == fileType and f.szFilePath == path and f.szFileName == fileName:
+			return
 	var file: BaseFile# = baseFileScene.instantiate()
 	if(fileType == BaseFile.E_FILE_TYPE.TEXT_FILE):
 		file = textFile.instantiate()
@@ -135,13 +112,11 @@ func PopulateWithFile(fileName: String, path: String, fileType: BaseFile.E_FILE_
 	else:
 		file = baseFile.instantiate()
 	#load a thumbnail if one exists for this file extension
-	if(iconList.has(fileName.get_extension())):
-		if(iconList.has(fileName.get_basename())):
-			#see if we have an icon for this exact application
-			file.fileIcon = ResourceLoader.load(iconList[fileName.get_basename()])
-		else:
-			file.fileIcon = ResourceLoader.load(iconList[fileName.get_extension()])
-	
+	var fileIcon: Texture2D = ResourceManager.GetResourceOrNull(fileName.get_basename())
+	if !fileIcon:
+		fileIcon = ResourceManager.GetResourceOrNull(fileName.get_extension())
+	if(fileIcon):
+		file.fileIcon = fileIcon
 
 	file.szFileName = fileName
 	file.szFilePath = path
@@ -315,30 +290,42 @@ func _custom_folders_first_sort(a: BaseFile, b: BaseFile) -> bool:
 	return false
 
 func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
-	if(data is BaseFile):
-		if((data as BaseFile).szFilePath == self.szFilePath):
-			return false
+	if(data is Array[Node]):
+		for file: Node in data as Array[Node]:
+			if(file and !file.is_queued_for_deletion() and file is BaseFile):
+				if((file as BaseFile).szFilePath == self.szFilePath):
+					return false
+		#if((data as BaseFile).szFilePath == self.szFilePath):
+		#	return false
 		return true
 	return false
 
 func _drop_data(_at_position: Vector2, data: Variant) -> void:
-	if(data is BaseFile):
-		var currentFile: BaseFile = (data as BaseFile)
-		#look through children to see if we are dropping an item into ourself
-		#if so, do nothing
-		for child: Node in currentChildren:
-			if (child == currentFile):
-				return;
-		
-		#not an item in this window already, copy or move it
-		# CopyPasteManager.cut_folder(currentFile)
-		# CopyPasteManager.paste_folder(szFilePath)
-		var from: String = "user://files/%s" % currentFile.szFilePath
-		var to: String = "user://files/%s/" % szFilePath
-		if(currentFile.eFileType != BaseFile.E_FILE_TYPE.FOLDER):
-			from = "%s/%s" % [from, currentFile.szFileName]
-		CopyPasteManager.CopyAllFilesOrFolders([from], to, true, true)
+	if(data is Array[Node]):
+		var to: String = szFilePath
+		CopyPasteManager.CutMultiple(data)
+		CopyPasteManager.paste_folder(to)
 		BaseFileManager.RefreshAllFileManagers()
+		# for file: Node in data as Array[Node]:
+		# 	if(file and !file.is_queued_for_deletion() and file is BaseFile):
+		# 		var currentFile: BaseFile = file as BaseFile
+
+		# 		for child: Node in currentChildren:
+		# 			if (child == currentFile):
+		# 				return;
+		
+		# 		var from: String = "%s%s" % [ResourceManager.GetPathToUserFiles(),currentFile.szFilePath]
+		# 		if(currentFile.eFileType != BaseFile.E_FILE_TYPE.FOLDER):
+		# 			from = "%s/%s" % [from, currentFile.szFileName]
+				
+
+		# 		# if(!currentFile.szFilePath.is_empty()):
+		# 		# 	from = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), f.szFilePath, f.szFileName]
+		# 		# else:
+		# 		# 	from = "%s%s" % [ResourceManager.GetPathToUserFiles(), f.szFileName]
+
+		# 		CopyPasteManager.CopyAllFilesOrFolders([from], to, true, true)
+				# BaseFileManager.RefreshAllFileManagers()
 		# CopyAllFilesOrFolders("%s/%s" % [currentFile.szFilePath, currentFile.szFileName], szFilePath)
 
 
@@ -354,12 +341,11 @@ func _exit_tree() -> void:
 	
 func OnDroppedFolders(files: PackedStringArray) -> void:
 	CopyPasteManager.CopyAllFilesOrFolders(files)
-		# get_tree().get_first_node_in_group("desktop_file_manager").populate_file_manager()
-	Refresh()
+	BaseFileManager.RefreshAllFileManagers()
 
-func _gui_input(event: InputEvent) -> void:
-	if(event.is_action_pressed(&"RightClick")):
-		HandleRightClick()
+#func _gui_input(event: InputEvent) -> void:
+	#if(event.is_action_pressed(&"RightClick")):
+	#	HandleRightClick()
 
 func HandleRightClick() -> void:
 	RClickMenuManager.instance.ShowMenu("File Manager Menu", self)
@@ -372,12 +358,15 @@ func HandleRightClick() -> void:
 
 func NewFolder() -> void:
 	CreateNewFolder()
+	Refresh()
 
 func Paste() -> void:
 	CopyPasteManager.paste_folder(szFilePath)
+	BaseFileManager.RefreshAllFileManagers()
 
 func NewFile() -> void:
 	CreateNewFile("txt", BaseFile.E_FILE_TYPE.TEXT_FILE)
+	Refresh()
 
 func Refresh() -> void:
 	RefreshManager()
@@ -387,3 +376,75 @@ func Close() -> void:
 
 func Properties() -> void:
 	RefreshManager()
+
+var filesSelected: Array[Node]
+var bDraggingRMB: bool
+func CopySelection() -> void:
+	CopyPasteManager.CopyMultiple(filesSelected)
+func CutSelection() -> void:
+	CopyPasteManager.CutMultiple(filesSelected)
+
+func RightClickedSelection(selection: Array[Node]) -> void:
+	if(!selection):
+		HandleRightClick()
+	elif(!selection.is_empty()):
+		filesSelected = selection
+		RClickMenuManager.instance.ShowMenu("File Manager Menu", self)
+		RClickMenuManager.instance.AddMenuItem("Copy", CopySelection, ResourceManager.GetResource("Copy"))
+		RClickMenuManager.instance.AddMenuItem("Cut", CutSelection, ResourceManager.GetResource("Cut"))
+
+func ClearSelection(items: Array[Node]) -> void:
+	for item in items:
+		if(item and !item.is_queued_for_deletion() and item is BaseFile):
+			var file: BaseFile = item
+			file.hide_selected_highlight()
+	BaseFile.selectedFiles.clear()
+#dragging from an empty space over new items to select
+func DragSelectingItems(items: Array[Node], itemsOld: Array[Node]) -> void:
+	#RClickMenuManager.instance.DismissMenu()
+	bDraggingRMB = clickHandler.bRMB
+	ClearSelection(itemsOld)
+	for item in items:
+		if(item is BaseFile):
+			var file: BaseFile = item
+			file.show_selected_highlight()
+#drag ended on the selected items
+func DragSelectingItemsEnded(items: Array[Node]) -> void:
+	if(clickHandler.bRMB):
+		print("drag select ended with rmb: items: %s" % items)
+		if(items.is_empty()):
+			HandleRightClick()
+		else:
+			RightClickedSelection(items)
+	for item in items:
+		if(item is BaseFile):
+			var file: BaseFile = item
+			print("dragging selected item ended %s" % file.szFileName)
+			file.show_selected_highlight()
+
+#dragging a selection of currently selected items
+func DragSelectedItemsBegin(items: Array[Node]) -> void:
+	#RClickMenuManager.instance.DismissMenu()
+	bDraggingRMB = clickHandler.bRMB
+	for item in items:
+		if(item is BaseFile):
+			var file: BaseFile = item
+			print("dragging selected item %s" % file.szFileName)
+			file.show_selected_highlight()
+#dragging around after selecting a group of items
+func DraggingSelectedItems(items: Array[Node]) -> void:
+	for item in items:
+		if(item is BaseFile):
+			var file: BaseFile = item
+			file.show_selected_highlight()
+			#file._get_drag_data(get_global_mouse_position())
+			file.force_drag(file, file.fileTexture.get_parent().duplicate())
+#drag ended and we dropped the items here
+func DropItems(items: Array[Node]) -> void:
+	for item in items:
+		if(item is BaseFile):
+			var file: BaseFile = item
+			print(file)
+			file.show_selected_highlight()
+			#file._get_drag_data(get_global_mouse_position())
+			file.force_drag(file, file.fileTexture.get_parent().duplicate())

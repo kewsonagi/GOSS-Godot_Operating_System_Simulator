@@ -2,21 +2,28 @@ extends TextureRect
 class_name Wallpaper
 
 ## The desktop wallpaper, has an empty texture when the wallpaper is removed.
-
+@export var backgroundColor: ColorRect
+@export var dummyTexture: Texture2D
 signal wallpaper_added()
 static var wallpaperInstance: Wallpaper
 
 func _ready() -> void:
 	wallpaperInstance = self;
 	# I use a node to fade because fading modulate doesn't work if there is no texture
-	$Fade.modulate.a = 0
-	$Fade.visible = true
+	#$Fade.modulate.a = 0
+	#$Fade.visible = true
+	
+	if(backgroundColor):
+		DefaultValues.background_color_rect = backgroundColor
+		DefaultValues.wallpaper = self
+	
+	DefaultValues.load_state()
 
 ## Applies wallpaper from path (called from default_values.gd on start)
 func apply_wallpaper_from_path(path: String) -> void:
 	wallpaper_added.emit()
 	
-	var image: Image = Image.load_from_file("user://%s" % path)
+	var image: Image = Image.load_from_file(ProjectSettings.globalize_path("user://%s" % path))
 	add_wallpaper(image)
 
 ## Applies wallpaper from an image file
@@ -24,13 +31,13 @@ func apply_wallpaper_from_file(image_file: BaseFile) -> void:
 	wallpaper_added.emit()
 	DefaultValues.save_wallpaper(image_file)
 	
-	var image: Image = Image.load_from_file("user://files/%s/%s" % [image_file.szFilePath, image_file.szFileName])
+	var image: Image = Image.load_from_file("%s%s/%s" % [ResourceManager.GetPathToUserFiles(),image_file.szFilePath, image_file.szFileName])
 	add_wallpaper(image)
 func apply_wallpaper_from_filename(fileName: String, filePath: String) -> void:
 	wallpaper_added.emit()
 	DefaultValues.save_wallpaperByName(filePath, fileName)
 	
-	var image: Image = Image.load_from_file("user://files/%s/%s" % [filePath, fileName])
+	var image: Image = Image.load_from_file("%s%s/%s" % [ResourceManager.GetPathToUserFiles(),filePath, fileName])
 	add_wallpaper(image)
 
 func add_wallpaper(image: Image) -> void:
@@ -39,25 +46,22 @@ func add_wallpaper(image: Image) -> void:
 	
 	var tween: Tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
-	await tween.tween_property($Fade, "modulate:a", 1, 0.5).finished
+	#await tween.tween_property(self, "self_modulate:a", 0.5, 0.5).finished
 	
 	texture = texture_import
 	
-	var tween2: Tween = create_tween()
-	tween2.set_trans(Tween.TRANS_CUBIC)
-	tween2.tween_property($Fade, "modulate:a", 0, 0.5)
+	tween.tween_property(self, "self_modulate:a", 1, 0.5)
 
 func remove_wallpaper() -> void:
 	DefaultValues.delete_wallpaper()
 	var tween: Tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
-	await tween.tween_property($Fade, "modulate:a", 1, 0.5).finished
+	#await tween.tween_property(self, "self_modulate:a", 0.5, 0.5).finished
+	tween.tween_property(self, "self_modulate:a", 0, 0.5)
 	
 	texture = null
+	texture = dummyTexture#.duplicate()
 	
-	var tween2: Tween = create_tween()
-	tween2.set_trans(Tween.TRANS_CUBIC)
-	tween2.tween_property($Fade, "modulate:a", 0, 0.5)
 
 func apply_wallpaper_stretch_mode(new_stretch_mode: TextureRect.StretchMode) -> void:
 	stretch_mode = new_stretch_mode
