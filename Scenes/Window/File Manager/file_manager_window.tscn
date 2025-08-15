@@ -25,7 +25,7 @@ size = Vector2i(535, 407)
 [node name="MarginContainer" parent="SubViewportContainer/SubViewport" index="0"]
 mouse_filter = 2
 
-[node name="SubViewportContainer_SubViewport_TransitionNode_Top Bar#TransitionNode_Top Bar#Top Bar#Top Bar#Back Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="3"]
+[node name="Back" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="3"]
 custom_minimum_size = Vector2(40, 24)
 layout_mode = 1
 anchors_preset = -1
@@ -50,9 +50,11 @@ offset_top = 29.500004
 offset_right = -0.015014648
 offset_bottom = 2.5
 windowTitle = NodePath("../Top Bar/Title Text")
+extensionsForText = PackedStringArray()
+extensionsForImage = PackedStringArray()
 parentWindow = NodePath("../../../../..")
 
-[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/SubViewportContainer_SubViewport_TransitionNode_Top Bar#TransitionNode_Top Bar#Top Bar#Top Bar#Back Button" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/FileManagerWindow" method="_on_back_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/Back" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/FileManagerWindow" method="_on_back_button_pressed"]
 
 [editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar"]
 [editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots"]

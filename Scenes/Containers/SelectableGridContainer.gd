@@ -8,6 +8,7 @@ class_name SelectableGridContainer
 @export var updateRate: float = 0.15
 ## The speed of the Tween animation, in seconds.
 @export var animSpeed: float = 0.5
+@export var gridColumbs: int = 3
 
 @export_group("Spacing")
 @export var hSpacing: int = 10
@@ -162,8 +163,8 @@ func UpdateItems() -> void:
 		UpdateVertical()
 	elif direction == "Grid":
 		UpdateGrid()
-		ShowHBar(nNextPosition.x > (childContainer.size.x))
-		ShowVbar(nNextPosition.y > (childContainer.size.y))
+		#ShowHBar(nNextPosition.x > (childContainer.size.x))
+		#ShowVbar(nNextPosition.y > (childContainer.size.y))
 
 	nUpdateTime = Time.get_ticks_msec()
 
@@ -250,12 +251,15 @@ func UpdateVertical() -> void:
 func UpdateGrid() -> void:
 	var new_line_count: int = 0
 	nLineCount = 0
+	hSpacing = (size.x - leftMargin - rightMargin) / gridColumbs-5
+	totalChildrenSize.x = hSpacing * gridColumbs
+	totalChildrenSize.y = currentChildren.size() / gridColumbs
+
 
 	for child: Node in currentChildren:
 		if (nNextPosition.x + child.size.x + hSpacing) > (size.x - leftMargin - rightMargin):
 			nNextPosition.x = 0
 			nNextPosition.y += largestChild.y + vSpacing
-
 			largestChild = Vector2(0.0, 0.0)
 
 			nLineCount = new_line_count
@@ -268,18 +272,18 @@ func UpdateGrid() -> void:
 		if child.size.x > largestChild.x:
 			largestChild.x = child.size.x
 
-		if nNextPosition.x + child.size.x > totalChildrenSize.x:
-			totalChildrenSize.x = nNextPosition.x + child.size.x
+		# if nNextPosition.x + child.size.x > totalChildrenSize.x:
+		# 	totalChildrenSize.x = nNextPosition.x + child.size.x
 		if nNextPosition.y + child.size.y > totalChildrenSize.y:
 			totalChildrenSize.y = nNextPosition.y + child.size.y
 
-		nNextPosition.x += child.size.x + hSpacing
+		nNextPosition.x += hSpacing
 		new_line_count += 1
 	if nLineCount == 0:
 		nLineCount = new_line_count
 
 	ShowVbar(totalChildrenSize.y > (size.y - bottomMargin - topMargin))
-	ShowHBar(totalChildrenSize.x > (size.x - leftMargin - rightMargin))
+	#ShowHBar(totalChildrenSize.x > (size.x - leftMargin - rightMargin))
 
 
 func CreateTween() -> void:
@@ -374,11 +378,11 @@ func ScrollChangedV(value: float) -> void:
 
 
 func MouseScrollUpDown(value: float) -> void:
-	vSlideControl.value = vSlideControl.value + value * scrollSpeed.y
+	vSlideControl.value = vSlideControl.value + value * -scrollSpeed.y
 
 
 func MouseScrollLeftRight(value: float) -> void:
-	hSlideControl.value = hSlideControl.value + value * scrollSpeed.x
+	hSlideControl.value = hSlideControl.value + value * -scrollSpeed.x
 
 
 #endregion

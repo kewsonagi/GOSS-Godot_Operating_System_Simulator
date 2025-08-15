@@ -61,7 +61,7 @@ func trigger_rename() -> void:
 			return
 		folder.szFileName = new_folder_name
 		DirAccess.rename_absolute("%s%s/%s" % [ResourceManager.GetPathToUserFiles(), folder.szFilePath, old_folder_name], "%s%s/%s" % [ResourceManager.GetPathToUserFiles(),folder.szFilePath, folder.szFileName])
-		fileLabelControl.text = "%s" % folder.szFileName.get_basename()
+		fileLabelControl.text = "%s" % folder.szFileName#.get_basename()
 		
 		FileManagerWindow.RefreshAllFileManagers()
 		# if folder.get_parent() is DesktopFileManager:
@@ -98,14 +98,14 @@ func trigger_rename() -> void:
 		fileLabelControl.text = "%s" % folder.szFileName
 		DirAccess.rename_absolute("%s%s" % [ResourceManager.GetPathToUserFiles(),old_folder_path], "%s%s" % [ResourceManager.GetPathToUserFiles(),folder.szFilePath])
 		
-		if folder.get_parent() is DesktopFileManager:
-			folder.get_parent().sort_folders()
-		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-			if file_manager.szFilePath.begins_with(old_folder_path):
-				file_manager.szFilePath = file_manager.szFilePath.replace(old_folder_path, folder.szFilePath)
-				file_manager.reload_window("")
-			elif file_manager.szFilePath == folder.szFilePath.trim_suffix("/%s" % folder.szFileName):
-				file_manager.sort_folders()
+		# if folder.get_parent() is DesktopFileManager:
+		# 	folder.get_parent().sort_folders()
+		# for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
+		# 	if file_manager.szFilePath.begins_with(old_folder_path):
+		# 		file_manager.szFilePath = file_manager.szFilePath.replace(old_folder_path, folder.szFilePath)
+		# 		file_manager.reload_window("")
+		# 	elif file_manager.szFilePath == folder.szFilePath.trim_suffix("/%s" % folder.szFileName):
+		# 		file_manager.sort_folders()
 	
 	text = ""
 	self.release_focus()

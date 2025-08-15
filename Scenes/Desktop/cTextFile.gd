@@ -17,7 +17,7 @@ func OpenFile() -> void:
 		filename = "%s/%s" % [szFilePath, szFileName]
 	
 	windowData["Filename"] = filename;
-	window = DefaultValues.spawn_window("res://Scenes/Window/Text Editor/text_editor.tscn", windowName, windowID, windowData, windowParent)
+	window = DefaultValues.spawn_window("res://Applications/text_editor.tscn", windowName, windowID, windowData, windowParent)
 	#window.title_text = windowName#%"Folder Title".text
 	window.titlebarIcon.icon = fileTexture.texture
 	

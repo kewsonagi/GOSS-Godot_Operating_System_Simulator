@@ -1,5 +1,6 @@
-[gd_scene load_steps=30 format=3 uid="uid://cfj5p5pgfnywp"]
+[gd_scene load_steps=32 format=3 uid="uid://cfj5p5pgfnywp"]
 
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_7g4n6"]
 [ext_resource type="Script" uid="uid://clkes7h7romou" path="res://Scenes/Taskbar/start_button.gd" id="1_aypgd"]
 [ext_resource type="Texture2D" uid="uid://copqhcnqdgm3b" path="res://Art/shaded/Power.png" id="2_0bho0"]
 [ext_resource type="PackedScene" uid="uid://da4oly47yx3ja" path="res://Scenes/Taskbar/start_menu_option.tscn" id="2_1ualm"]
@@ -7,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ohgwvdetih50" path="res://Games/Snake/boot.tscn" id="3_0yb84"]
 [ext_resource type="Script" uid="uid://ovt5fnqwt48p" path="res://Scenes/Taskbar/power_button.gd" id="4_cnyss"]
 [ext_resource type="PackedScene" uid="uid://dfodxrenoxf8w" path="res://Scenes/Main/Boot Splash/shutdown_splash.tscn" id="4_esxxc"]
+[ext_resource type="PackedScene" uid="uid://cdor2s0hydipy" path="res://Games/Super Bit Boy/boot.tscn" id="4_nsctb"]
 [ext_resource type="PackedScene" uid="uid://c5ak0ylkbsh6c" path="res://Games/Pong/boot.tscn" id="4_x4hik"]
 [ext_resource type="Texture2D" uid="uid://c52c3p0h1475m" path="res://Art/shaded/02-cog.png" id="5_0bho0"]
 [ext_resource type="PackedScene" uid="uid://lmxmnq0enui8" path="res://Games/Cube Scene/boot.tscn" id="5_br71q"]
@@ -65,10 +67,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("1_7g4n6")
 
 [node name="StartMenuAnchor" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -60.0
@@ -78,9 +80,9 @@ pivot_offset = Vector2(30, 30)
 
 [node name="Start Menu" type="Panel" parent="StartMenuAnchor"]
 layout_mode = 1
-offset_left = 5.0
+anchors_preset = -1
 offset_top = 60.0
-offset_right = 355.0
+offset_right = 350.0
 offset_bottom = 616.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0bho0")
 
@@ -94,12 +96,10 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="GridContainer" parent="StartMenuAnchor/Start Menu/Panel"]
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -360.0
-grow_horizontal = 0
+grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
@@ -111,6 +111,13 @@ game_scene = "res://Games/Godotris/Game/boot.tscn"
 gameScene = ExtResource("2_aknao")
 title_text = "Godotris"
 description_text = "Stack blocks, clear lines!"
+
+[node name="Bit Boy" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
+layout_mode = 2
+game_scene = "res://Games/Super Bit Boy/boot.tscn"
+gameScene = ExtResource("4_nsctb")
+title_text = "1 Bit Boy"
+description_text = "Bit Boy platform adventure"
 
 [node name="Snake Option" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_1ualm")]
 layout_mode = 2
@@ -170,7 +177,7 @@ use_generic_pause_menu = false
 [node name="Power Button" type="Button" parent="StartMenuAnchor/Start Menu"]
 texture_filter = 3
 layout_mode = 1
-anchors_preset = 3
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -193,7 +200,7 @@ boot_splash_scene = ExtResource("4_esxxc")
 [node name="Settings Button" type="Button" parent="StartMenuAnchor/Start Menu"]
 texture_filter = 3
 layout_mode = 1
-anchors_preset = 3
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -226,6 +233,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_mxh1o")
 
 [node name="Start Button" type="MarginContainer" parent="Taskbar" node_paths=PackedStringArray("start_menu")]
 layout_mode = 1
+anchors_preset = -1
 offset_right = 60.0
 offset_bottom = 60.0
 pivot_offset = Vector2(30, 30)
@@ -247,7 +255,7 @@ stretch_mode = 5
 [node name="ScrollContainer" type="ScrollContainer" parent="Taskbar"]
 clip_contents = false
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 48.0
@@ -264,7 +272,6 @@ alignment = 1
 
 [node name="TimeAndDate" type="Control" parent="Taskbar"]
 layout_mode = 1
-anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0

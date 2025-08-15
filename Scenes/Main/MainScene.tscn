@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bmjyglrsf04uo"]
+[gd_scene load_steps=16 format=3 uid="uid://bmjyglrsf04uo"]
 
 [ext_resource type="Script" uid="uid://crccellk2oo41" path="res://Scenes/Main/desktop_file_manager.gd" id="1_c0q37"]
 [ext_resource type="Texture2D" uid="uid://bwxnhif5h1cck" path="res://Art/Pixel_32.png" id="1_r8g3u"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://chw3lje7gvraw" path="res://Scenes/Desktop/BaseFile.tscn" id="3_rgj25"]
 [ext_resource type="PackedScene" uid="uid://cf8xeflv0r6pd" path="res://Scenes/Desktop/ImageFile.tscn" id="4_rgj25"]
 [ext_resource type="PackedScene" uid="uid://cwsu2o7l3rfm4" path="res://Scenes/Desktop/FolderFile.tscn" id="5_r8g3u"]
+[ext_resource type="PackedScene" uid="uid://b8ufm8ymt53lu" path="res://Scenes/Desktop/SceneFile.tscn" id="7_gow0r"]
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="8_fwn18"]
 [ext_resource type="PackedScene" uid="uid://cxl0f781joa6d" path="res://Scenes/Autoloads/RClick Menu Manager/RClickMenu.tscn" id="11_6epw3"]
 
@@ -87,6 +88,7 @@ defaultFilesLocation = "res://Default Files/"
 baseFile = ExtResource("3_rgj25")
 textFile = ExtResource("3_ctt6t")
 imageFile = ExtResource("4_rgj25")
+sceneFile = ExtResource("7_gow0r")
 folderFile = ExtResource("5_r8g3u")
 pathToIcons = "res://Art/free-file-icons-master/512px/"
 direction = "Vertical"

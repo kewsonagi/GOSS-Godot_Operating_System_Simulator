@@ -39,7 +39,7 @@ func _ready() -> void:
 		
 	hoverHighlightControl.self_modulate.a = 0
 	selectedHighlightControl.visible = false
-	fileTitleControl.text = "%s" % szFileName.get_basename()
+	fileTitleControl.text = "%s" % szFileName#.get_basename()
 	titleEditBox.text = fileTitleControl.text
 	
 	fileTexture.modulate = fileColor
@@ -172,8 +172,9 @@ func delete_file() -> void:
 	queue_free()
 
 func OpenFile() -> void:
-	var filePath: String = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), szFilePath, szFileName]
-	OS.shell_open(filePath)
+	var filePath: String = "%s%s%s" % [ResourceManager.GetPathToUserFiles(), szFilePath, szFileName]
+	AppManager.LaunchAppByExt(szFileName.get_extension(), filePath, true)
+	#OS.shell_open(filePath)
 	return
 func DeleteFile() -> void:
 	for file: Node in selectedFiles:
@@ -193,7 +194,7 @@ func DeleteFile() -> void:
 						file_manager.Close()
 					elif get_parent() is BaseFileManager and file_manager.szFilePath == f.get_parent().szFilePath:
 						file_manager.delete_file_with_name(f.szFileName)
-						file_manager.UpdateItems()
+						#file_manager.UpdateItems()
 			else:
 				var delete_path: String = ProjectSettings.globalize_path("%s%s/%s" % [ResourceManager.GetPathToUserFiles(), f.szFilePath, f.szFileName])
 				if !FileAccess.file_exists(delete_path):
@@ -202,7 +203,7 @@ func DeleteFile() -> void:
 				for file_manager: BaseFileManager in BaseFileManager.masterFileManagerList:
 					if file_manager.szFilePath == f.szFilePath:
 						file_manager.delete_file_with_name(f.szFileName)
-						file_manager.SortFolders()
+						#file_manager.SortFolders()
 			#########################
 			
 	selectedFiles.clear()

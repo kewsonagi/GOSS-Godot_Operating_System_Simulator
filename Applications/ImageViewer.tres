@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AppManifest" load_steps=3 format=3 uid="uid://cala6b4lqju67"]
+
+[ext_resource type="Texture2D" uid="uid://bnvcfipxcfprr" path="res://Art/Icons - icones/photo-software.png" id="1_s4ysr"]
+[ext_resource type="Script" uid="uid://db3jxs22pw5gq" path="res://Scenes/Autoloads/ApplicationManager/AppManifest.gd" id="2_enarr"]
+
+[resource]
+script = ExtResource("2_enarr")
+key = "ImageViewer"
+name = "Photo Viewer"
+description = "View your images"
+path = "res://Applications/image_viewer.tscn"
+icon = ExtResource("1_s4ysr")
+extensionAssociations = ["png", "jpg", "jpeg", "webp", "tif", "ico", "svg", "gif", "cur", "bmp"]
+metadata/_custom_type_script = "uid://db3jxs22pw5gq"

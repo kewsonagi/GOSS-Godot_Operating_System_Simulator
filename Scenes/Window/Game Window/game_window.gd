@@ -2,12 +2,24 @@ extends SubViewport
 
 ## The game window, used to show games.
 
-@export var window: FakeWindow# = $"../../.."
+@export var parentWindow: FakeWindow# = $"../../.."
 @export var game_pause_manager: GamePauseManager# = %"GamePauseManager"
 
 func _ready() -> void:
-	window.minimized.connect(_handle_window_minimized)
-	window.selected.connect(_handle_window_selected)
+	if(parentWindow.creationData.has("BootScene")):
+
+		var gameBootloader: Node = ResourceLoader.load(parentWindow.creationData["BootScene"]).instantiate()
+		if(gameBootloader is BootGame):
+			add_child(gameBootloader)
+			(gameBootloader as BootGame).StartGame()
+			if((gameBootloader as BootGame).spawnedWindow):
+				add_child((gameBootloader as BootGame).spawnedWindow)
+		else:
+			add_child(gameBootloader)
+
+
+	parentWindow.minimized.connect(_handle_window_minimized)
+	parentWindow.selected.connect(_handle_window_selected)
 	
 func _handle_window_minimized(is_minimized: bool) -> void:
 	if game_pause_manager.is_paused:
@@ -21,8 +33,10 @@ func _handle_window_minimized(is_minimized: bool) -> void:
 ## Disables input if the window isn't selected.
 func _handle_window_selected(is_selected: bool) -> void:
 	# TODO check if this wrecks performance
-	#handle_input_locally = false
-	set_input(self, is_selected)
+	if(is_selected):
+		handle_input_locally = true
+	
+	#set_input(self, is_selected)
 
 # WARNING recursively loops on every node in the game. Probably a bad idea.
 func set_input(node: Node, can_input: bool) -> void:

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AppManifest" load_steps=3 format=3 uid="uid://c7j3x4eo71p0o"]
+
+[ext_resource type="Texture2D" uid="uid://ddu0lmx6decp3" path="res://Art/Icons - icones/book-01.png" id="1_64cl2"]
+[ext_resource type="Script" uid="uid://db3jxs22pw5gq" path="res://Scenes/Autoloads/ApplicationManager/AppManifest.gd" id="2_orsgq"]
+
+[resource]
+script = ExtResource("2_orsgq")
+key = "TextViewer"
+name = "Text Editor"
+description = "View and edit your files"
+path = "res://Applications/text_editor.tscn"
+icon = ExtResource("1_64cl2")
+extensionAssociations = PackedStringArray("txt", "c", "cpp", "h", "gd", "cs", "md", "import", "js", "py", "log")
+metadata/_custom_type_script = "uid://db3jxs22pw5gq"

@@ -102,17 +102,19 @@ func spawn_game_window(sceneToLoadInsideWindow: String, windowName: String = "Un
 	#var boot: BootGame = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
 	var window: FakeWindow
 	window = ResourceLoader.load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
-	var gameWindowNode: Node = window.get_node("%Game Window")
-	var gameBootloader: Node = ResourceLoader.load(sceneToLoadInsideWindow).instantiate()
-	if(gameBootloader is BootGame):
-		gameWindowNode.add_child(gameBootloader)
-		(gameBootloader as BootGame).StartGame()
-		if((gameBootloader as BootGame).spawnedWindow):
-			gameWindowNode.add_child((gameBootloader as BootGame).spawnedWindow)
+	data["BootScene"] = sceneToLoadInsideWindow
 
-		#gameBootloader.queue_free()
-	else:
-		gameWindowNode.add_child(gameBootloader)
+	#var gameWindowNode: Node = window.get_node("%Game Window")
+	# var gameBootloader: Node = ResourceLoader.load(sceneToLoadInsideWindow).instantiate()
+	# if(gameBootloader is BootGame):
+	# 	gameWindowNode.add_child(gameBootloader)
+	# 	(gameBootloader as BootGame).StartGame()
+	# 	if((gameBootloader as BootGame).spawnedWindow):
+	# 		gameWindowNode.add_child((gameBootloader as BootGame).spawnedWindow)
+
+	# 	#gameBootloader.queue_free()
+	# else:
+	# 	gameWindowNode.add_child(gameBootloader)
 	
 	window.title_text = windowName;
 	window.SetID(windowID)

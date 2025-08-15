@@ -28,7 +28,7 @@ func _input(event: InputEvent) -> void:
 
 func populate_text(path: String) -> void:
 	szFileName = path
-	var file: FileAccess = FileAccess.open("%s%s" % [ResourceManager.GetPathToUserFiles(),szFileName], FileAccess.READ)
+	var file: FileAccess = FileAccess.open(szFileName, FileAccess.READ)
 	text = file.get_as_text()
 
 func _on_text_changed() -> void:
@@ -42,11 +42,11 @@ func save_file() -> void:
 	if !text_edited:
 		return
 	
-	if !FileAccess.file_exists("%s%s" % [ResourceManager.GetPathToUserFiles(),szFileName]):
+	if !FileAccess.file_exists(szFileName):
 		NotificationManager.ShowNotification("[color=fc6c64]Couldn't save text file: File no longer exists")
 		return
 	
-	var file: FileAccess = FileAccess.open("%s%s" % [ResourceManager.GetPathToUserFiles(),szFileName], FileAccess.WRITE)
+	var file: FileAccess = FileAccess.open(szFileName, FileAccess.WRITE)
 	file.store_string(text)
 	
 	parentWindow.titleText.text = parentWindow.titleText.text.trim_suffix("*")

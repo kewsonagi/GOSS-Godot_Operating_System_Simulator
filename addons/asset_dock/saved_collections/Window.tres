@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="CollectionsData" load_steps=2 format=3 uid="uid://b4f5lmmnoycb2"]
-
-[ext_resource type="Script" uid="uid://b0xqdrlumnkhv" path="res://addons/asset_dock/collection_data.gd" id="1_gvb26"]
-
-[resource]
-script = ExtResource("1_gvb26")
-collection_name = "Window"
-collection_items = Array[int]([1414998858762058870, 1764556539495661846, -1, 614826669418282367])

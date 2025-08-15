@@ -1,0 +1,111 @@
+[gd_scene load_steps=8 format=3 uid="uid://bki8eivmapypc"]
+
+[ext_resource type="Script" uid="uid://c2rvtlk83su4u" path="res://Scenes/Window/Bubble File Manager/BubbleWindow.gd" id="1_rah6e"]
+[ext_resource type="PackedScene" uid="uid://chw3lje7gvraw" path="res://Scenes/Desktop/BaseFile.tscn" id="2_hd2qg"]
+[ext_resource type="PackedScene" uid="uid://blxpspp2wqdbs" path="res://Scenes/Desktop/TextFile.tscn" id="3_uf8dq"]
+[ext_resource type="PackedScene" uid="uid://cf8xeflv0r6pd" path="res://Scenes/Desktop/ImageFile.tscn" id="4_7niy5"]
+[ext_resource type="PackedScene" uid="uid://b8ufm8ymt53lu" path="res://Scenes/Desktop/SceneFile.tscn" id="5_2l1p0"]
+[ext_resource type="PackedScene" uid="uid://cwsu2o7l3rfm4" path="res://Scenes/Desktop/FolderFile.tscn" id="6_f2jal"]
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="7_70eqx"]
+
+[node name="AppContainer" type="Control" node_paths=PackedStringArray("hSlideControl", "hScrollControl", "vSlideControl", "vScrollControl", "childContainer")]
+clip_contents = true
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 30.0
+offset_bottom = 0.8500061
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_rah6e")
+baseFile = ExtResource("2_hd2qg")
+textFile = ExtResource("3_uf8dq")
+imageFile = ExtResource("4_7niy5")
+sceneFile = ExtResource("5_2l1p0")
+folderFile = ExtResource("6_f2jal")
+pathToIcons = "res://Art/free-file-icons-master/512px/"
+direction = "Grid"
+animSpeed = 0.3000000000029104
+hSpacing = 20
+vSpacing = 20
+leftMargin = 5
+topMargin = 5
+rightMargin = -5
+bottomMargin = -20
+hSlideControl = NodePath("HSlider")
+hScrollControl = NodePath("HScrollBar")
+vSlideControl = NodePath("VSlider")
+vScrollControl = NodePath("VScrollBar")
+childContainer = NodePath("ContainerChild")
+metadata/_custom_type_script = "uid://0e08uudim1di"
+
+[node name="ContainerChild" type="Control" parent="."]
+clip_children = 2
+clip_contents = true
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -16.0
+offset_right = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("7_70eqx")
+max_value = 1.0
+step = 0.05000000000291038
+
+[node name="VSlider" type="VSlider" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = 30.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("7_70eqx")
+max_value = 1.0
+step = 0.05000000000291038
+
+[node name="HScrollBar" type="HScrollBar" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -30.0
+offset_right = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("7_70eqx")
+max_value = 1.0
+step = 0.05000000000291038
+value = 1.0
+
+[node name="VScrollBar" type="VScrollBar" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = 30.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("7_70eqx")
+max_value = 1.0
+step = 0.05000000000291038
+value = 1.0

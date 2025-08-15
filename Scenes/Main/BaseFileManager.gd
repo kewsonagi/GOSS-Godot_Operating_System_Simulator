@@ -96,18 +96,20 @@ func PopulateWithFolder(fileName: String, path: String) -> void:
 	itemLocations["%s%s" % [path, fileName]] = Vector2(0, 0)
 
 func PopulateWithFile(fileName: String, path: String, fileType: BaseFile.E_FILE_TYPE) -> void:
+	#avoid duplicate files
 	for folder: Node in currentChildren:
 		var f: BaseFile = folder as BaseFile
 		if f and f.eFileType == fileType and f.szFilePath == path and f.szFileName == fileName:
 			return
+
 	var file: BaseFile# = baseFileScene.instantiate()
-	if(fileType == BaseFile.E_FILE_TYPE.TEXT_FILE):
-		file = textFile.instantiate()
-	elif(fileType == BaseFile.E_FILE_TYPE.IMAGE):
-		file = imageFile.instantiate()
-	elif(fileType == BaseFile.E_FILE_TYPE.SCENE_FILE):
-		file = sceneFile.instantiate()
-	elif(fileType == BaseFile.E_FILE_TYPE.FOLDER):
+	#if(fileType == BaseFile.E_FILE_TYPE.TEXT_FILE):
+	#	file = textFile.instantiate()
+	#elif(fileType == BaseFile.E_FILE_TYPE.IMAGE):
+	#	file = imageFile.instantiate()
+	#elif(fileType == BaseFile.E_FILE_TYPE.SCENE_FILE):
+	#	file = sceneFile.instantiate()
+	if(fileType == BaseFile.E_FILE_TYPE.FOLDER):
 		file = folderFile.instantiate()
 	else:
 		file = baseFile.instantiate()
@@ -128,7 +130,7 @@ func PopulateWithFile(fileName: String, path: String, fileType: BaseFile.E_FILE_
 ## Sorts all folders to their correct positions. 
 func SortFolders() -> void:
 	if len(GetChildren()) < 3:
-		UpdateItems()
+		#UpdateItems()
 		return
 	var newChilds: Array[Node] = []
 	for child in GetChildren():
@@ -142,7 +144,7 @@ func SortFolders() -> void:
 		AddChild(child)
 	
 	await get_tree().process_frame
-	UpdateItems()
+	#UpdateItems()
 
 ## Creates a new folder.
 ## Not to be confused with instantiating which adds an existing real folder, this function CREATES one. 

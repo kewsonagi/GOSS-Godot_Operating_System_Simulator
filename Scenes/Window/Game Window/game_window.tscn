@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c73tsgfxmn37a"]
+[gd_scene load_steps=7 format=3 uid="uid://c73tsgfxmn37a"]
 
 [ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_r6cfa"]
 [ext_resource type="Script" uid="uid://ba6ciics63ond" path="res://Scenes/Window/Game Window/game_window.gd" id="2_83d0v"]
@@ -12,6 +12,18 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 shadow_color = Color(0, 0, 0, 0.0784314)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5csj6"]
+bg_color = Color(0.56457233, 0, 0.23829675, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 10
+corner_radius_top_right = 1
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 1
+corner_detail = 6
+
 [node name="Window" instance=ExtResource("1_r6cfa")]
 offset_left = -288.0
 offset_top = -177.0
@@ -21,6 +33,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wclbr")
 
 [node name="SubViewport" parent="SubViewportContainer" index="0"]
 size = Vector2i(576, 354)
+
+[node name="Title Text" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="0"]
+theme_override_styles/normal = SubResource("StyleBoxFlat_5csj6")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="SubViewportContainer/SubViewport" index="1"]
 anchors_preset = -1
@@ -39,16 +54,18 @@ ratio = 1.7778
 layout_mode = 2
 stretch = true
 
-[node name="Game Window" type="SubViewport" parent="SubViewportContainer/SubViewport/AspectRatioContainer/SubViewportContainer" index="0" node_paths=PackedStringArray("window", "game_pause_manager")]
+[node name="Game Window" type="SubViewport" parent="SubViewportContainer/SubViewport/AspectRatioContainer/SubViewportContainer" index="0" node_paths=PackedStringArray("parentWindow", "game_pause_manager")]
 unique_name_in_owner = true
 own_world_3d = true
 handle_input_locally = false
+audio_listener_enable_2d = true
+audio_listener_enable_3d = true
 size = Vector2i(535, 301)
 size_2d_override = Vector2i(1152, 648)
 size_2d_override_stretch = true
 render_target_update_mode = 4
 script = ExtResource("2_83d0v")
-window = NodePath("../../../../..")
+parentWindow = NodePath("../../../../..")
 game_pause_manager = NodePath("../../../../../GamePauseManager")
 
 [node name="GamePauseManager" type="Node" parent="." index="1"]

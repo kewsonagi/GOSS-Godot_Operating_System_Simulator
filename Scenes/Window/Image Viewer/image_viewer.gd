@@ -7,6 +7,7 @@ var filePath: String
 
 func _ready() -> void:
 	if(parentWindow.creationData.has("Filename")):
+		print("image viewer filename: %s" % parentWindow.creationData["Filename"])
 		import_image(parentWindow.creationData["Filename"])
 		fileName = parentWindow.creationData["Filename"]
 		filePath = fileName;
@@ -16,13 +17,16 @@ func _ready() -> void:
 
 
 func import_image(file_path: String) -> void:
-	if !FileAccess.file_exists("%s%s" % [ResourceManager.GetPathToUserFiles(),file_path]):
+	if !FileAccess.file_exists(file_path):
 		NotificationManager.ShowNotification("Error: Cannot find file (was it moved or deleted?)", NotificationManager.E_NOTIFICATION_TYPE.ERROR)
 		return
-	var image: Image = Image.load_from_file("%s%s" % [ResourceManager.GetPathToUserFiles(),file_path])
-	image.generate_mipmaps()
-	var texture_import: ImageTexture = ImageTexture.create_from_image(image)
-	texture = texture_import
+	var image: Image = Image.load_from_file(file_path)
+	if(!image):
+		image = (ResourceManager.GetResource("Corrupt") as Texture2D).get_image()
+	#image.generate_mipmaps()
+	#var texture_import: ImageTexture = ImageTexture.create_from_image(image)
+	#texture = texture_import
+	texture = ImageTexture.create_from_image(image)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if(event.is_action_pressed("RightClick")):
