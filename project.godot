@@ -86,7 +86,7 @@ naming/script_name_casing=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/FreeControl/plugin.cfg", "res://addons/ImportCleaner/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/PSDImporter/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/auto_expand_inspector/plugin.cfg", "res://addons/custom_theme_overrides/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/gd_explorer/plugin.cfg", "res://addons/nine_patch_sprite_2d/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/nklbdev.importality/plugin.cfg", "res://addons/plenticons/plugin.cfg", "res://addons/scene-selector/plugin.cfg", "res://addons/scene_scripts_panel/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/FreeControl/plugin.cfg", "res://addons/ImportCleaner/plugin.cfg", "res://addons/InputMapperPresetLoader/plugin.cfg", "res://addons/PSDImporter/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/auto_expand_inspector/plugin.cfg", "res://addons/custom_theme_overrides/plugin.cfg", "res://addons/external_editor/plugin.cfg", "res://addons/file_previewer/plugin.cfg", "res://addons/nine_patch_sprite_2d/plugin.cfg", "res://addons/ninetailsrabbit.indie_blueprint_save/plugin.cfg", "res://addons/nklbdev.importality/plugin.cfg", "res://addons/plenticons/plugin.cfg", "res://addons/scene-selector/plugin.cfg", "res://addons/scene_scripts_panel/plugin.cfg")
 
 [file_customization]
 

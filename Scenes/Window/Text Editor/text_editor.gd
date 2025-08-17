@@ -13,6 +13,8 @@ var szFileName: String :
 func _ready() -> void:
 	if(parentWindow.creationData.has("Filename")):
 		populate_text(parentWindow.creationData["Filename"])
+	
+	call_deferred("SetCustomWindowSettings")
 
 	parentWindow.selected.connect(_on_window_selected)
 	
@@ -29,7 +31,8 @@ func _input(event: InputEvent) -> void:
 func populate_text(path: String) -> void:
 	szFileName = path
 	var file: FileAccess = FileAccess.open(szFileName, FileAccess.READ)
-	text = file.get_as_text()
+	if(file):
+		text = file.get_as_text()
 
 func _on_text_changed() -> void:
 	if text_edited:

@@ -7,7 +7,10 @@ class_name  AppManifest
 @export var description: String = "app description"
 @export var path: String = "res://Applications/app.tscn"
 @export var icon: Texture2D = preload("res://Art/shaded/15-file-empty.png")
-@export var extensionAssociations: PackedStringArray
+@export var extensionAssociations: PackedStringArray = []
+@export var colorBGTaskbar: Color = Color.SKY_BLUE
+@export var colorBGWindow: Color = Color.SKY_BLUE
+@export var colorBGTitle: Color = Color.SKY_BLUE
 
 func _init() -> void:
     key = "nameID"
@@ -15,3 +18,6 @@ func _init() -> void:
     description = "app description"
     path = "res://Applications/app.tscn"
     icon = preload("res://Art/shaded/15-file-empty.png")
+    colorBGTaskbar = Color.SKY_BLUE
+    colorBGWindow = Color.SKY_BLUE
+    colorBGTitle = Color.SKY_BLUE

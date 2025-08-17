@@ -33,9 +33,6 @@ func reload_window(folder_path: String) -> void:
 		windowTitle.text = "%s" % [szFilePath]
 	parentWindow.select_window(true)
 
-# func close_window() -> void:
-# 	$"../.."._on_close_button_pressed()
-
 ## Goes to the folder above the currently shown one. Can't go higher than user://files/
 func _on_back_button_pressed() -> void:
 	#TODO move it to a position that's less stupid

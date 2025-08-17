@@ -13,8 +13,16 @@ func _ready() -> void:
 		filePath = fileName;
 		fileName = fileName.get_file()
 		filePath = filePath.get_base_dir()
+		
+		call_deferred("SetCustomWindowSettings")
 		# parentWindow.titleText.text = parentWindow.creationData["Filename"]
 
+func SetCustomWindowSettings() -> void:
+	var manifest: AppManifest = parentWindow.creationData["manifest"]
+	if(manifest):
+		parentWindow.titlebarIcon.icon = manifest.icon
+		parentWindow.titleText["theme_override_styles/normal"].bg_color = manifest.colorBGTitle
+		parentWindow["theme_override_styles/panel"].bg_color = manifest.colorBGWindow
 
 func import_image(file_path: String) -> void:
 	if !FileAccess.file_exists(file_path):

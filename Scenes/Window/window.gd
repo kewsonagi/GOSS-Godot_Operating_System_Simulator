@@ -149,6 +149,12 @@ func _ready() -> void:
 	
 	SetID(windowID)
 
+	var manifest: AppManifest = creationData["manifest"]
+	if(manifest):
+		titlebarIcon.icon = manifest.icon
+		titleText["theme_override_styles/normal"].bg_color = manifest.colorBGTitle
+		transitionsNode["theme_override_styles/panel"].bg_color = manifest.colorBGWindow
+
 func SaveWindowState() -> void:
 	windowSaveFile.data[windowSavePosKey] = position
 	windowSaveFile.data[windowSaveSizeKey] = size

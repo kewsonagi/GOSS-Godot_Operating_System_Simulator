@@ -46,11 +46,11 @@ static func LaunchApp(appName: String, filepath: String, fallbackToOS: bool = tr
 			var window: FakeWindow = DefaultValues.spawn_window(app.path, appName, filepath, appData)
 			if(window):
 				window.titlebarIcon.icon = app.icon
-				DefaultValues.AddWindowToTaskbar(window, Color.BLUE_VIOLET, window.titlebarIcon.icon)
+				DefaultValues.AddWindowToTaskbar(window, app.colorBGTaskbar, window.titlebarIcon.icon)
 				return window
 			
-		if(fallbackToOS):
-			OS.shell_open(app.path)
+	if(fallbackToOS):
+		OS.shell_open(filepath)
 	return null
 
 static func LaunchAppByExt(ext: String, filepath: String, fallbackToOS: bool = true) -> Node:#window created
@@ -61,11 +61,12 @@ static func LaunchAppByExt(ext: String, filepath: String, fallbackToOS: bool = t
 			var window: FakeWindow = DefaultValues.spawn_window(app.path, app.path.get_file(), filepath, appData)
 			if(window):
 				window.titlebarIcon.icon = app.icon
-				DefaultValues.AddWindowToTaskbar(window, Color.BLUE_VIOLET, window.titlebarIcon.icon)
+				DefaultValues.AddWindowToTaskbar(window, app.colorBGTaskbar, window.titlebarIcon.icon)
 				return window
 			
-		if(fallbackToOS):
-			OS.shell_open(app.path)
+	if(fallbackToOS):
+		UtilityHelper.Log("falling back to OS level open: %s" % filepath)
+		OS.shell_open(filepath)
 	return null
 
 static func GetAppIconByExt(ext: String) -> Texture2D:

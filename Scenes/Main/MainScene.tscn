@@ -1,15 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://bmjyglrsf04uo"]
+[gd_scene load_steps=13 format=3 uid="uid://bmjyglrsf04uo"]
 
 [ext_resource type="Script" uid="uid://crccellk2oo41" path="res://Scenes/Main/desktop_file_manager.gd" id="1_c0q37"]
 [ext_resource type="Texture2D" uid="uid://bwxnhif5h1cck" path="res://Art/Pixel_32.png" id="1_r8g3u"]
 [ext_resource type="Script" uid="uid://fgth35grbgyv" path="res://Scenes/Main/wallpaper.gd" id="1_xkkt2"]
 [ext_resource type="PackedScene" uid="uid://cfj5p5pgfnywp" path="res://Scenes/Taskbar/taskbar.tscn" id="2_35ao4"]
-[ext_resource type="PackedScene" uid="uid://blxpspp2wqdbs" path="res://Scenes/Desktop/TextFile.tscn" id="3_ctt6t"]
 [ext_resource type="PackedScene" uid="uid://bwyybu5i3kid" path="res://Scenes/Main/Boot Splash/boot_splash.tscn" id="3_ifoxq"]
 [ext_resource type="PackedScene" uid="uid://chw3lje7gvraw" path="res://Scenes/Desktop/BaseFile.tscn" id="3_rgj25"]
-[ext_resource type="PackedScene" uid="uid://cf8xeflv0r6pd" path="res://Scenes/Desktop/ImageFile.tscn" id="4_rgj25"]
 [ext_resource type="PackedScene" uid="uid://cwsu2o7l3rfm4" path="res://Scenes/Desktop/FolderFile.tscn" id="5_r8g3u"]
-[ext_resource type="PackedScene" uid="uid://b8ufm8ymt53lu" path="res://Scenes/Desktop/SceneFile.tscn" id="7_gow0r"]
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="8_fwn18"]
 [ext_resource type="PackedScene" uid="uid://cxl0f781joa6d" path="res://Scenes/Autoloads/RClick Menu Manager/RClickMenu.tscn" id="11_6epw3"]
 
@@ -85,12 +82,9 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_c0q37")
 defaultFilesLocation = "res://Default Files/"
+startingUserDirectory = "user://files/"
 baseFile = ExtResource("3_rgj25")
-textFile = ExtResource("3_ctt6t")
-imageFile = ExtResource("4_rgj25")
-sceneFile = ExtResource("7_gow0r")
 folderFile = ExtResource("5_r8g3u")
-pathToIcons = "res://Art/free-file-icons-master/512px/"
 direction = "Vertical"
 hSpacing = 20
 vSpacing = 20

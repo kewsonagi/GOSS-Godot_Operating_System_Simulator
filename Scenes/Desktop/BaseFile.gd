@@ -152,16 +152,16 @@ func delete_file() -> void:
 				file_manager.Close()
 			elif get_parent() is BaseFileManager and file_manager.szFilePath == get_parent().szFilePath:
 				file_manager.delete_file_with_name(szFileName)
-				file_manager.UpdateItems()
+				#file_manager.UpdateItems()
 	else:
 		var delete_path: String = ProjectSettings.globalize_path("%s%s/%s" % [ResourceManager.GetPathToUserFiles(), szFilePath, szFileName])
 		if !FileAccess.file_exists(delete_path):
 			return
 		OS.move_to_trash(delete_path)
-		for file_manager: BaseFileManager in BaseFileManager.masterFileManagerList:
-			if file_manager.szFilePath == szFilePath:
-				file_manager.delete_file_with_name(szFileName)
-				file_manager.SortFolders()
+		# for file_manager: BaseFileManager in BaseFileManager.masterFileManagerList:
+		# 	if file_manager.szFilePath == szFilePath:
+		# 		file_manager.delete_file_with_name(szFileName)
+		# 		file_manager.SortFolders()
 	
 	#if szFilePath.is_empty() or (eFileType == E_FILE_TYPE.FOLDER and len(szFilePath.split('/')) == 1):
 		#var desktop_file_manager: DesktopFileManager = get_tree().get_first_node_in_group("desktop_file_manager")
@@ -172,11 +172,19 @@ func delete_file() -> void:
 	queue_free()
 
 func OpenFile() -> void:
-	var filePath: String = "%s%s%s" % [ResourceManager.GetPathToUserFiles(), szFilePath, szFileName]
-	AppManager.LaunchAppByExt(szFileName.get_extension(), filePath, true)
-	#OS.shell_open(filePath)
-	return
+	for file: Node in selectedFiles:
+		if(file and !file.is_queued_for_deletion() and file is BaseFile):
+			var f: BaseFile = file
+			var filePath: String = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), f.szFilePath, f.szFileName]
+			AppManager.LaunchAppByExt(f.szFileName.get_extension(), filePath, true)
+
 func DeleteFile() -> void:
+	var filemanagerOwner: BaseFileManager# = BaseFileManager.masterFileManagerList[0]
+	for filemanager: BaseFileManager in BaseFileManager.masterFileManagerList:
+		if(filemanager.szFilePath.begins_with(szFilePath)):
+			filemanagerOwner = filemanager
+			break
+
 	for file: Node in selectedFiles:
 		if(file and !file.is_queued_for_deletion() and file is BaseFile):
 			var f: BaseFile = file
@@ -192,22 +200,24 @@ func DeleteFile() -> void:
 				for file_manager: BaseFileManager in BaseFileManager.masterFileManagerList:
 					if file_manager.szFilePath.begins_with(f.szFilePath) and !(file_manager is DesktopFileManager):
 						file_manager.Close()
-					elif get_parent() is BaseFileManager and file_manager.szFilePath == f.get_parent().szFilePath:
-						file_manager.delete_file_with_name(f.szFileName)
+					#elif get_parent() is BaseFileManager and file_manager.szFilePath == f.get_parent().szFilePath:
+					#	file_manager.delete_file_with_name(f.szFileName)
 						#file_manager.UpdateItems()
 			else:
 				var delete_path: String = ProjectSettings.globalize_path("%s%s/%s" % [ResourceManager.GetPathToUserFiles(), f.szFilePath, f.szFileName])
 				if !FileAccess.file_exists(delete_path):
 					return
 				OS.move_to_trash(delete_path)
-				for file_manager: BaseFileManager in BaseFileManager.masterFileManagerList:
-					if file_manager.szFilePath == f.szFilePath:
-						file_manager.delete_file_with_name(f.szFileName)
+				#for file_manager: BaseFileManager in BaseFileManager.masterFileManagerList:
+				#	if file_manager.szFilePath == f.szFilePath:
+				#		file_manager.delete_file_with_name(f.szFileName)
 						#file_manager.SortFolders()
+				filemanagerOwner.delete_file_with_name(f.szFileName)
 			#########################
 			
 	selectedFiles.clear()
 	selectedFilesOld.clear()
+	BaseFileManager.RefreshAllFileManagers()
 	return
 
 func HandleRightClick() -> void:

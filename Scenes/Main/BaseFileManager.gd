@@ -10,17 +10,9 @@ var directories: PackedStringArray
 var itemLocations: Dictionary = {}
 @export var startingUserDirectory: String = ProjectSettings.globalize_path("user://files/")
 @export var baseFile: PackedScene # = preload("res://Scenes/Desktop/TextFile.tscn")
-@export var textFile: PackedScene # = preload("res://Scenes/Desktop/TextFile.tscn")
-@export var extensionsForText: PackedStringArray = ["txt", "md", "gd", "cs", "c", "js", "py", "log"]
-@export var imageFile: PackedScene # = preload("res://Scenes/Desktop/ImageFile.tscn")
-@export var extensionsForImage: PackedStringArray = ["png", "jpg", "jpeg", "webp", "tif", "ico", "svg", "gif", "cur", "bmp"]
-@export var sceneFile: PackedScene # = preload("res://Scenes/Desktop/ImageFile.tscn")
-@export var extensionsForScene: PackedStringArray = ["tscn"]
 @export var folderFile: PackedScene # = preload("res://Scenes/Desktop/FolderFile.tscn")
 static var masterFileManagerList: Array[BaseFileManager]
 @export var parentWindow: FakeWindow
-@export var pathToIcons: String
-static var iconList: Dictionary = {}
 
 func _ready() -> void:
 	super._ready()
@@ -58,17 +50,7 @@ func RefreshManager() -> void:
 	directories.clear()
 	directories = DirAccess.get_files_at("%s%s" % [startingUserDirectory, szFilePath])
 	for file_name: String in directories:
-		if(extensionsForText.has(file_name.get_extension())):
-		# if file_name.ends_with(".txt") or file_name.ends_with(".md"):
-			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.TEXT_FILE)
-		# elif file_name.ends_with(".png") or file_name.ends_with(".jpg") or file_name.ends_with(".jpeg") \
-		# or file_name.ends_with(".webp"):
-		elif (extensionsForImage.has(file_name.get_extension())):
-			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.IMAGE)
-		elif (extensionsForScene.has(file_name.get_extension())):
-			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.SCENE_FILE)
-		else:
-			PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.UNKNOWN)
+		PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.UNKNOWN)
 	
 	if(!DirAccess.dir_exists_absolute("%s%s" % [startingUserDirectory, szFilePath])):
 		if(parentWindow):
@@ -102,13 +84,7 @@ func PopulateWithFile(fileName: String, path: String, fileType: BaseFile.E_FILE_
 		if f and f.eFileType == fileType and f.szFilePath == path and f.szFileName == fileName:
 			return
 
-	var file: BaseFile# = baseFileScene.instantiate()
-	#if(fileType == BaseFile.E_FILE_TYPE.TEXT_FILE):
-	#	file = textFile.instantiate()
-	#elif(fileType == BaseFile.E_FILE_TYPE.IMAGE):
-	#	file = imageFile.instantiate()
-	#elif(fileType == BaseFile.E_FILE_TYPE.SCENE_FILE):
-	#	file = sceneFile.instantiate()
+	var file: BaseFile
 	if(fileType == BaseFile.E_FILE_TYPE.FOLDER):
 		file = folderFile.instantiate()
 	else:
@@ -117,6 +93,8 @@ func PopulateWithFile(fileName: String, path: String, fileType: BaseFile.E_FILE_
 	var fileIcon: Texture2D = ResourceManager.GetResourceOrNull(fileName.get_basename())
 	if !fileIcon:
 		fileIcon = ResourceManager.GetResourceOrNull(fileName.get_extension())
+	if(!fileIcon):
+		fileIcon = AppManager.GetAppIconByExt(fileName.get_extension())
 	if(fileIcon):
 		file.fileIcon = fileIcon
 
@@ -214,7 +192,7 @@ func delete_file_with_name(file_name: String) -> void:
 			child.queue_free()
 	
 	await get_tree().process_frame
-	SortFolders()
+	#SortFolders()
 
 ## Keyboard controls for selecting files.
 ## Is kind of messy because the file manager can be horizontal or vertical, which changes which direction the next folder is.
@@ -344,10 +322,6 @@ func _exit_tree() -> void:
 func OnDroppedFolders(files: PackedStringArray) -> void:
 	CopyPasteManager.CopyAllFilesOrFolders(files)
 	BaseFileManager.RefreshAllFileManagers()
-
-#func _gui_input(event: InputEvent) -> void:
-	#if(event.is_action_pressed(&"RightClick")):
-	#	HandleRightClick()
 
 func HandleRightClick() -> void:
 	RClickMenuManager.instance.ShowMenu("File Manager Menu", self)

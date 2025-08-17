@@ -84,7 +84,7 @@ func _physics_process(delta: float) -> void:
 
 
 func ContainerResized() -> void:
-	print("container resized: %s" % size)
+	#UtilityHelper.Log("container resized: %s" % size)
 	childContainer.size.x = size.x - (rightMargin + leftMargin)
 	childContainer.size.y = size.y - (bottomMargin + topMargin)
 	if totalChildrenSize.x > childContainer.size.x:
@@ -251,13 +251,13 @@ func UpdateVertical() -> void:
 func UpdateGrid() -> void:
 	var new_line_count: int = 0
 	nLineCount = 0
-	hSpacing = (size.x - leftMargin - rightMargin) / gridColumbs-5
+	hSpacing = (size.x - leftMargin - rightMargin) / gridColumbs
 	totalChildrenSize.x = hSpacing * gridColumbs
 	totalChildrenSize.y = currentChildren.size() / gridColumbs
 
 
 	for child: Node in currentChildren:
-		if (nNextPosition.x + child.size.x + hSpacing) > (size.x - leftMargin - rightMargin):
+		if (nNextPosition.x + hSpacing) > (size.x - leftMargin - rightMargin):
 			nNextPosition.x = 0
 			nNextPosition.y += largestChild.y + vSpacing
 			largestChild = Vector2(0.0, 0.0)
@@ -266,6 +266,7 @@ func UpdateGrid() -> void:
 			new_line_count = 0
 
 		child.position = nNextPosition
+		child.position.x += (hSpacing*0.5-child.size.x*0.5)
 
 		if child.size.y > largestChild.y:
 			largestChild.y = child.size.y
@@ -356,8 +357,8 @@ func ScrollEndedV(valueChanged: bool) -> void:
 
 
 func ScrollChangedH(value: float) -> void:
-	if hScrollPositionPercent != value:
-		print("scroll percent: %s, scroll Position X: %s" % [value, scrollPosition.x])
+	#if hScrollPositionPercent != value:
+	#	print("scroll percent: %s, scroll Position X: %s" % [value, scrollPosition.x])
 	hScrollPositionPercent = value
 	if(totalChildrenSize.x > (size.x - leftMargin - rightMargin)):
 		scrollPosition.x = (totalChildrenSize.x - size.x - leftMargin - rightMargin) * (hScrollPositionPercent)
@@ -367,8 +368,8 @@ func ScrollChangedH(value: float) -> void:
 
 
 func ScrollChangedV(value: float) -> void:
-	if vScrollPositionPercent != value:
-		print("scroll percent: %s, scroll Position Y: %s" % [value, scrollPosition.y])
+	#if vScrollPositionPercent != value:
+	#	print("scroll percent: %s, scroll Position Y: %s" % [value, scrollPosition.y])
 	vScrollPositionPercent = value
 	if(totalChildrenSize.y > (size.y - topMargin - bottomMargin)):
 		scrollPosition.y = (totalChildrenSize.y - size.y - topMargin - bottomMargin) * (vScrollPositionPercent)
@@ -407,19 +408,19 @@ signal MiddleClickEnd(selection: Array[Node])
 
 
 func LeftClickStart() -> void:
-	print("LeftClickStart")
+	#print("LeftClickStart")
 	vStartDragPosition = get_global_mouse_position()
 	dragRect.position = vStartDragPosition
 
 
 func RightClickStart() -> void:
-	print("RightClickStart")
+	#print("RightClickStart")
 	vStartDragPosition = get_global_mouse_position()
 	dragRect.position = vStartDragPosition
 
 
 func LeftClickReleased() -> void:
-	print("LeftClickReleased")
+	UtilityHelper.Log("LeftClickReleased")
 	#released left click without dragging, reset everything
 	if !bDragging:
 		LeftClickEnd.emit(selectedItemsPrev)
@@ -430,7 +431,7 @@ func LeftClickReleased() -> void:
 
 
 func RightClickReleased() -> void:
-	print("RightClickReleased")
+	UtilityHelper.Log("RightClickReleased")
 	#released right click without dragging, reset everything
 	if !bDragging:
 		RightClickEnd.emit(selectedItemsPrev)
@@ -465,7 +466,7 @@ func ForceDeSelectItem(child: Node) -> void:
 
 
 func DragBegin() -> void:
-	print("drag start")
+	UtilityHelper.Log("drag start")
 	bDragging = true
 	vStartDragPosition = get_global_mouse_position()
 	dragRect.position = vStartDragPosition
@@ -489,7 +490,7 @@ func DragBegin() -> void:
 func DragEnd() -> void:
 	if !bDragging:
 		return
-	print("drag end")
+	UtilityHelper.Log("drag end")
 	DragSelecting.emit(selectedItems, selectedItemsPrev)
 	if bDraggingOld:
 		DraggingSelectionEnd.emit(selectedItemsPrev)

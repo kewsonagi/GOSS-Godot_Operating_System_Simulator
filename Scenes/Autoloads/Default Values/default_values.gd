@@ -79,10 +79,8 @@ func delete_wallpaper() -> void:
 	save_state()
 
 func spawn_window(sceneToLoadInsideWindow: String, windowName: String = "Untitled", windowID: String ="game", data: Dictionary = {}, parentWindow: Node = null) -> Node:
-	#print("spawning new window: ", sceneToLoadInsideWindow)
 	var window: FakeWindow
 	window = ResourceLoader.load(sceneToLoadInsideWindow).instantiate()
-	#print("default values, spawn_window: %s" % (window as Node))
 	
 	window.title_text = windowName;
 	window.SetID(windowID)
@@ -98,7 +96,6 @@ func spawn_window(sceneToLoadInsideWindow: String, windowName: String = "Untitle
 	return window as Node
 
 func spawn_game_window(sceneToLoadInsideWindow: String, windowName: String = "Untitled", windowID: String ="game", data: Dictionary = {}, parentWindow: Node = null) -> Node:
-	print("spawning new window: ", sceneToLoadInsideWindow)
 	#var boot: BootGame = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
 	var window: FakeWindow
 	window = ResourceLoader.load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
@@ -129,13 +126,14 @@ func spawn_game_window(sceneToLoadInsideWindow: String, windowName: String = "Un
 
 	return window as Node
 
-func AddWindowToTaskbar(window: FakeWindow, color: Color = Color.GRAY, texture: Texture2D=null) -> void:
+func AddWindowToTaskbar(window: FakeWindow, color: Color = Color.LIGHT_YELLOW, texture: Texture2D=null) -> void:
 	#add window to taskbar
 	var taskbar_button: Control = ResourceLoader.load("res://Scenes/Taskbar/taskbar_button.tscn").instantiate()
 	taskbar_button.target_window = window
 	if(texture):
 		taskbar_button.get_node("TextureMargin/TextureRect").texture = texture
-	taskbar_button.active_color = color
+	#taskbar_button.active_color = color
+	taskbar_button.foregroundColor = color
 	get_tree().get_first_node_in_group("taskbar_buttons").add_child(taskbar_button)
 
 func CloseWindow(window: FakeWindow) -> void:
