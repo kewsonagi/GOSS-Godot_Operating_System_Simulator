@@ -14,8 +14,6 @@ func _ready() -> void:
 	if(parentWindow.creationData.has("Filename")):
 		populate_text(parentWindow.creationData["Filename"])
 	
-	call_deferred("SetCustomWindowSettings")
-
 	parentWindow.selected.connect(_on_window_selected)
 	
 	adjust_menu_options()

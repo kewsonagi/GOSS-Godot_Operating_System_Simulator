@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ufo3bc72b2rq"]
+[gd_scene load_steps=6 format=3 uid="uid://ufo3bc72b2rq"]
 
 [ext_resource type="Script" uid="uid://0e08uudim1di" path="res://Scenes/Window/File Manager/file_manager_window.gd" id="1_w4ovl"]
 [ext_resource type="PackedScene" uid="uid://chw3lje7gvraw" path="res://Scenes/Desktop/BaseFile.tscn" id="2_1lel7"]
+[ext_resource type="PackedScene" uid="uid://dwordakddalqi" path="res://Scenes/Desktop/AppFile.tscn" id="4_w4ovl"]
 [ext_resource type="PackedScene" uid="uid://cwsu2o7l3rfm4" path="res://Scenes/Desktop/FolderFile.tscn" id="5_dg2rn"]
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="7_gg3p0"]
 
@@ -18,6 +19,8 @@ mouse_filter = 1
 script = ExtResource("1_w4ovl")
 baseFile = ExtResource("2_1lel7")
 folderFile = ExtResource("5_dg2rn")
+appFile = ExtResource("4_w4ovl")
+appFileExtension = "tres"
 animSpeed = 0.3000000000029104
 hSpacing = 20
 vSpacing = 20

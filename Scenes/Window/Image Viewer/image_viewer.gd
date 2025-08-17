@@ -22,7 +22,7 @@ func SetCustomWindowSettings() -> void:
 	if(manifest):
 		parentWindow.titlebarIcon.icon = manifest.icon
 		parentWindow.titleText["theme_override_styles/normal"].bg_color = manifest.colorBGTitle
-		parentWindow["theme_override_styles/panel"].bg_color = manifest.colorBGWindow
+		parentWindow.transitionsNode["theme_override_styles/panel"].bg_color = manifest.colorBGWindow
 
 func import_image(file_path: String) -> void:
 	if !FileAccess.file_exists(file_path):

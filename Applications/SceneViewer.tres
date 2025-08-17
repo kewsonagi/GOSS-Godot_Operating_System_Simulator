@@ -14,4 +14,5 @@ extensionAssociations = PackedStringArray("tscn")
 colorBGTaskbar = Color(1, 0.66235274, 0.5887352, 1)
 colorBGWindow = Color(1, 0.66411275, 0.58351946, 1)
 colorBGTitle = Color(1, 0.6645304, 0.58007354, 1)
+customWindowTitle = null
 metadata/_custom_type_script = "uid://db3jxs22pw5gq"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AppManifest" load_steps=3 format=3 uid="uid://dc5ls6tkuykbi"]
+
+[ext_resource type="Texture2D" uid="uid://clbi2hcnojm7s" path="res://examples/icon_texture/icons/resources/box_shape_3d.svg" id="1_k88rt"]
+[ext_resource type="Script" uid="uid://db3jxs22pw5gq" path="res://Scenes/Autoloads/ApplicationManager/AppManifest.gd" id="2_nk13n"]
+
+[resource]
+script = ExtResource("2_nk13n")
+key = "CubeGame"
+name = "Cube"
+description = "View your images"
+path = "res://Games/Cube Scene/boot.tscn"
+icon = ExtResource("1_k88rt")
+colorBGTaskbar = Color(0.809226, 0.38408425, 0.18087158, 1)
+colorBGWindow = Color(1, 0.65525824, 0.64851, 1)
+colorBGTitle = Color(0.5808595, 0.33607092, 0.11469779, 1)
+customWindowTitle = null
+metadata/_custom_type_script = "uid://db3jxs22pw5gq"

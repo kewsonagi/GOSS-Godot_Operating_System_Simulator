@@ -4,7 +4,7 @@ class_name BaseFile
 ## A folder that can be opened and interacted with.
 ## Files like text/image files are just folders with a different file_type_enum.
 
-enum E_FILE_TYPE {FOLDER, TEXT_FILE, IMAGE, SCENE_FILE, UNKNOWN}
+enum E_FILE_TYPE {FOLDER, TEXT_FILE, IMAGE, SCENE_FILE, UNKNOWN, APP}
 @export var eFileType: E_FILE_TYPE
 
 @export var fileIcon: Texture2D

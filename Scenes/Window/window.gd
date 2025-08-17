@@ -15,6 +15,7 @@ var minimizeIcon: Texture2D
 var closeIcon: Texture2D
 @export var titleText: RichTextLabel
 @export var titlebarIcon: Button
+@export var borderNode: Control
 
 var title_text: String
 
@@ -55,6 +56,8 @@ var startMarginLeft: float
 var startMarginRight: float
 var startMarginTop: float
 var startMarginBottom: float
+@export var bBorderless: bool = false
+@export var bResizable: bool = true
 
 var is_dragging: bool
 var is_being_deleted: bool
@@ -77,6 +80,8 @@ var windowSavePosKey: String
 var windowSaveSizeKey: String
 var windowSaveMaximizedKey: String
 var windowOpenedKey: String
+var windowResizableKey: String
+var windowBorderlessKey: String
 
 #region signals and initialization of data
 
@@ -95,6 +100,8 @@ func SetID(id:String) -> void:
 	windowSaveSizeKey = "%s%s" % [windowID, "size"]
 	windowSaveMaximizedKey = "%s%s" % [windowID, "maximized"]
 	windowOpenedKey = "%s%s" % [windowID, "opened"]
+	windowResizableKey = "%s%s" % [windowID, "resizable"]
+	windowBorderlessKey = "%s%s" % [windowID, "borderless"]
 
 	#save section
 	if(!windowSaveFile):return
@@ -106,6 +113,11 @@ func SetID(id:String) -> void:
 			is_maximized = windowSaveFile.data[windowSaveMaximizedKey]
 		if(is_maximized):
 			is_maximized = false #mark it not maximized so it doesnt minimize on load instead
+		if(windowSaveFile.data.has(windowResizableKey)):
+			bResizable = windowSaveFile.data[windowResizableKey]
+		if(windowSaveFile.data.has(windowBorderlessKey)):
+			bBorderless = windowSaveFile.data[windowBorderlessKey]
+			SetBorderless(bBorderless)
 		clamp_window_inside_viewport()#just incase a window gets loaded to an offscreen position
 
 func _ready() -> void:
@@ -149,17 +161,20 @@ func _ready() -> void:
 	
 	SetID(windowID)
 
-	var manifest: AppManifest = creationData["manifest"]
-	if(manifest):
-		titlebarIcon.icon = manifest.icon
-		titleText["theme_override_styles/normal"].bg_color = manifest.colorBGTitle
-		transitionsNode["theme_override_styles/panel"].bg_color = manifest.colorBGWindow
+	if(creationData.has("manifest")):
+		var manifest: AppManifest = creationData["manifest"]
+		if(manifest):
+			titlebarIcon.icon = manifest.icon
+			titleText["theme_override_styles/normal"].bg_color = manifest.colorBGTitle
+			transitionsNode["theme_override_styles/panel"].bg_color = manifest.colorBGWindow
 
 func SaveWindowState() -> void:
 	windowSaveFile.data[windowSavePosKey] = position
 	windowSaveFile.data[windowSaveSizeKey] = size
 	windowSaveFile.data[windowSaveMaximizedKey] = is_maximized
 	windowSaveFile.data[windowOpenedKey] = true
+	windowSaveFile.data[windowBorderlessKey] = bBorderless
+	windowSaveFile.data[windowResizableKey] = bResizable
 	windowSaveFile.write_savegame();
 
 
@@ -469,11 +484,31 @@ func MoveWindow(newPos: Vector2) -> void:
 
 #resize window width/height, bottom right corner
 func ResizeWindow(newSize: Vector2) -> void:
+	if(!bResizable):return
+
 	size = newSize;
 	old_unmaximized_size = size
 	if is_maximized:
 		is_maximized = !is_maximized
 		maximizeButton.icon = maximize_icon
+
+func SetWindowResizeable(resizable: bool) -> void:
+	bResizable = resizable
+	borderNode.set_process_input(bResizable)
+	var borderNodes: Array[Node] = borderNode.get_children(true)
+
+	for n in borderNodes:
+		n.set_process_input(bResizable)
+		n.set_process(bResizable)
+		n.set_physics_process(bResizable)
+
+
+func SetBorderless(borderless: bool) -> void:
+	bBorderless = borderless
+	if(bBorderless):
+		borderNode.visible = false
+	else:
+		borderNode.visible = true
 
 func ClickedResizeWindowArea() -> bool:
 	if(get_global_mouse_position().x > global_position.x+size.x-resizeBorderWidth and get_global_mouse_position().x < global_position.x + size.x + resizeBorderWidth):

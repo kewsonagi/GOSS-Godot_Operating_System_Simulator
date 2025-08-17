@@ -18,7 +18,7 @@ shadow_color = Color(0, 0, 0, 0)
 shadow_size = 6
 shadow_offset = Vector2(3, 3)
 
-[node name="Window" type="Panel" node_paths=PackedStringArray("top_bar", "maximizeButton", "minimizeButton", "closeButton", "titleText", "titlebarIcon", "marginContainer", "transitionsNode", "previewCaptureViewport") groups=["window"]]
+[node name="Window" type="Panel" node_paths=PackedStringArray("top_bar", "maximizeButton", "minimizeButton", "closeButton", "titleText", "titlebarIcon", "borderNode", "marginContainer", "transitionsNode", "previewCaptureViewport") groups=["window"]]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(250, 150)
 anchors_preset = -1
@@ -41,6 +41,7 @@ minimizeButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/Tran
 closeButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Close Button")
 titleText = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/Title Text")
 titlebarIcon = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/Icon")
+borderNode = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots")
 marginContainer = NodePath("SubViewportContainer/SubViewport/MarginContainer")
 transitionsNode = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode")
 previewCaptureViewport = NodePath("SubViewportContainer/SubViewport")

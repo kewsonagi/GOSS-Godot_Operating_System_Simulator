@@ -11,6 +11,8 @@ var itemLocations: Dictionary = {}
 @export var startingUserDirectory: String = ProjectSettings.globalize_path("user://files/")
 @export var baseFile: PackedScene # = preload("res://Scenes/Desktop/TextFile.tscn")
 @export var folderFile: PackedScene # = preload("res://Scenes/Desktop/FolderFile.tscn")
+@export var appFile: PackedScene
+@export var appFileExtension: String = "app"
 static var masterFileManagerList: Array[BaseFileManager]
 @export var parentWindow: FakeWindow
 
@@ -50,7 +52,10 @@ func RefreshManager() -> void:
 	directories.clear()
 	directories = DirAccess.get_files_at("%s%s" % [startingUserDirectory, szFilePath])
 	for file_name: String in directories:
-		PopulateWithFile(file_name, szFilePath, BaseFile.E_FILE_TYPE.UNKNOWN)
+		var filetype: BaseFile.E_FILE_TYPE = BaseFile.E_FILE_TYPE.UNKNOWN
+		if(file_name.get_extension() == appFileExtension):
+			filetype = BaseFile.E_FILE_TYPE.APP
+		PopulateWithFile(file_name, szFilePath, filetype)
 	
 	if(!DirAccess.dir_exists_absolute("%s%s" % [startingUserDirectory, szFilePath])):
 		if(parentWindow):
@@ -87,6 +92,8 @@ func PopulateWithFile(fileName: String, path: String, fileType: BaseFile.E_FILE_
 	var file: BaseFile
 	if(fileType == BaseFile.E_FILE_TYPE.FOLDER):
 		file = folderFile.instantiate()
+	elif(fileType == BaseFile.E_FILE_TYPE.APP):
+		file = appFile.instantiate()
 	else:
 		file = baseFile.instantiate()
 	#load a thumbnail if one exists for this file extension
