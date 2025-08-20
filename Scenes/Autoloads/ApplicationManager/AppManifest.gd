@@ -17,6 +17,8 @@ class_name  AppManifest
 @export var customWindowTitle: String = name
 @export var resizable: bool = true
 @export var borderless: bool = false
+@export var bGame: bool = false
+@export var category: String = "General"
 
 func _init() -> void:
     key = "nameID"
@@ -31,3 +33,5 @@ func _init() -> void:
     customWindowTitle = name
     resizable = true
     borderless = false
+    bGame = false
+    category = "General"

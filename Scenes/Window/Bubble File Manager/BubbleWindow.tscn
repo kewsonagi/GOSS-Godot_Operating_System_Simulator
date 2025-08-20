@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dfugge4jsgovk"]
 
-[ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_hpmyc"]
+[ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/DialogWindow.tscn" id="1_hpmyc"]
 [ext_resource type="Texture2D" uid="uid://bsh2ulbkq6car" path="res://Art/GuiAssets/Retro Icons 256px 002/Layer 9.png" id="2_360vq"]
 [ext_resource type="PackedScene" uid="uid://bki8eivmapypc" path="res://Scenes/Window/Bubble File Manager/BubbleFileManager.tscn" id="3_kwg1m"]
 
@@ -51,7 +51,6 @@ offset_right = -0.015014648
 offset_bottom = 2.5
 windowTitle = NodePath("../Top Bar/Title Text")
 parentWindow = NodePath("../../../../..")
-direction = "Grid"
 
 [connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/SubViewportContainer_SubViewport_TransitionNode_Top Bar#TransitionNode_Top Bar#Top Bar#Top Bar#Back Button" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/BubbleFileManager" method="_on_back_button_pressed"]
 

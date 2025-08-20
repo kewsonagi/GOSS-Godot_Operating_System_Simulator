@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c73tsgfxmn37a"]
 
-[ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_r6cfa"]
+[ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/DialogWindow.tscn" id="1_r6cfa"]
 [ext_resource type="Script" uid="uid://ba6ciics63ond" path="res://Scenes/Window/Game Window/game_window.gd" id="2_83d0v"]
 [ext_resource type="Script" uid="uid://8a1f31mrih3n" path="res://Scenes/Window/Game Window/game_pause_manager.gd" id="2_sh1be"]
 [ext_resource type="PackedScene" uid="uid://eprwl55n45fe" path="res://Scenes/Window/Game Window/pause_screen.tscn" id="3_uu1vi"]
@@ -60,7 +60,7 @@ own_world_3d = true
 handle_input_locally = false
 audio_listener_enable_2d = true
 audio_listener_enable_3d = true
-size = Vector2i(535, 301)
+size = Vector2i(2, 2)
 size_2d_override = Vector2i(1152, 648)
 size_2d_override_stretch = true
 render_target_update_mode = 4

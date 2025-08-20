@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmjyglrsf04uo"]
+[gd_scene load_steps=15 format=3 uid="uid://bmjyglrsf04uo"]
 
 [ext_resource type="Script" uid="uid://crccellk2oo41" path="res://Scenes/Main/desktop_file_manager.gd" id="1_c0q37"]
 [ext_resource type="Texture2D" uid="uid://bwxnhif5h1cck" path="res://Art/Pixel_32.png" id="1_r8g3u"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dwordakddalqi" path="res://Scenes/Desktop/AppFile.tscn" id="6_fwn18"]
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="8_fwn18"]
 [ext_resource type="PackedScene" uid="uid://cxl0f781joa6d" path="res://Scenes/Autoloads/RClick Menu Manager/RClickMenu.tscn" id="11_6epw3"]
+[ext_resource type="PackedScene" uid="uid://0jlewdh8xl4u" path="res://Scenes/Window/dialogManager.tscn" id="11_gow0r"]
 
 [sub_resource type="GDScript" id="GDScript_fyyaf"]
 resource_name = "MainScene"
@@ -179,3 +180,5 @@ visible = false
 
 [node name="RClick Menu" parent="." instance=ExtResource("11_6epw3")]
 layout_mode = 0
+
+[node name="DialogManager" parent="." instance=ExtResource("11_gow0r")]

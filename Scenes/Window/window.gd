@@ -168,6 +168,13 @@ func _ready() -> void:
 			titleText["theme_override_styles/normal"].bg_color = manifest.colorBGTitle
 			transitionsNode["theme_override_styles/panel"].bg_color = manifest.colorBGWindow
 
+func SetTitleText(t: String) -> void:
+	titleText.text = t
+func SetTitleColor(c: Color) -> void:
+	titleText["theme_override_styles/normal"].bg_color = c
+func SetWindowColor(c: Color) -> void:
+	transitionsNode["theme_override_styles/panel"].bg_color = c
+
 func SaveWindowState() -> void:
 	windowSaveFile.data[windowSavePosKey] = position
 	windowSaveFile.data[windowSaveSizeKey] = size
@@ -496,13 +503,15 @@ func SetWindowResizeable(resizable: bool) -> void:
 	bResizable = resizable
 	borderNode.set_process_input(bResizable)
 	var borderNodes: Array[Node] = borderNode.get_children(true)
-
+	#hide maximize if we cant resize
+	maximizeButton.visible = resizable
+	#turn off input handling on the window border nodes so resizing isnt handled
 	for n in borderNodes:
 		n.set_process_input(bResizable)
 		n.set_process(bResizable)
 		n.set_physics_process(bResizable)
 
-
+#toggle borderless just toggles the visibility of the border/resize nodes
 func SetBorderless(borderless: bool) -> void:
 	bBorderless = borderless
 	if(bBorderless):

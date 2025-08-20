@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cpplnljmvaknu"]
 
-[ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_y3wbc"]
+[ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/DialogWindow.tscn" id="1_y3wbc"]
 [ext_resource type="Script" uid="uid://dbyuke3amtct8" path="res://Scenes/Window/Scene Viewer/SceneViewer.gd" id="2_aa134"]
 [ext_resource type="Script" uid="uid://c0m3kr1r100vx" path="res://Scenes/Window/Scene Viewer/ScenePauseMenu.gd" id="3_xsyot"]
 [ext_resource type="PackedScene" uid="uid://byg78kwniwm04" path="res://Scenes/Window/Scene Viewer/PauseScreen.tscn" id="4_23f04"]
@@ -23,7 +23,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wclbr")
 size = Vector2i(576, 354)
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="SubViewportContainer/SubViewport" index="1"]
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 11.0
@@ -43,7 +43,7 @@ stretch = true
 unique_name_in_owner = true
 own_world_3d = true
 handle_input_locally = false
-size = Vector2i(535, 301)
+size = Vector2i(2, 2)
 size_2d_override = Vector2i(1152, 648)
 size_2d_override_stretch = true
 render_target_update_mode = 4

@@ -227,6 +227,7 @@ func HandleRightClick() -> void:
 	RClickMenuManager.instance.AddMenuItem("Cut", CutFile, ResourceManager.GetResource("Cut"))
 	RClickMenuManager.instance.AddMenuItem("Rename", ShowRename, ResourceManager.GetResource("Edit"))
 	RClickMenuManager.instance.AddMenuItem("Delete Me", DeleteFile, ResourceManager.GetResource("Delete"))
+	RClickMenuManager.instance.AddMenuItem("Ask me", DialogTest, ResourceManager.GetResource("Delete"))
 
 	NotificationManager.ShowNotification("Base File Right Click")
 
@@ -241,6 +242,32 @@ func CutFile() -> void:
 	#CopyPasteManager.cut_folder(self)
 	CopyPasteManager.CutMultiple(selectedFiles)
 
+func DialogTest() -> void:
+	var customDialog: DialogBox = DialogManager.instance.CreateDialogbox("Testing custom dialog", Vector2(0.5, 0.4))
+	customDialog.AddTextField("Body", "Dummy text in the center of the window? Good.", Vector2(0.5,0.3))
+	var okButton: Button = customDialog.AddButton("OK", "OK", Vector2(0.25,0.7), (func(b:Button,id:String,d:DialogBox):
+		d.dialogReturn[id] = true
+		UtilityHelper.Log("Pressed: %s" % id)
+		d._on_close_button_pressed()
+		)
+	)
+	var cancelButton: Button = customDialog.AddButton("Cancel", "Cancel", Vector2(0.75,0.7), (func(b:Button,id:String,d:DialogBox):
+		d.dialogReturn[id] = true
+		UtilityHelper.Log("Pressed: %s" % id)
+		d._on_close_button_pressed()
+		)
+	)
+	customDialog.Closed.connect(func(d:Dictionary):
+		var buttonReturn: String = "Cancel"
+		if(d["OK"]):
+			buttonReturn = "OK"
+		UtilityHelper.Log("Closed custom dialog with: %s" % buttonReturn)
+	)
+
+	var dialog: DialogBox = DialogManager.instance.CreateOKCancelDialog("Testing dialogs", "OK", "Cancel", "What do you want to do?", Vector2(0.8, 0.8))
+	dialog.Closed.connect(func(d: Dictionary):
+		NotificationManager.ShowNotification("Dialogs work? OK pressed: %s or Cancel pressed: %s" % [d["OK"], d["Cancel"]])
+	)
 #handle renaming controls
 func RenameFile() -> void:
 	if(!titleEditBox.text.is_empty()):

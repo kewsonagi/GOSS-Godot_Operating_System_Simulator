@@ -1,0 +1,297 @@
+[gd_scene load_steps=9 format=3 uid="uid://cojrqff5vocjv"]
+
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_dejl3"]
+[ext_resource type="Script" uid="uid://5no6katibk3g" path="res://Scenes/Window/DialogWindow.gd" id="2_o7itm"]
+[ext_resource type="PackedScene" uid="uid://bg17qb4r5h3c8" path="res://Scenes/Window/top_bar.tscn" id="3_onta3"]
+[ext_resource type="PackedScene" uid="uid://bg78g4tvmukio" path="res://Scenes/Window/resize_spots.tscn" id="4_gbvfj"]
+[ext_resource type="Texture2D" uid="uid://cssnsu03d5qwm" path="res://examples/icon_texture/icons/actions/info.svg" id="4_onta3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kp4o0"]
+bg_color = Color(0.27450982, 0.25882357, 0.36862746, 0)
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gwhiu"]
+bg_color = Color(0.10588235, 0.039215688, 0.16078432, 1)
+border_color = Color(0.99999994, 0.26361933, 0.70212764, 1)
+border_blend = true
+corner_detail = 6
+shadow_color = Color(0, 0, 0, 0)
+shadow_size = 6
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gbvfj"]
+bg_color = Color(0.38720447, 0.19885829, 0.50041085, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 10
+corner_radius_top_right = 1
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 1
+corner_detail = 6
+
+[node name="Window" type="Panel" node_paths=PackedStringArray("controlContainer", "templateButton", "templateColorPicker", "templateCheckbox", "templateInputField", "templateTextField", "templateRangeH", "templateRangeV", "top_bar", "maximizeButton", "minimizeButton", "closeButton", "titleText", "titlebarIcon", "borderNode", "marginContainer", "transitionsNode", "previewCaptureViewport") groups=["window"]]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(250, 150)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -316.0
+offset_top = -203.5
+offset_right = 34.0
+offset_bottom = -3.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_dejl3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kp4o0")
+script = ExtResource("2_o7itm")
+controlContainer = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls")
+templateButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/Button")
+templateColorPicker = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/ColorPickerButton")
+templateCheckbox = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/Checkbox")
+templateInputField = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/LineEdit")
+templateTextField = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/RichTextLabel")
+templateRangeH = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/HSlider")
+templateRangeV = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/VSlider")
+top_bar = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar")
+maximizeButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Maximize Button")
+minimizeButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Minimize Button")
+closeButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Close Button")
+titleText = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/Title Text")
+titlebarIcon = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/Icon")
+borderNode = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots")
+marginContainer = NodePath("SubViewportContainer/SubViewport/MarginContainer")
+transitionsNode = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode")
+bBorderless = true
+bResizable = false
+previewCaptureViewport = NodePath("SubViewportContainer/SubViewport")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(350, 200)
+render_target_clear_mode = 2
+render_target_update_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TransitionNode" type="Panel" parent="SubViewportContainer/SubViewport/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme = ExtResource("1_dejl3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gwhiu")
+
+[node name="Top Bar" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" instance=ExtResource("3_onta3")]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+
+[node name="Title Text" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="0"]
+custom_minimum_size = Vector2(0, 30)
+anchors_preset = -1
+theme_override_colors/default_color = Color(1, 0.6309362, 0.47650468, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_gbvfj")
+vertical_alignment = 1
+
+[node name="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="1"]
+anchors_preset = -1
+offset_left = -128.0
+offset_top = -13.0
+offset_bottom = 13.0
+alignment = 2
+
+[node name="Minimize Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer" index="0"]
+visible = false
+
+[node name="Maximize Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer" index="1"]
+visible = false
+
+[node name="Icon" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="2"]
+offset_top = 2.0
+offset_bottom = 28.0
+icon = ExtResource("4_onta3")
+
+[node name="Resize Spots" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" instance=ExtResource("4_gbvfj")]
+visible = false
+layout_mode = 1
+mouse_filter = 2
+
+[node name="Resize Drag SpotTopRight" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="0" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag SpotBottomLeft" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="2" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag Spot Left" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="4" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag Spot Right" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="6" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag Spot Bottom" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="8" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag Spot Top" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="10" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag SpotTopLeft" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="12" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Drag Spot" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="14" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+mouse_filter = 0
+windowToResize = NodePath("../../../../../..")
+parentWindow = NodePath("../../../../../..")
+
+[node name="DialogControls" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode"]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 31.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
+visible = false
+custom_minimum_size = Vector2(60, 20)
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 30.0
+pivot_offset = Vector2(50, 15)
+text = "OK"
+expand_icon = true
+
+[node name="Checkbox" type="CheckBox" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
+visible = false
+custom_minimum_size = Vector2(60, 20)
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 30.0
+pivot_offset = Vector2(60, 15)
+text = "Option on?"
+expand_icon = true
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+pivot_offset = Vector2(15, 15)
+expand_icon = true
+
+[node name="HSlider" type="HSlider" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
+visible = false
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 61.0
+pivot_offset = Vector2(60, 30)
+step = 0.05000000000291038
+value = 30.00000000174623
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/HSlider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 19.0
+grow_horizontal = 2
+text = "20"
+horizontal_alignment = 1
+
+[node name="VSlider" type="VSlider" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 120.0
+pivot_offset = Vector2(25, 60)
+value = 30.0
+ticks_on_borders = true
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/VSlider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -9.5
+offset_right = 16.0
+offset_bottom = 9.5
+grow_vertical = 2
+theme = ExtResource("1_dejl3")
+text = "20"
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 19.0
+text = "my label"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
+visible = false
+layout_mode = 0
+offset_right = 150.0
+offset_bottom = 30.0
+text = "line edit"
+placeholder_text = "dummy test"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
+visible = false
+layout_mode = 0
+offset_right = 330.0
+offset_bottom = 40.0
+theme = ExtResource("1_dejl3")
+bbcode_enabled = true
+text = "dummy text"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="gui_input" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" to="." method="_on_top_bar_gui_input"]
+[connection signal="mouse_entered" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" to="." method="_on_top_bar_mouse_entered"]
+[connection signal="mouse_exited" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" to="." method="_on_top_bar_mouse_exited"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Minimize Button" to="." method="_on_minimize_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Maximize Button" to="." method="_on_maximize_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Close Button" to="." method="_on_close_button_pressed"]
+
+[editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar"]
+[editable path="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cojrqff5vocjv"]
+[gd_scene load_steps=8 format=3 uid="uid://bhj8j5f61wby2"]
 
 [ext_resource type="Script" uid="uid://cgo0a8abexc23" path="res://Scenes/Window/window.gd" id="1_c3iwi"]
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_kp4o0"]
@@ -17,6 +17,18 @@ corner_detail = 6
 shadow_color = Color(0, 0, 0, 0)
 shadow_size = 6
 shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d6p83"]
+bg_color = Color(0.38720447, 0.19885829, 0.50041085, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 10
+corner_radius_top_right = 1
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 1
+corner_detail = 6
 
 [node name="Window" type="Panel" node_paths=PackedStringArray("top_bar", "maximizeButton", "minimizeButton", "closeButton", "titleText", "titlebarIcon", "borderNode", "marginContainer", "transitionsNode", "previewCaptureViewport") groups=["window"]]
 self_modulate = Color(1, 1, 1, 0)
@@ -89,6 +101,7 @@ anchors_preset = -1
 [node name="Title Text" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="0"]
 custom_minimum_size = Vector2(0, 30)
 anchors_preset = -1
+theme_override_styles/normal = SubResource("StyleBoxFlat_d6p83")
 vertical_alignment = 1
 
 [node name="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="1"]

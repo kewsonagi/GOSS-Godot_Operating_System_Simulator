@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://5sdddkl3mfbw"]
 
-[ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_rx4sm"]
+[ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/DialogWindow.tscn" id="1_rx4sm"]
 [ext_resource type="Script" uid="uid://cthe8oglu2808" path="res://Scenes/Window/Settings Window/scaling_spinbox.gd" id="2_a71vs"]
 [ext_resource type="Script" uid="uid://bmylb2xf7e5ih" path="res://Scenes/Window/Settings Window/window_options.gd" id="3_7t58g"]
 [ext_resource type="Script" uid="uid://n3mn2lwk6v46" path="res://Scenes/Window/Settings Window/background_color_picker.gd" id="4_vnxcp"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://i03dt4l5msgl"]
 
-[ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/Window.tscn" id="1_xona8"]
+[ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/DialogWindow.tscn" id="1_xona8"]
 [ext_resource type="Texture2D" uid="uid://bsh2ulbkq6car" path="res://Art/GuiAssets/Retro Icons 256px 002/Layer 9.png" id="2_x5fsl"]
 [ext_resource type="PackedScene" uid="uid://ufo3bc72b2rq" path="res://Scenes/Window/File Manager/file_manager.tscn" id="3_x5fsl"]
 
@@ -50,8 +50,6 @@ offset_top = 29.500004
 offset_right = -0.015014648
 offset_bottom = 2.5
 windowTitle = NodePath("../Top Bar/Title Text")
-extensionsForText = PackedStringArray()
-extensionsForImage = PackedStringArray()
 parentWindow = NodePath("../../../../..")
 
 [connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/Back" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/FileManagerWindow" method="_on_back_button_pressed"]

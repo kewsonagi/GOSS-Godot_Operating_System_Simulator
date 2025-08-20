@@ -62,15 +62,7 @@ static func LaunchCustomApp(app:AppManifest) -> Node:#window created
 	var appData: Dictionary = {"Filename":filepath,"manifest":app}
 	var window: FakeWindow = DefaultValues.spawn_game_window(app.path, app.path.get_file(), filepath, appData)
 	if(window):
-		window.titlebarIcon.icon = app.icon
-		if(!app.customWindowTitle.is_empty()):
-			window.titleText.text = app.customWindowTitle
-		window.position.x = app.startWindowPlacement.position.x * DefaultValues.get_window().size.x
-		window.position.y = app.startWindowPlacement.position.y * DefaultValues.get_window().size.y
-		window.size.x = app.startWindowPlacement.size.x * DefaultValues.get_window().size.x - window.position.x
-		window.size.y = app.startWindowPlacement.size.y * DefaultValues.get_window().size.y - window.position.y
-		window.SetWindowResizeable(app.resizable)
-		window.SetBorderless(app.borderless)
+		AppManager.SetupWindow(window, app)
 		window.SetID("%s:%s" % [app.name, filepath])
 
 		DefaultValues.AddWindowToTaskbar(window, app.colorBGTaskbar, window.titlebarIcon.icon)
@@ -88,9 +80,7 @@ static func LaunchAppByExt(ext: String, filepath: String, fallbackToOS: bool = t
 		OS.shell_open(filepath)
 	return null
 
-static func CreateAppWindow(app: AppManifest, filepath: String) -> Node:
-	var appData: Dictionary = {"Filename":filepath,"manifest":app}
-	var window: FakeWindow = DefaultValues.spawn_window(app.path, app.path.get_file(), filepath, appData)
+static func SetupWindow(window: FakeWindow, app: AppManifest) -> FakeWindow:
 	if(window):
 		window.titlebarIcon.icon = app.icon
 		if(!app.customWindowTitle.is_empty()):
@@ -101,6 +91,13 @@ static func CreateAppWindow(app: AppManifest, filepath: String) -> Node:
 		window.size.y = app.startWindowPlacement.size.y * DefaultValues.get_window().size.y - window.position.y
 		window.SetWindowResizeable(app.resizable)
 		window.SetBorderless(app.borderless)
+	return window
+
+static func CreateAppWindow(app: AppManifest, filepath: String) -> Node:
+	var appData: Dictionary = {"Filename":filepath,"manifest":app}
+	var window: FakeWindow = DefaultValues.spawn_window(app.path, app.path.get_file(), filepath, appData)
+	if(window):
+		AppManager.SetupWindow(window, app)
 		window.SetID("%s:%s" % [app.name, filepath])
 
 		DefaultValues.AddWindowToTaskbar(window, app.colorBGTaskbar, window.titlebarIcon.icon)
@@ -117,6 +114,10 @@ static func GetAppIcon(appName: String) -> Texture2D:
 		var app: AppManifest = appsList[registeredApps[appName]]
 		return app.icon
 	return null
+
+static func GetAppIconByLocation(filepath: String) -> Texture2D:
+	var app: AppManifest = AppManager.LoadAppManifest(filepath)
+	return app.icon
 
 static func GetPathToApps() -> String:
 	return ProjectSettings.globalize_path("user://apps/")
