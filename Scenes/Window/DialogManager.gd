@@ -21,28 +21,52 @@ func CreateDialogbox(title: String, pos: Vector2 = Vector2(0.5,0.5)) -> DialogBo
 		dialog.SetPosition(pos)
 	return dialog
 
-func CreateOKCancelDialog(title: String, okName: String, cancelName: String, centerMessage:String, pos: Vector2=Vector2(0.5,0.4)) -> DialogBox:
+func CreateOKCancelDialog(title: String, okName: String, cancelName: String, centerMessage:String="", pos: Vector2=Vector2(0.5,0.4)) -> DialogBox:
 	var dialog: DialogBox = DefaultValues.spawn_window(templateDialogbox.resource_path, title, "Dialog:%s" % title)#templateDialogbox.instantiate() as DialogBox
-	UtilityHelper.Log("dialog made?: %s" % dialog.name)
-	UtilityHelper.Log("dialog made?: %s" % dialog is FakeWindow)
-	UtilityHelper.Log("dialog made?: %s" % dialog is DialogBox)
-	dialog.SetTitleColor(Color.PALE_VIOLET_RED)
+	dialog.SetTitleColor(Color.MEDIUM_VIOLET_RED)
 	dialog.SetSize(Vector2(0.2, 0.15))
 	dialog.SetPosition(pos)
-	dialog.AddTextField("Body", centerMessage, Vector2(0.5,0.3))
-	var OKButton: Button = dialog.AddButton("OK", "OK", Vector2(0.25,0.75),(func(b:Button,id:String,d:DialogBox):
-		d.dialogReturn[id] = true
-		UtilityHelper.Log("Pressed: %s" % id)
-		d._on_close_button_pressed()
-		)
-	)
-
-	var cancelButton:Button = dialog.AddButton("Cancel", "Cancel", Vector2(0.75,0.75), (func(b:Button,id:String,d:DialogBox):
-		d.dialogReturn[id] = true
-		UtilityHelper.Log("Pressed: %s" % id)
-		d._on_close_button_pressed()
-		)
-	)
+	var textField:RichTextLabel = dialog.AddTextField("Body", centerMessage, Vector2(0.5,0.3))
+	#textField.size.x=dialog.size.x
+	#textField.position.x = 0
+	
+	dialog.AddButton(okName,okName, Vector2(0.25,0.7), true)
+	dialog.AddButton(cancelName,cancelName, Vector2(0.75,0.7), true)
 	#dialog.Closed.connect(returnData)
 	
+	return dialog
+
+
+func CreateInputDialog(title: String, okName: String, cancelName: String, inputFieldID:String="Name",inputField:String="Name", centerMessage:String="", pos: Vector2=Vector2(0.5,0.4)) -> DialogBox:
+	var dialog: DialogBox = DefaultValues.spawn_window(templateDialogbox.resource_path, title, "Dialog:%s" % title)#templateDialogbox.instantiate() as DialogBox
+	dialog.SetTitleColor(Color.MEDIUM_VIOLET_RED)
+	dialog.SetSize(Vector2(0.2, 0.15))
+	dialog.SetPosition(pos)
+	var textField:RichTextLabel = dialog.AddTextField("Body", centerMessage, Vector2(0.5,0.1))
+	#textField.size.x=dialog.size.x
+	#textField.position.x = 0
+
+	dialog.AddInputField(inputFieldID,inputField,Vector2(0.5,0.45))
+	dialog.AddButton(okName,okName, Vector2(0.25,0.7), true)
+	dialog.AddButton(cancelName,cancelName, Vector2(0.75,0.7), true)
+	#dialog.Closed.connect(returnData)
+	
+	return dialog
+
+func CreateInputDialogWithLabel(title: String, okName: String, cancelName: String, inputFieldID:String="Name", inputField:String="Name", inputLabel:String="Name: ", centerMessage:String="", pos: Vector2=Vector2(0.5,0.4)) -> DialogBox:
+	var dialog: DialogBox = DefaultValues.spawn_window(templateDialogbox.resource_path, title, "Dialog:%s" % title)#templateDialogbox.instantiate() as DialogBox
+	dialog.SetTitleColor(Color.MEDIUM_VIOLET_RED)
+	dialog.SetSize(Vector2(0.2, 0.15))
+	dialog.SetPosition(pos)
+	var textField:RichTextLabel = dialog.AddTextField("Body", centerMessage, Vector2(0.5,0.0))
+	textField.position.y+=textField.size.y*0.5
+	#textField.size.x=dialog.size.x
+	#textField.position.x = 0
+	textField = dialog.AddTextField("%slabelName", inputLabel, Vector2(0.5,0.45))
+	#textField.position.x=0
+	textField.position.y-=textField.size.y
+	dialog.AddInputField(inputFieldID,inputField,Vector2(0.6,0.45))
+	dialog.AddButton(okName,okName, Vector2(0.25,0.7), true)
+	dialog.AddButton(cancelName,cancelName, Vector2(0.75,0.7), true)
+
 	return dialog

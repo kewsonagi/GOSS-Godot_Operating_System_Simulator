@@ -8,6 +8,7 @@ class_name  DefaultResources
 #static var iconList: Dictionary = {}
 
 func _ready() -> void:
+	PreloadExternalPacks()
 	RegisterInterfaceIcons()
 	RegisterFileExtensionIcons()
 
@@ -24,3 +25,8 @@ func RegisterFileExtensionIcons() -> void:
 			if(res):
 				ResourceManager.RegisterResource(iconFile.get_basename(), res)
 			#iconList[iconFile.get_basename()] = "%s/%s" % [pathToIcons.get_base_dir(), iconFile]
+
+func PreloadExternalPacks() -> void:
+	var files:PackedStringArray = DirAccess.get_files_at(ResourceManager.GetPathToPackFiles())
+	for file in files:
+		ResourceManager.LoadPackOrMod("%s%s" % [ResourceManager.GetPathToPackFiles(),file])

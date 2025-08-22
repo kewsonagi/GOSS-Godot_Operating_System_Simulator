@@ -1,5 +1,6 @@
-[gd_resource type="Theme" load_steps=54 format=3 uid="uid://b3klx57slj0l3"]
+[gd_resource type="Theme" load_steps=55 format=3 uid="uid://b3klx57slj0l3"]
 
+[ext_resource type="FontFile" uid="uid://bjepoycie77ya" path="res://Art/SharpMess.ttf" id="1_ewxn7"]
 [ext_resource type="FontFile" uid="uid://ccis5jdmr1vl3" path="res://Art/GuiAssets/fonts/ZeroCool.ttf" id="1_lws7m"]
 [ext_resource type="Texture2D" uid="uid://udawlj7nryla" path="res://Art/soft_retro/art/checked.svg" id="2_k0c1y"]
 [ext_resource type="Texture2D" uid="uid://dl5qlemud0d4j" path="res://Art/soft_retro/art/toggle_on.svg" id="2_myavk"]
@@ -172,7 +173,7 @@ corner_radius_top_right = 5
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewxn7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lws7m"]
-bg_color = Color(0.38720447, 0.19885829, 0.50041085, 1)
+bg_color = Color(0.3882353, 0.2, 0.5019608, 0.5137255)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -315,7 +316,7 @@ Button/colors/font_focus_color = Color(1, 0.933333, 0.8, 1)
 Button/colors/font_hover_color = Color(0.27451, 0.258824, 0.368627, 1)
 Button/colors/font_hover_pressed_color = Color(0.10124843, 0.37617704, 0.99996966, 1)
 Button/colors/font_pressed_color = Color(0, 0.48239154, 0.8971097, 1)
-Button/fonts/font = ExtResource("1_lws7m")
+Button/fonts/font = ExtResource("1_ewxn7")
 Button/styles/disabled = SubResource("StyleBoxFlat_k0c1y")
 Button/styles/focus = SubResource("StyleBoxEmpty_lopid")
 Button/styles/hover = SubResource("StyleBoxFlat_myavk")
@@ -337,7 +338,7 @@ CheckButton/colors/font_focus_color = Color(1, 0.933333, 0.8, 1)
 CheckButton/colors/font_hover_color = Color(1, 0.933333, 0.8, 1)
 CheckButton/colors/font_hover_pressed_color = Color(1, 0.933333, 0.8, 1)
 CheckButton/colors/font_pressed_color = Color(1, 0.933333, 0.8, 1)
-CheckButton/fonts/font = ExtResource("1_lws7m")
+CheckButton/fonts/font = ExtResource("1_ewxn7")
 CheckButton/icons/checked = ExtResource("2_myavk")
 CheckButton/icons/unchecked = ExtResource("3_208pi")
 CheckButton/styles/focus = SubResource("StyleBoxEmpty_k0c1y")
@@ -357,14 +358,14 @@ HSlider/styles/grabber_area = SubResource("StyleBoxFlat_cwkfx")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_1b0k0")
 HSlider/styles/slider = SubResource("StyleBoxFlat_14r85")
 Label/colors/font_color = Color(1, 0.933333, 0.8, 1)
-Label/fonts/font = ExtResource("1_lws7m")
+Label/fonts/font = ExtResource("1_ewxn7")
 LineEdit/colors/caret_color = Color(1, 0.933333, 0.8, 1)
 LineEdit/colors/clear_button_color_pressed = Color(1, 0.933333, 0.8, 1)
 LineEdit/colors/font_color = Color(1, 0.933333, 0.8, 1)
 LineEdit/colors/font_placeholder_color = Color(1, 0.933333, 0.8, 0.392157)
 LineEdit/colors/font_selected_color = Color(1, 0.933333, 0.8, 1)
 LineEdit/colors/selection_color = Color(1, 0.690196, 0.639216, 1)
-LineEdit/fonts/font = ExtResource("1_lws7m")
+LineEdit/fonts/font = ExtResource("1_ewxn7")
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_b3cdw")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_rga2m")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_41273")
@@ -398,7 +399,7 @@ RichTextLabel/font_sizes/bold_italics_font_size = 16
 RichTextLabel/font_sizes/italics_font_size = 16
 RichTextLabel/font_sizes/mono_font_size = 16
 RichTextLabel/font_sizes/normal_font_size = 16
-RichTextLabel/fonts/bold_font = ExtResource("1_lws7m")
+RichTextLabel/fonts/bold_font = ExtResource("1_ewxn7")
 RichTextLabel/fonts/bold_italics_font = ExtResource("1_lws7m")
 RichTextLabel/fonts/italics_font = ExtResource("1_lws7m")
 RichTextLabel/fonts/mono_font = ExtResource("1_lws7m")
@@ -410,7 +411,7 @@ TabContainer/colors/font_disabled_color = Color(1, 0.933333, 0.8, 0.392157)
 TabContainer/colors/font_hovered_color = Color(1, 0.933333, 0.8, 1)
 TabContainer/colors/font_selected_color = Color(1, 0.933333, 0.8, 1)
 TabContainer/colors/font_unselected_color = Color(1, 0.933333, 0.8, 1)
-TabContainer/fonts/font = ExtResource("1_lws7m")
+TabContainer/fonts/font = ExtResource("1_ewxn7")
 TabContainer/styles/panel = SubResource("StyleBoxFlat_rnlxr")
 TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_mdn0p")
 TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_g2lif")
@@ -434,7 +435,7 @@ TextEdit/constants/caret_width = 2
 TextEdit/constants/line_spacing = 1
 TextEdit/constants/outline_size = 0
 TextEdit/font_sizes/font_size = 16
-TextEdit/fonts/font = ExtResource("1_lws7m")
+TextEdit/fonts/font = ExtResource("1_ewxn7")
 TextEdit/icons/space = null
 TextEdit/icons/tab = null
 TextEdit/styles/focus = SubResource("StyleBoxFlat_muebh")

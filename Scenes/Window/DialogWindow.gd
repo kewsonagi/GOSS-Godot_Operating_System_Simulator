@@ -21,8 +21,8 @@ var controls: Array[Control]
 
 func _ready() -> void:
 	super._ready()
-	controlContainer.size = size
-	controlContainer.size.y -= top_bar.size.y
+	#controlContainer.size = size
+	#controlContainer.size.y -= top_bar.size.y
 
 signal Closed(dataDictionary: Dictionary)
 
@@ -43,8 +43,8 @@ func SetPosition(pos: Vector2) -> void:
 func SetSize(s: Vector2) -> void:
 	size.x = DefaultValues.get_window().size.x*s.x
 	size.y = DefaultValues.get_window().size.y*s.y
-	controlContainer.size = size
-	controlContainer.size.y -= top_bar.size.y
+	#controlContainer.size = size
+	#controlContainer.size.y -= top_bar.size.y
 
 func SetSizePixelPerfect(s: Vector2) -> void:
 	position.x += size.x*0.5
@@ -53,17 +53,17 @@ func SetSizePixelPerfect(s: Vector2) -> void:
 	position.x -= size.x*0.5
 	position.y -= size.y*0.5
 
-	controlContainer.size = size
-	controlContainer.size.y -= top_bar.size.y
+	#controlContainer.size = size
+	#controlContainer.size.y -= top_bar.size.y
 func SetPositionPixelPerfect(pos: Vector2) -> void:
 	position.x = pos.x - size.x*0.5
 	position.y = pos.y - size.y*0.5
 
 func SetControlPosition(b:Control, pos: Vector2) -> void:
-	b.position.x = (pos.x*(controlContainer.size.x) - (b.size.x*0.5))
-	b.position.y = (pos.y*(controlContainer.size.y) - (b.size.y*0.5))
+	b.position.x = (pos.x*(size.x-startMarginLeft-controlContainer.offset_left) - (b.size.x*0.5))
+	b.position.y = (pos.y*(size.y-startMarginTop-controlContainer.offset_top) - (b.size.y*0.5))
 
-func AddButton(id: String, buttonName: String="OK", pos: Vector2=Vector2(0.5,0.5), pressedCallback: Callable=ButtonPressed, icon: Texture2D=null) -> Control:
+func AddButton(id: String, buttonName: String="OK", pos: Vector2=Vector2(0.5,0.5), dismissWindow:bool=false, pressedCallback: Callable=ButtonPressed, icon: Texture2D=null) -> Control:
 	var button: Button = templateButton.duplicate()
 	button.visible = true
 	controlContainer.add_child(button)
@@ -74,6 +74,8 @@ func AddButton(id: String, buttonName: String="OK", pos: Vector2=Vector2(0.5,0.5
 		button.pressed.connect(pressedCallback.bind(button,id,self))
 	if(icon):
 		button.icon = icon
+	if(dismissWindow):
+		button.pressed.connect(_on_close_button_pressed)
 
 	dialogReturn[id] = false
 
@@ -81,7 +83,7 @@ func AddButton(id: String, buttonName: String="OK", pos: Vector2=Vector2(0.5,0.5
 	controls.append(button)
 	return button
 
-func AddColorPicker(id: String, buttonName: String="", pos: Vector2=Vector2(0.5,0.5), defaultColor:Color=Color.LAVENDER_BLUSH, changedCallback: Callable=ColorPickerPressed, createdCallback: Callable=ColorPickerCreated, closedCallback: Callable=ColorPickerClosed, icon: Texture2D=null) -> Control:
+func AddColorPicker(id: String, buttonName: String="", pos: Vector2=Vector2(0.5,0.5), dismissWindow:bool=false, defaultColor:Color=Color.LAVENDER_BLUSH, changedCallback: Callable=ColorPickerPressed, createdCallback: Callable=ColorPickerCreated, closedCallback: Callable=ColorPickerClosed, icon: Texture2D=null) -> Control:
 	var button: ColorPickerButton = templateColorPicker.duplicate()
 	button.visible = true
 	controlContainer.add_child(button)
@@ -94,6 +96,8 @@ func AddColorPicker(id: String, buttonName: String="", pos: Vector2=Vector2(0.5,
 	button.color_changed.connect(changedCallback.bind(button,id,self))
 	button.picker_created.connect(createdCallback.bind(button,id,self))
 	button.popup_closed.connect(closedCallback.bind(button,id,self))
+	if(dismissWindow):
+		button.popup_closed.connect(_on_close_button_pressed)
 
 	dialogReturn[id] = defaultColor
 
@@ -102,7 +106,7 @@ func AddColorPicker(id: String, buttonName: String="", pos: Vector2=Vector2(0.5,
 	controls.append(button)
 	return button
 
-func AddCheckbox(id: String, buttonName: String="", pos: Vector2=Vector2(0.5,0.5), pressedCallback: Callable=ButtonPressed, defaultOn:bool = false, icon: Texture2D=null) -> Control:
+func AddCheckbox(id: String, buttonName: String="", pos: Vector2=Vector2(0.5,0.5), toggleCallback: Callable=ButtonToggled, defaultOn:bool = false, icon: Texture2D=null) -> Control:
 	var button: CheckBox = templateCheckbox.duplicate()
 	button.visible = true
 	controlContainer.add_child(button)
@@ -111,7 +115,7 @@ func AddCheckbox(id: String, buttonName: String="", pos: Vector2=Vector2(0.5,0.5
 	if(icon):
 		button.icon = icon
 
-	button.pressed.connect(pressedCallback.bind(button,id,self))
+	button.toggled.connect(toggleCallback.bind(button,id,self))
 
 	dialogReturn[id] = button.button_pressed
 
@@ -119,11 +123,12 @@ func AddCheckbox(id: String, buttonName: String="", pos: Vector2=Vector2(0.5,0.5
 	controls.append(button)
 	return button
 
-func AddInputField(id: String, buttonName: String="Name", pos: Vector2=Vector2(0.5,0.5), textSubmittedCallback: Callable=InputFieldSubmitted, textChangedCallback: Callable=InputFieldChanged, icon: Texture2D=null) -> Control:
+func AddInputField(id: String, defaultText:String="Placement text", pos: Vector2=Vector2(0.5,0.5), textSubmittedCallback: Callable=InputFieldSubmitted, textChangedCallback: Callable=InputFieldChanged, icon: Texture2D=null) -> Control:
 	var button: LineEdit = templateInputField.duplicate()
 	button.visible = true
 	controlContainer.add_child(button)
-	button.placeholder_text = buttonName
+	button.placeholder_text = defaultText
+	button.text = defaultText
 	#button.text = buttonName
 	if(icon):
 		button.icon = icon
@@ -138,11 +143,11 @@ func AddInputField(id: String, buttonName: String="Name", pos: Vector2=Vector2(0
 	controls.append(button)
 	return button
 
-func AddTextField(id: String, buttonName: String="Dialog", pos: Vector2=Vector2(0.5,0.5), textSubmittedCallback: Callable=InputTextFieldSubmitted, textChangedCallback: Callable=InputTextFieldChanged, icon: Texture2D=null) -> Control:
+func AddTextField(id: String, defaultText: String="Dialog", pos: Vector2=Vector2(0.5,0.5), icon: Texture2D=null) -> Control:
 	var button: RichTextLabel = templateTextField.duplicate()
 	button.visible = true
 	controlContainer.add_child(button)
-	button.text = buttonName
+	button.text = defaultText
 	if(icon):
 		button.icon = icon
 
@@ -156,15 +161,21 @@ func AddTextField(id: String, buttonName: String="Dialog", pos: Vector2=Vector2(
 	controls.append(button)
 	return button
 
-func AddOptionsButton(id: String, buttonName: String="", pos: Vector2=Vector2(0.5,0.5), pressedCallback: Callable=ButtonPressed, icon: Texture2D=null) -> Control:
-	var button: Button = templateOptionButton.duplicate()
+func AddOptionsButton(id: String, buttonName: String="", optionItems:PackedStringArray=["first"], defaultSelected:int=0, pos: Vector2=Vector2(0.5,0.5), optionSelectedCallback: Callable=OptionItemSelected, icon: Texture2D=null) -> Control:
+	var button: OptionButton = templateOptionButton.duplicate()
 	button.visible = true
 	controlContainer.add_child(button)
 	button.text = buttonName
+
+	if(optionItems and !optionItems.is_empty()):
+		for item:String in optionItems:
+			button.add_item(item)
+		button.selected = defaultSelected
+		dialogReturn[id] = optionItems[defaultSelected]
+	
 	if(icon):
 		button.icon = icon
-	button.pressed.connect(pressedCallback.bind(button,id,self))
-
+	button.item_selected.connect(optionSelectedCallback.bind(button,optionItems,id,self))
 
 	SetControlPosition(button, pos)
 	controls.append(button)
@@ -198,6 +209,9 @@ func AddRangeField(id: String, vertical:bool=false, buttonName: String="", pos: 
 func ButtonPressed(b: Button, id: String, dialog: DialogBox) -> void:
 	dialog.dialogReturn[id] = true
 	return
+func ButtonToggled(toggled: bool, b: Button, id: String, dialog: DialogBox) -> void:
+	dialog.dialogReturn[id] = toggled
+	return
 func InputFieldSubmitted(value: String, field: LineEdit, id: String, dialog: DialogBox) -> void:
 	dialog.dialogReturn[id] = value
 	return
@@ -221,4 +235,7 @@ func ColorPickerClosed(b: ColorPickerButton, id: String, dialog: DialogBox) -> v
 	return
 func RangeChanged(value: float, b: Range, id: String, dialog: DialogBox) -> void:
 	dialog.dialogReturn[id] = value
+	return
+func OptionItemSelected(index:int, optionItems:PackedStringArray,id: String, dialog: DialogBox) -> void:
+	dialog.dialogReturn[id] = optionItems[index]
 	return

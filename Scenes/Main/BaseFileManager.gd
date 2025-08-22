@@ -375,6 +375,34 @@ func RightClickedSelection(selection: Array[Node]) -> void:
 		RClickMenuManager.instance.ShowMenu("File Manager Menu", self)
 		RClickMenuManager.instance.AddMenuItem("Copy", CopySelection, ResourceManager.GetResource("Copy"))
 		RClickMenuManager.instance.AddMenuItem("Cut", CutSelection, ResourceManager.GetResource("Cut"))
+		RClickMenuManager.instance.AddMenuItem("Delete items?", AskBeforeDelete, ResourceManager.GetResource("Delete"))
+
+var grabedFiles: Array[Node]
+
+func AskBeforeDelete() -> void:
+	grabedFiles.clear()
+	grabedFiles.append_array(filesSelected)
+	for file:Node in grabedFiles:
+		if(file and file is BaseFile):
+			var theFile: BaseFile = file as BaseFile
+			theFile.show_selected_highlight()
+
+	var dialog: DialogBox = DialogManager.instance.CreateOKCancelDialog("Delete?", "OK", "Cancel", "Are you sure you want to delete these?", Vector2(0.5, 0.4))
+	dialog.Closed.connect((func(d: Dictionary,ourself:BaseFileManager):
+		if(d["OK"]):
+			var firstValid:BaseFile
+			for file:Node in ourself.grabedFiles:
+				if(file and file is BaseFile):
+					var theFile: BaseFile = file as BaseFile
+					theFile.show_selected_highlight()
+					firstValid = theFile
+					#theFile.selectedFiles = ourself.grabedFiles
+					#theFile.DeleteFile()
+					#break
+			if(firstValid):
+				firstValid.DeleteFile()
+		return).bind(self)
+	)
 
 func ClearSelection(items: Array[Node]) -> void:
 	for item in items:

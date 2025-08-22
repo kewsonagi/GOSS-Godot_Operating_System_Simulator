@@ -1,4 +1,5 @@
 extends TextEdit
+class_name FileRenameEdit
 
 ## Handles renaming of a folder.
 @export var fileToRenameSelectedIndicator: Control

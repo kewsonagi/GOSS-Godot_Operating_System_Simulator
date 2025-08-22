@@ -86,6 +86,10 @@ static func DeregisterResourceByResource(resource: Resource) -> void:
 		var indx: int = registeredAssetsByResource[resource.resource_pathkey]
 		assetList[indx].Unload(false)
 
+static func LoadPackOrMod(path:String, replace:bool=true) -> bool:
+	var loaded: bool = ProjectSettings.load_resource_pack(path, replace)
+	return loaded
+
 static func GetPathToSave() -> String:
 	return ProjectSettings.globalize_path("user://settings/save/")
 static func GetPathToUser() -> String:
@@ -94,3 +98,9 @@ static func GetPathToUserFiles() -> String:
 	return ProjectSettings.globalize_path("user://files/")
 static func GetPathToWindowSettings() -> String:
 	return ProjectSettings.globalize_path("user://settings/window/")
+static func GetPathToPackFiles() -> String:
+	return ProjectSettings.globalize_path("user://mods/")
+static func GetPathToApplications() -> String:
+	return ProjectSettings.globalize_path("user://apps/")
+static func GetPathToGames() -> String:
+	return ProjectSettings.globalize_path("user://games/")

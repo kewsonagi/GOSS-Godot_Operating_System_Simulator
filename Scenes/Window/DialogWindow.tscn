@@ -31,7 +31,7 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 1
 corner_detail = 6
 
-[node name="Window" type="Panel" node_paths=PackedStringArray("controlContainer", "templateButton", "templateColorPicker", "templateCheckbox", "templateInputField", "templateTextField", "templateRangeH", "templateRangeV", "top_bar", "maximizeButton", "minimizeButton", "closeButton", "titleText", "titlebarIcon", "borderNode", "marginContainer", "transitionsNode", "previewCaptureViewport") groups=["window"]]
+[node name="Window" type="Panel" node_paths=PackedStringArray("controlContainer", "templateButton", "templateColorPicker", "templateCheckbox", "templateInputField", "templateTextField", "templateRangeH", "templateRangeV", "templateOptionButton", "top_bar", "maximizeButton", "minimizeButton", "closeButton", "titleText", "titlebarIcon", "borderNode", "marginContainer", "transitionsNode", "previewCaptureViewport") groups=["window"]]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(250, 150)
 anchors_preset = -1
@@ -56,6 +56,7 @@ templateInputField = NodePath("SubViewportContainer/SubViewport/MarginContainer/
 templateTextField = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/RichTextLabel")
 templateRangeH = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/HSlider")
 templateRangeV = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/VSlider")
+templateOptionButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/OptionButton")
 top_bar = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar")
 maximizeButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Maximize Button")
 minimizeButton = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer/Minimize Button")
@@ -186,6 +187,8 @@ anchor_bottom = 1.0
 offset_top = 31.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_dejl3")
 
 [node name="Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
 visible = false
@@ -194,6 +197,7 @@ layout_mode = 0
 offset_right = 100.0
 offset_bottom = 30.0
 pivot_offset = Vector2(50, 15)
+mouse_filter = 1
 text = "OK"
 expand_icon = true
 
@@ -204,6 +208,7 @@ layout_mode = 0
 offset_right = 120.0
 offset_bottom = 30.0
 pivot_offset = Vector2(60, 15)
+mouse_filter = 1
 text = "Option on?"
 expand_icon = true
 
@@ -214,6 +219,7 @@ layout_mode = 0
 offset_right = 30.0
 offset_bottom = 30.0
 pivot_offset = Vector2(15, 15)
+mouse_filter = 1
 expand_icon = true
 
 [node name="HSlider" type="HSlider" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
@@ -222,7 +228,7 @@ layout_mode = 0
 offset_right = 120.0
 offset_bottom = 61.0
 pivot_offset = Vector2(60, 30)
-step = 0.05000000000291038
+mouse_filter = 1
 value = 30.00000000174623
 
 [node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/HSlider"]
@@ -243,6 +249,7 @@ layout_mode = 0
 offset_right = 50.0
 offset_bottom = 120.0
 pivot_offset = Vector2(25, 60)
+mouse_filter = 1
 value = 30.0
 ticks_on_borders = true
 
@@ -262,29 +269,46 @@ vertical_alignment = 1
 [node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
 visible = false
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 19.0
+offset_right = 57.0
+offset_bottom = 30.0
+theme = ExtResource("1_dejl3")
 text = "my label"
 vertical_alignment = 1
 
 [node name="LineEdit" type="LineEdit" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
 visible = false
 layout_mode = 0
-offset_right = 150.0
+offset_right = 265.0
 offset_bottom = 30.0
+mouse_filter = 1
+theme = ExtResource("1_dejl3")
+theme_override_font_sizes/font_size = 20
 text = "line edit"
 placeholder_text = "dummy test"
+alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
 visible = false
-layout_mode = 0
-offset_right = 330.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = -1
+offset_right = 265.0
+offset_bottom = 30.0
+grow_horizontal = 2
+mouse_filter = 2
 theme = ExtResource("1_dejl3")
 bbcode_enabled = true
 text = "dummy text"
+fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls"]
+visible = false
+layout_mode = 0
+offset_right = 265.0
+offset_bottom = 30.0
+theme = ExtResource("1_dejl3")
+alignment = 1
 
 [connection signal="gui_input" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" to="." method="_on_top_bar_gui_input"]
 [connection signal="mouse_entered" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" to="." method="_on_top_bar_mouse_entered"]

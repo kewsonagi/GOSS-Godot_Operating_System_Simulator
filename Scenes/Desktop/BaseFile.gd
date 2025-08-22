@@ -226,10 +226,18 @@ func HandleRightClick() -> void:
 	RClickMenuManager.instance.AddMenuItem("Copy", CopyFile, ResourceManager.GetResource("Copy"))
 	RClickMenuManager.instance.AddMenuItem("Cut", CutFile, ResourceManager.GetResource("Cut"))
 	RClickMenuManager.instance.AddMenuItem("Rename", ShowRename, ResourceManager.GetResource("Edit"))
-	RClickMenuManager.instance.AddMenuItem("Delete Me", DeleteFile, ResourceManager.GetResource("Delete"))
-	RClickMenuManager.instance.AddMenuItem("Ask me", DialogTest, ResourceManager.GetResource("Delete"))
-
-	NotificationManager.ShowNotification("Base File Right Click")
+	RClickMenuManager.instance.AddMenuItem("Rename Popup", ShowRenameDialog, ResourceManager.GetResource("Edit"))
+	# RClickMenuManager.instance.AddMenuItem("Delete Me", DeleteFile, ResourceManager.GetResource("Delete"))
+	var menuName:String = "Delete file?"
+	if(selectedFiles.size()>1):
+		menuName = "Delete files?"
+	elif(eFileType==E_FILE_TYPE.FOLDER):
+		menuName = "Delete folder?"
+	elif(eFileType==E_FILE_TYPE.APP):
+		menuName = "Delete app shortcut?"
+	elif(eFileType==E_FILE_TYPE.IMAGE):
+		menuName = "Delete image?"
+	RClickMenuManager.instance.AddMenuItem("Delete files", AskBeforeDelete, ResourceManager.GetResource("Delete"))
 
 	titleEditBox.release_focus()
 	titleEditBox.visible = false
@@ -242,32 +250,36 @@ func CutFile() -> void:
 	#CopyPasteManager.cut_folder(self)
 	CopyPasteManager.CutMultiple(selectedFiles)
 
-func DialogTest() -> void:
-	var customDialog: DialogBox = DialogManager.instance.CreateDialogbox("Testing custom dialog", Vector2(0.5, 0.4))
-	customDialog.AddTextField("Body", "Dummy text in the center of the window? Good.", Vector2(0.5,0.3))
-	var okButton: Button = customDialog.AddButton("OK", "OK", Vector2(0.25,0.7), (func(b:Button,id:String,d:DialogBox):
-		d.dialogReturn[id] = true
-		UtilityHelper.Log("Pressed: %s" % id)
-		d._on_close_button_pressed()
-		)
-	)
-	var cancelButton: Button = customDialog.AddButton("Cancel", "Cancel", Vector2(0.75,0.7), (func(b:Button,id:String,d:DialogBox):
-		d.dialogReturn[id] = true
-		UtilityHelper.Log("Pressed: %s" % id)
-		d._on_close_button_pressed()
-		)
-	)
-	customDialog.Closed.connect(func(d:Dictionary):
-		var buttonReturn: String = "Cancel"
-		if(d["OK"]):
-			buttonReturn = "OK"
-		UtilityHelper.Log("Closed custom dialog with: %s" % buttonReturn)
-	)
+var grabedFiles: Array[Node]
 
-	var dialog: DialogBox = DialogManager.instance.CreateOKCancelDialog("Testing dialogs", "OK", "Cancel", "What do you want to do?", Vector2(0.8, 0.8))
-	dialog.Closed.connect(func(d: Dictionary):
+func AskBeforeDelete() -> void:
+	grabedFiles.clear()
+	grabedFiles.append_array(selectedFiles)
+
+	var dialog: DialogBox = DialogManager.instance.CreateOKCancelDialog("Delete?", "OK", "Cancel", "Are you sure you want to delete these?", Vector2(0.5, 0.4))
+	dialog.Closed.connect((func(d: Dictionary,ourFile:BaseFile):
 		NotificationManager.ShowNotification("Dialogs work? OK pressed: %s or Cancel pressed: %s" % [d["OK"], d["Cancel"]])
+		if(d["OK"]):
+			print("deleting")
+			ourFile.selectedFiles = ourFile.grabedFiles
+			ourFile.DeleteFile()
+		return).bind(self)
 	)
+func ShowRenameDialog() -> void:
+	# var dialog: DialogBox = DialogManager.instance.CreateInputDialog("New Name", "OK", "Cancel", "Filename", szFileName, "Enter New File Name", Vector2(0.5,0.3))
+	var dialog: DialogBox = DialogManager.instance.CreateInputDialogWithLabel("New Name", "OK", "Cancel", "Filename", szFileName, "Name: ", "Enter New File Name", Vector2(0.5,0.3))
+	dialog.Closed.connect(
+		(func(d:Dictionary,thisFile:BaseFile):
+			if(d["OK"]):
+				thisFile.titleEditBox.text = d["Filename"]
+				thisFile.fileTitleControl.text = d["Filename"]
+				var folderEdit: FileRenameEdit = thisFile.titleEditBox as FileRenameEdit
+				if thisFile.titleEditBox is FileRenameEdit:
+					folderEdit.trigger_rename()
+
+				
+	).bind(self)
+)
 #handle renaming controls
 func RenameFile() -> void:
 	if(!titleEditBox.text.is_empty()):
