@@ -14,7 +14,7 @@ func _ready() -> void:
 		queue_free()
 
 func CreateDialogbox(title: String, pos: Vector2 = Vector2(0.5,0.5)) -> DialogBox:
-	var dialog: DialogBox = DefaultValues.spawn_window(templateDialogbox.resource_path, title, "Dialog:%s" % title)#templateDialogbox.instantiate() as DialogBox
+	var dialog: DialogBox = Desktop.instance.SpawnWindow(templateDialogbox.resource_path, title, "Dialog:%s" % title)#templateDialogbox.instantiate() as DialogBox
 	dialog.SetTitleText(title)
 	dialog.SetTitleColor(Color.CORNFLOWER_BLUE)
 	if(dialog):
@@ -22,7 +22,7 @@ func CreateDialogbox(title: String, pos: Vector2 = Vector2(0.5,0.5)) -> DialogBo
 	return dialog
 
 func CreateOKCancelDialog(title: String, okName: String, cancelName: String, centerMessage:String="", pos: Vector2=Vector2(0.5,0.4)) -> DialogBox:
-	var dialog: DialogBox = DefaultValues.spawn_window(templateDialogbox.resource_path, title, "Dialog:%s" % title)#templateDialogbox.instantiate() as DialogBox
+	var dialog: DialogBox = Desktop.instance.SpawnWindow(templateDialogbox.resource_path, title, "Dialog:%s" % title)#templateDialogbox.instantiate() as DialogBox
 	dialog.SetTitleColor(Color.MEDIUM_VIOLET_RED)
 	dialog.SetSize(Vector2(0.2, 0.15))
 	dialog.SetPosition(pos)
@@ -38,7 +38,7 @@ func CreateOKCancelDialog(title: String, okName: String, cancelName: String, cen
 
 
 func CreateInputDialog(title: String, okName: String, cancelName: String, inputFieldID:String="Name",inputField:String="Name", centerMessage:String="", pos: Vector2=Vector2(0.5,0.4)) -> DialogBox:
-	var dialog: DialogBox = DefaultValues.spawn_window(templateDialogbox.resource_path, title, "Dialog:%s" % title)#templateDialogbox.instantiate() as DialogBox
+	var dialog: DialogBox = Desktop.instance.SpawnWindow(templateDialogbox.resource_path, title, "Dialog:%s" % title)#templateDialogbox.instantiate() as DialogBox
 	dialog.SetTitleColor(Color.MEDIUM_VIOLET_RED)
 	dialog.SetSize(Vector2(0.2, 0.15))
 	dialog.SetPosition(pos)
@@ -53,8 +53,24 @@ func CreateInputDialog(title: String, okName: String, cancelName: String, inputF
 	
 	return dialog
 
+func CreateColorDialog(title: String, okName: String, cancelName: String, colorButtonName:String="Name",inputColor:Color=Color.STEEL_BLUE, centerMessage:String="", pos: Vector2=Vector2(0.5,0.4)) -> DialogBox:
+	var dialog: DialogBox = Desktop.instance.SpawnWindow(templateDialogbox.resource_path, title, "Dialog:%s" % title)#templateDialogbox.instantiate() as DialogBox
+	dialog.SetTitleColor(Color.MEDIUM_VIOLET_RED)
+	dialog.SetSize(Vector2(0.2, 0.15))
+	dialog.SetPosition(pos)
+	var textField:RichTextLabel = dialog.AddTextField("Body", centerMessage, Vector2(0.5,0.1))
+	#textField.size.x=dialog.size.x
+	#textField.position.x = 0
+
+	var colorField:ColorPickerButton = dialog.AddColorPicker(colorButtonName, colorButtonName, inputColor, Vector2(0.5,0.4))
+	dialog.AddButton(okName,okName, Vector2(0.25,0.7), true)
+	dialog.AddButton(cancelName,cancelName, Vector2(0.75,0.7), true)
+	#dialog.Closed.connect(returnData)
+	
+	return dialog
+
 func CreateInputDialogWithLabel(title: String, okName: String, cancelName: String, inputFieldID:String="Name", inputField:String="Name", inputLabel:String="Name: ", centerMessage:String="", pos: Vector2=Vector2(0.5,0.4)) -> DialogBox:
-	var dialog: DialogBox = DefaultValues.spawn_window(templateDialogbox.resource_path, title, "Dialog:%s" % title)#templateDialogbox.instantiate() as DialogBox
+	var dialog: DialogBox = Desktop.instance.SpawnWindow(templateDialogbox.resource_path, title, "Dialog:%s" % title)#templateDialogbox.instantiate() as DialogBox
 	dialog.SetTitleColor(Color.MEDIUM_VIOLET_RED)
 	dialog.SetSize(Vector2(0.2, 0.15))
 	dialog.SetPosition(pos)

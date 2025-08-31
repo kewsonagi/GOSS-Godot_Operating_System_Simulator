@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://cfj5p5pgfnywp"]
+
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_7g4n6"]
+[ext_resource type="PackedScene" uid="uid://dyffbipc6kbic" path="res://Scenes/Autoloads/RClick Menu Manager/ClickHandler.tscn" id="3_xuldr"]
+[ext_resource type="Script" uid="uid://iqrujff75jsb" path="res://Widgets/Taskbar.gd" id="24_lr0nb"]
+[ext_resource type="PackedScene" uid="uid://dlchsrtufo30l" path="res://Widgets/StartWidget.tscn" id="25_6hyrk"]
+[ext_resource type="PackedScene" uid="uid://cawmw4n6ksji7" path="res://Widgets/WindowListWidget.tscn" id="26_evtr7"]
+[ext_resource type="PackedScene" uid="uid://cjivrryqpnwpk" path="res://Widgets/TimeWidget.tscn" id="27_wlx57"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuldr"]
+bg_color = Color(0.35686275, 0.18039216, 0.4627451, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.7485199, 0.5676661, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 4
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 4
+
+[node name="TaskbarBottom" type="Panel" node_paths=PackedStringArray("bgPanel", "taskbarListControl", "clickHandler")]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme = ExtResource("1_7g4n6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_xuldr")
+script = ExtResource("24_lr0nb")
+bgPanel = NodePath(".")
+taskbarListControl = NodePath("BoxContainer")
+clickHandler = NodePath("ClickHandler")
+
+[node name="ClickHandler" parent="." instance=ExtResource("3_xuldr")]
+layout_mode = 1
+
+[node name="BoxContainer" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Start Button" parent="BoxContainer" node_paths=PackedStringArray("taskbarParent") instance=ExtResource("25_6hyrk")]
+visible = false
+layout_mode = 2
+taskbarParent = NodePath("../..")
+
+[node name="ScrollContainer" parent="BoxContainer" node_paths=PackedStringArray("taskbarParent") instance=ExtResource("26_evtr7")]
+visible = false
+layout_mode = 2
+taskbarParent = NodePath("../..")
+
+[node name="TimeAndDate" parent="BoxContainer" node_paths=PackedStringArray("taskbarParent") instance=ExtResource("27_wlx57")]
+visible = false
+custom_minimum_size = Vector2(92, 60)
+layout_mode = 2
+taskbarParent = NodePath("../..")

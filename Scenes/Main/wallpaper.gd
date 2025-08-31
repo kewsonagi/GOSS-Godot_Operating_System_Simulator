@@ -24,20 +24,28 @@ func apply_wallpaper_from_path(path: String) -> void:
 	wallpaper_added.emit()
 	
 	var image: Image = Image.load_from_file(ProjectSettings.globalize_path("user://%s" % path))
-	add_wallpaper(image)
+	if(image):
+		add_wallpaper(image)
 
 ## Applies wallpaper from an image file
 func apply_wallpaper_from_file(image_file: BaseFile) -> void:
+	var filepath:String = UtilityHelper.GetCleanFileString("%s/%s" % [ResourceManager.GetPathToUserFiles().get_base_dir(),image_file.szFilePath], image_file.szFileName, image_file.szFileName.get_extension())
+	if(!FileAccess.file_exists(filepath)):return
+
 	wallpaper_added.emit()
 	DefaultValues.save_wallpaper(image_file)
 	
-	var image: Image = Image.load_from_file("%s%s/%s" % [ResourceManager.GetPathToUserFiles(),image_file.szFilePath, image_file.szFileName])
-	add_wallpaper(image)
+	var image: Image = Image.load_from_file(filepath)
+	if(image):
+		add_wallpaper(image)
 func apply_wallpaper_from_filename(fileName: String, filePath: String) -> void:
+	var fullFilepath:String = "%s/%s" % [filePath, fileName]
+	if(!FileAccess.file_exists(fullFilepath)):return
+	
 	wallpaper_added.emit()
 	DefaultValues.save_wallpaperByName(filePath, fileName)
 	
-	var image: Image = Image.load_from_file("%s%s/%s" % [ResourceManager.GetPathToUserFiles(),filePath, fileName])
+	var image: Image = Image.load_from_file(fullFilepath)
 	add_wallpaper(image)
 
 func add_wallpaper(image: Image) -> void:

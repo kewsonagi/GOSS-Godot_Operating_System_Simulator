@@ -68,9 +68,9 @@ func spawn_window() -> void:
 	print("spawn regular game window inside itself")
 	var window: FakeWindow
 	if(gameScene):
-		window = DefaultValues.spawn_game_window(gameScene.resource_path, title_text, gameScene.resource_path.get_basename(), gameData,null)
+		window = Desktop.instance.SpawnGameWindow(gameScene.resource_path, title_text, gameScene.resource_path.get_basename(), gameData,null)
 	else:
-		window = DefaultValues.spawn_game_window(game_scene, title_text, game_scene.get_basename(), gameData,null)
+		window = Desktop.instance.SpawnGameWindow(game_scene, title_text, game_scene.get_basename(), gameData,null)
 	#var window: FakeWindow
 	#window = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
 	#window.get_node("%Game Window").add_child(load(game_scene).instantiate())
@@ -78,7 +78,7 @@ func spawn_window() -> void:
 	if use_generic_pause_menu:
 		window.get_node("%GamePauseManager").process_mode = Node.PROCESS_MODE_INHERIT
 	
-	DefaultValues.AddWindowToTaskbar(window, Color.CRIMSON, taskbarIcon.texture)
+	Desktop.instance.AddWindowToTaskbar(window, Color.CRIMSON, taskbarIcon.texture)
 	#taskbar_button.active_color = $"HBoxContainer/MarginContainer/TextureRect".modulate
 	
 
@@ -87,8 +87,8 @@ func spawn_outside_window() -> void:
 	var windowParent:Node = $/root/Control;
 	var window: FakeWindow
 	if(gameScene):
-		window = DefaultValues.spawn_window(gameScene.resource_path,title_text, gameScene.resource_path.get_basename(), gameData, windowParent)
+		window = Desktop.instance.SpawnWindow(gameScene.resource_path,title_text, gameScene.resource_path.get_basename(), gameData, windowParent)
 	else:
-		window = DefaultValues.spawn_window(game_scene, title_text, game_scene.get_basename(), gameData, windowParent)
-	DefaultValues.AddWindowToTaskbar(window, Color.CRIMSON, taskbarIcon.texture)
+		window = Desktop.instance.SpawnWindow(game_scene, title_text, game_scene.get_basename(), gameData, windowParent)
+	Desktop.instance.AddWindowToTaskbar(window, Color.CRIMSON, taskbarIcon.texture)
 	#$/root/Control.add_child(load(game_scene).instantiate())

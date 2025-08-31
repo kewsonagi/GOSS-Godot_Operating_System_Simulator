@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://cawmw4n6ksji7"]
+
+[ext_resource type="Script" uid="uid://cc2a2c82s6s3y" path="res://Widgets/AppsListWidget.gd" id="1_ldmvc"]
+[ext_resource type="Resource" uid="uid://lal0k5bow8vl" path="res://Widgets/AppsList.tres" id="2_ltwbu"]
+
+[node name="ScrollContainer" type="ScrollContainer" node_paths=PackedStringArray("taskbarListControl")]
+clip_contents = false
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_right = -94.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_ldmvc")
+taskbarListControl = NodePath("HBoxContainer")
+config = ExtResource("2_ltwbu")
+
+[node name="HBoxContainer" type="BoxContainer" parent="." groups=["taskbar_buttons"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+alignment = 1

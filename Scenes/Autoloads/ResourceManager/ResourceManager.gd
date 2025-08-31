@@ -90,6 +90,22 @@ static func LoadPackOrMod(path:String, replace:bool=true) -> bool:
 	var loaded: bool = ProjectSettings.load_resource_pack(path, replace)
 	return loaded
 
+static func SaveResource(res: Resource, path: String) -> void:
+	if(!FileAccess.file_exists(path)):
+		if(!DirAccess.dir_exists_absolute(path.get_base_dir())):
+			DirAccess.make_dir_recursive_absolute(path.get_base_dir())
+		FileAccess.open(path, FileAccess.WRITE)
+
+	ResourceSaver.save(res, path)
+
+static func CreateDefaultPaths() -> void:
+	DirAccess.make_dir_recursive_absolute(GetPathToSave())
+	DirAccess.make_dir_recursive_absolute(GetPathToUser())
+	DirAccess.make_dir_recursive_absolute(GetPathToUserFiles())
+	DirAccess.make_dir_recursive_absolute(GetPathToWindowSettings())
+	DirAccess.make_dir_recursive_absolute(GetPathToPackFiles())
+	DirAccess.make_dir_recursive_absolute(GetPathToApplications())
+	DirAccess.make_dir_recursive_absolute(GetPathToGames())
 static func GetPathToSave() -> String:
 	return ProjectSettings.globalize_path("user://settings/save/")
 static func GetPathToUser() -> String:

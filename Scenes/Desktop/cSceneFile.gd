@@ -17,12 +17,11 @@ func OpenFile() -> void:
 		filename = "%s/%s" % [szFilePath, szFileName]
 	
 	windowData["Filename"] = filename;
-	print(filename)
-	window = DefaultValues.spawn_window("res://Scenes/Window/Scene Viewer/SceneViewer.tscn", windowName, windowID, windowData, windowParent)
+	window = Desktop.instance.SpawnWindow("res://Scenes/Window/Scene Viewer/SceneViewer.tscn", windowName, windowID, windowData, windowParent)
 	#window.title_text = windowName#%"Folder Title".text
 	window.titlebarIcon.icon = fileTexture.texture
 	
-	DefaultValues.AddWindowToTaskbar(window, fileColor, fileTexture.texture)
+	Desktop.instance.AddWindowToTaskbar(window, fileColor, fileTexture.texture)
 	return
 
 func HandleRightClick() -> void:

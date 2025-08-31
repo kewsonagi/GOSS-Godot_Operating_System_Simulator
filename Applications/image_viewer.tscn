@@ -59,6 +59,12 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_41asu")
 theme = ExtResource("2_4jqdl")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ned24")
 
+[node name="Minimize Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer" index="0"]
+visible = true
+
+[node name="Maximize Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer" index="1"]
+visible = true
+
 [node name="SubViewportContainer_SubViewport_TransitionNode#TransitionNode#Control" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="1"]
 clip_contents = true
 layout_mode = 1
@@ -84,6 +90,12 @@ expand_mode = 2
 stretch_mode = 5
 script = ExtResource("2_3oyj5")
 parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Spots" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="2"]
+visible = true
+
+[node name="DialogControls" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="3"]
+visible = false
 
 [connection signal="gui_input" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#Control/Image Viewer" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#Control/Image Viewer" method="_on_gui_input"]
 

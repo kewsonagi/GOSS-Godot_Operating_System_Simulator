@@ -35,6 +35,12 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_plqrr")
 [node name="Title Text" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="0"]
 theme_override_styles/normal = SubResource("StyleBoxFlat_i7yd4")
 
+[node name="Minimize Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer" index="0"]
+visible = true
+
+[node name="Maximize Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer" index="1"]
+visible = true
+
 [node name="SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="1"]
 layout_mode = 1
 anchors_preset = -1
@@ -73,6 +79,12 @@ gutters_draw_line_numbers = true
 gutters_draw_fold_gutter = true
 script = ExtResource("2_4wajo")
 parentWindow = NodePath("../../../../../..")
+
+[node name="Resize Spots" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="2"]
+visible = true
+
+[node name="DialogControls" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="3"]
+visible = false
 
 [connection signal="text_changed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer/Text Editor" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/SubViewportContainer_SubViewport_TransitionNode#TransitionNode#MarginContainer/Text Editor" method="_on_text_changed"]
 

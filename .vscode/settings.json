@@ -51,6 +51,10 @@
         {
             "folderPath": "GOSS\\Scenes\\Taskbar\\",
             "color": "foldercolorizer.color_cc9900"
+        },
+        {
+            "folderPath": "GOSS\\Widgets\\",
+            "color": "foldercolorizer.color_33ff00"
         }
     ]
 }

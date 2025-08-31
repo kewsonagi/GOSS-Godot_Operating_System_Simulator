@@ -18,7 +18,7 @@ func FindParentManager() -> void:
 	parentManager = parentWindow
 
 
-func OpenFile() -> void:
+func OpenThis() -> void:
 	FindParentManager()
 	hide_selected_highlight()
 	if parentManager and eFileType == E_FILE_TYPE.FOLDER:
@@ -32,11 +32,11 @@ func OpenFile() -> void:
 		var windowData: Dictionary = {}
 
 		windowData["StartPath"] = szFilePath;
-		window = DefaultValues.spawn_window("res://Scenes/Window/File Manager/file_manager_window.tscn", windowName, windowID, windowData,windowParent)
+		window = Desktop.instance.SpawnWindow("res://Scenes/Window/File Manager/file_manager_window.tscn", windowName, windowID, windowData,windowParent)
 		#window.title_text = windowName#%"Folder Title".text
 		window.titlebarIcon.icon = fileTexture.texture
 	
-		DefaultValues.AddWindowToTaskbar(window, fileColor, fileTexture.texture)
+		Desktop.instance.AddWindowToTaskbar(window, fileColor, fileTexture.texture)
 	return
 
 func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:

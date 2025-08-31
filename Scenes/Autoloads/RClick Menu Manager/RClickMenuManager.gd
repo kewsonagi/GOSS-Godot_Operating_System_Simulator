@@ -7,6 +7,8 @@ class_name RClickMenuManager
 @export var menuItemSeparator: PackedScene = preload("res://Scenes/Autoloads/RClick Menu Manager/RClickMenuSeparator.tscn")
 
 @export var itemContainer: Node
+var submenus: Array[Node]
+var submenuTemplate: Node
 @export var title: RichTextLabel
 ## The Control node that got right clicked.
 var menuCaller: Control
@@ -19,9 +21,6 @@ signal Dismissed()
 ## Checks if the mouse is currently over the menu
 var is_mouse_over: bool
 
-## Used as a cooldown for not spawning the right click menu dozens of times per second
-var is_shown_recently: bool
-
 func _ready() -> void:
 	if(!instance):
 		instance = self;
@@ -29,6 +28,9 @@ func _ready() -> void:
 		queue_free()
 	startSize = size + Vector2(0, 0)
 	visible = false
+
+	submenuTemplate = itemContainer.duplicate()
+	submenuTemplate.visible = false
 
 #setup the menu and list with name and caller
 func ShowMenu(menuName: String, caller: Control) -> void:
@@ -48,6 +50,8 @@ func ShowMenu(menuName: String, caller: Control) -> void:
 	tween.tween_property(self, "modulate:a", 1, 0.15)
 	is_mouse_over = true
 
+func IsOpened() -> bool:
+	return self.visible
 
 #add new item to the menu with a callback for what to do
 func AddMenuItem(itemName: String, callback: Callable, itemIcon: Texture2D=null) -> void:
@@ -74,7 +78,6 @@ func AddMenuItem(itemName: String, callback: Callable, itemIcon: Texture2D=null)
 	clamp_inside_viewport()
 	is_mouse_over = true
 
-
 func _input(event: InputEvent) -> void:
 	if(!self.visible): return
 
@@ -95,6 +98,8 @@ func _input(event: InputEvent) -> void:
 	# 		HideMenu()
 
 func DismissMenu() -> void:
+	if(!self.visible): return
+	
 	var tween: Tween = create_tween()
 	await tween.tween_property(self, "modulate:a", 0, 0.10).finished
 	if modulate.a == 0:
@@ -103,17 +108,6 @@ func DismissMenu() -> void:
 		if(item.optionIcon):
 			ResourceManager.ReturnResourceByResource(item.optionIcon.texture)
 	Dismissed.emit()
-
-# func _on_mouse_entered() -> void:
-# 	is_mouse_over = true
-
-# func _on_mouse_exited() -> void:
-# 	is_mouse_over = false
-
-func play_cooldown() -> void:
-	is_shown_recently = true
-	await get_tree().create_timer(0.1).timeout
-	is_shown_recently = false
 
 func clamp_inside_viewport() -> void:
 	var game_window_size: Vector2 = get_viewport_rect().size

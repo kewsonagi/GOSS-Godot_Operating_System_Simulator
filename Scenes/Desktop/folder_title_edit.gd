@@ -53,9 +53,7 @@ func trigger_rename() -> void:
 	
 	if folder.eFileType != BaseFile.E_FILE_TYPE.FOLDER:
 		var old_folder_name: String = folder.szFileName
-		print(old_folder_name)
 		var new_folder_name: String = "%s.%s" % [text, folder.szFileName.split('.')[-1]]
-		print(new_folder_name)
 		if FileAccess.file_exists("%s%s/%s" % [ResourceManager.GetPathToUserFiles(), folder.szFilePath, new_folder_name]):
 			cancel_rename()
 			NotificationManager.ShowNotification("That file already exists!", NotificationManager.E_NOTIFICATION_TYPE.ERROR, "Error")

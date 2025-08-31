@@ -4,7 +4,7 @@ class_name BaseFile
 ## A folder that can be opened and interacted with.
 ## Files like text/image files are just folders with a different file_type_enum.
 
-enum E_FILE_TYPE {FOLDER, TEXT_FILE, IMAGE, SCENE_FILE, UNKNOWN, APP}
+enum E_FILE_TYPE {FOLDER, TEXT_FILE, IMAGE, SCENE_FILE, UNKNOWN, APP, PCK}
 @export var eFileType: E_FILE_TYPE
 
 @export var fileIcon: Texture2D
@@ -24,6 +24,8 @@ var bMouseOver: bool
 var clickHandler: HandleClick
 static var selectedFiles: Array[Node]
 static var selectedFilesOld: Array[Node]
+
+signal RightClickMenuOpened
 
 func _ready() -> void:
 	clickHandler = DefaultValues.AddClickHandler(self)
@@ -171,12 +173,17 @@ func delete_file() -> void:
 	NotificationManager.ShowNotification("Moved [color=59ea90][wave freq=7]%s[/wave][/color] to trash!" % szFileName)
 	queue_free()
 
+func OpenThis() -> void:
+	var filePath: String = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), szFilePath, szFileName]
+	AppManager.LaunchAppByExt(szFileName.get_extension(), filePath, true)
+	
 func OpenFile() -> void:
 	for file: Node in selectedFiles:
 		if(file and !file.is_queued_for_deletion() and file is BaseFile):
 			var f: BaseFile = file
-			var filePath: String = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), f.szFilePath, f.szFileName]
-			AppManager.LaunchAppByExt(f.szFileName.get_extension(), filePath, true)
+			f.OpenThis()
+	selectedFiles.clear()
+	selectedFilesOld.clear()
 
 func DeleteFile() -> void:
 	var filemanagerOwner: BaseFileManager# = BaseFileManager.masterFileManagerList[0]
@@ -221,6 +228,8 @@ func DeleteFile() -> void:
 	return
 
 func HandleRightClick() -> void:
+	show_selected_highlight()
+
 	RClickMenuManager.instance.ShowMenu("Base File Menu", self)
 	RClickMenuManager.instance.AddMenuItem("Open Me!", OpenFile, ResourceManager.GetResource("Open"))
 	RClickMenuManager.instance.AddMenuItem("Copy", CopyFile, ResourceManager.GetResource("Copy"))
@@ -237,10 +246,12 @@ func HandleRightClick() -> void:
 		menuName = "Delete app shortcut?"
 	elif(eFileType==E_FILE_TYPE.IMAGE):
 		menuName = "Delete image?"
-	RClickMenuManager.instance.AddMenuItem("Delete files", AskBeforeDelete, ResourceManager.GetResource("Delete"))
+	RClickMenuManager.instance.AddMenuItem(menuName, AskBeforeDelete, ResourceManager.GetResource("Delete"))
 
 	titleEditBox.release_focus()
 	titleEditBox.visible = false
+
+	RightClickMenuOpened.emit()
 
 func CopyFile() -> void:
 	#CopyPasteManager.copy_folder(self)
@@ -257,10 +268,9 @@ func AskBeforeDelete() -> void:
 	grabedFiles.append_array(selectedFiles)
 
 	var dialog: DialogBox = DialogManager.instance.CreateOKCancelDialog("Delete?", "OK", "Cancel", "Are you sure you want to delete these?", Vector2(0.5, 0.4))
-	dialog.Closed.connect((func(d: Dictionary,ourFile:BaseFile):
+	dialog.Closed.connect((func(d: Dictionary,ourFile:BaseFile) -> void:
 		NotificationManager.ShowNotification("Dialogs work? OK pressed: %s or Cancel pressed: %s" % [d["OK"], d["Cancel"]])
 		if(d["OK"]):
-			print("deleting")
 			ourFile.selectedFiles = ourFile.grabedFiles
 			ourFile.DeleteFile()
 		return).bind(self)
@@ -269,7 +279,7 @@ func ShowRenameDialog() -> void:
 	# var dialog: DialogBox = DialogManager.instance.CreateInputDialog("New Name", "OK", "Cancel", "Filename", szFileName, "Enter New File Name", Vector2(0.5,0.3))
 	var dialog: DialogBox = DialogManager.instance.CreateInputDialogWithLabel("New Name", "OK", "Cancel", "Filename", szFileName, "Name: ", "Enter New File Name", Vector2(0.5,0.3))
 	dialog.Closed.connect(
-		(func(d:Dictionary,thisFile:BaseFile):
+		(func(d:Dictionary,thisFile:BaseFile) -> void:
 			if(d["OK"]):
 				thisFile.titleEditBox.text = d["Filename"]
 				thisFile.fileTitleControl.text = d["Filename"]

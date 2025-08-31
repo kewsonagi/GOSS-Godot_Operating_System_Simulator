@@ -1,25 +1,21 @@
-[gd_scene load_steps=15 format=3 uid="uid://bmjyglrsf04uo"]
+[gd_scene load_steps=19 format=3 uid="uid://bmjyglrsf04uo"]
 
+[ext_resource type="Script" uid="uid://b5k24nr0dlwfp" path="res://Scenes/Main/Desktop.gd" id="1_60yff"]
 [ext_resource type="Script" uid="uid://crccellk2oo41" path="res://Scenes/Main/desktop_file_manager.gd" id="1_c0q37"]
 [ext_resource type="Texture2D" uid="uid://bwxnhif5h1cck" path="res://Art/Pixel_32.png" id="1_r8g3u"]
 [ext_resource type="Script" uid="uid://fgth35grbgyv" path="res://Scenes/Main/wallpaper.gd" id="1_xkkt2"]
-[ext_resource type="PackedScene" uid="uid://cfj5p5pgfnywp" path="res://Scenes/Taskbar/taskbar.tscn" id="2_35ao4"]
+[ext_resource type="PackedScene" uid="uid://cfj5p5pgfnywp" path="res://Widgets/taskbar.tscn" id="2_35ao4"]
+[ext_resource type="PackedScene" uid="uid://b7mejsbueubva" path="res://Scenes/Taskbar/TaskbarItem.tscn" id="2_y53yf"]
+[ext_resource type="PackedScene" uid="uid://c73tsgfxmn37a" path="res://Scenes/Window/Game Window/game_window.tscn" id="3_4sg3s"]
 [ext_resource type="PackedScene" uid="uid://bwyybu5i3kid" path="res://Scenes/Main/Boot Splash/boot_splash.tscn" id="3_ifoxq"]
 [ext_resource type="PackedScene" uid="uid://chw3lje7gvraw" path="res://Scenes/Desktop/BaseFile.tscn" id="3_rgj25"]
 [ext_resource type="PackedScene" uid="uid://cwsu2o7l3rfm4" path="res://Scenes/Desktop/FolderFile.tscn" id="5_r8g3u"]
 [ext_resource type="PackedScene" uid="uid://dwordakddalqi" path="res://Scenes/Desktop/AppFile.tscn" id="6_fwn18"]
+[ext_resource type="PackedScene" uid="uid://cje5khn2cbuyd" path="res://Scenes/Desktop/PackFile.tscn" id="7_gow0r"]
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="8_fwn18"]
 [ext_resource type="PackedScene" uid="uid://cxl0f781joa6d" path="res://Scenes/Autoloads/RClick Menu Manager/RClickMenu.tscn" id="11_6epw3"]
 [ext_resource type="PackedScene" uid="uid://0jlewdh8xl4u" path="res://Scenes/Window/dialogManager.tscn" id="11_gow0r"]
-
-[sub_resource type="GDScript" id="GDScript_fyyaf"]
-resource_name = "MainScene"
-script/source = "extends Control
-
-func _ready() -> void:
-	# Just shoves this back on ready so autoloads like the context menu can be in front
-	get_parent().move_child.call_deferred(self, 0)
-"
+[ext_resource type="Script" uid="uid://d1xtq58b7oxx8" path="res://Scenes/Autoloads/Utilities/UtilityHelper.gd" id="14_e1a1m"]
 
 [sub_resource type="Gradient" id="Gradient_g3gwb"]
 offsets = PackedFloat32Array(0)
@@ -29,15 +25,23 @@ colors = PackedColorArray(0, 0, 0, 1)
 gradient = SubResource("Gradient_g3gwb")
 width = 1
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("filemanager", "anchorContainerLeft", "anchorContainerRight", "anchorContainerBottom", "anchorContainerTop", "taskbars")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-script = SubResource("GDScript_fyyaf")
+mouse_filter = 1
+script = ExtResource("1_60yff")
+taskbarItemTemplate = ExtResource("2_y53yf")
+gameWindowTemplate = ExtResource("3_4sg3s")
+filemanager = NodePath("DesktopFileManager")
+anchorContainerLeft = NodePath("TaskbarsLeft")
+anchorContainerRight = NodePath("TaskbarsRight")
+anchorContainerBottom = NodePath("TaskbarsBottom")
+anchorContainerTop = NodePath("TaskbarsTop")
+taskbars = [NodePath("TaskbarsBottom/Taskbar"), NodePath("TaskbarsLeft/Taskbar4"), NodePath("TaskbarsRight/Taskbar2"), NodePath("TaskbarsTop/Taskbar3")]
 
 [node name="BackgroundColor" type="ColorRect" parent="."]
 layout_mode = 1
@@ -76,6 +80,7 @@ texture = SubResource("GradientTexture1D_agg5v")
 
 [node name="DesktopFileManager" type="Control" parent="." node_paths=PackedStringArray("hSlideControl", "hScrollControl", "vSlideControl", "vScrollControl", "childContainer") groups=["desktop_file_manager"]]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_bottom = -60.0
@@ -89,6 +94,7 @@ baseFile = ExtResource("3_rgj25")
 folderFile = ExtResource("5_r8g3u")
 appFile = ExtResource("6_fwn18")
 appFileExtension = "tres"
+packFile = ExtResource("7_gow0r")
 direction = "Vertical"
 hSpacing = 20
 vSpacing = 20
@@ -172,8 +178,70 @@ max_value = 1.0
 step = 0.05000000000291038
 value = 1.0
 
-[node name="Taskbar" parent="." instance=ExtResource("2_35ao4")]
+[node name="TaskbarsLeft" type="BoxContainer" parent="."]
 layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Taskbar4" parent="TaskbarsLeft" instance=ExtResource("2_35ao4")]
+layout_mode = 2
+mouse_filter = 0
+tempUniqueID = 3
+
+[node name="TaskbarsRight" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Taskbar2" parent="TaskbarsRight" instance=ExtResource("2_35ao4")]
+layout_mode = 2
+mouse_filter = 0
+tempUniqueID = 2
+
+[node name="TaskbarsTop" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+vertical = true
+
+[node name="Taskbar3" parent="TaskbarsTop" instance=ExtResource("2_35ao4")]
+layout_mode = 2
+mouse_filter = 0
+tempUniqueID = 1
+
+[node name="TaskbarsBottom" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+vertical = true
+
+[node name="Taskbar" parent="TaskbarsBottom" instance=ExtResource("2_35ao4")]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="Start Button" parent="TaskbarsBottom/Taskbar/BoxContainer" index="0"]
+visible = true
+
+[node name="ScrollContainer" parent="TaskbarsBottom/Taskbar/BoxContainer" index="1"]
+visible = true
+
+[node name="TimeAndDate" parent="TaskbarsBottom/Taskbar/BoxContainer" index="2"]
+visible = true
 
 [node name="Boot Splash" parent="." instance=ExtResource("3_ifoxq")]
 visible = false
@@ -182,3 +250,13 @@ visible = false
 layout_mode = 0
 
 [node name="DialogManager" parent="." instance=ExtResource("11_gow0r")]
+
+[node name="UtilityHelper" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("14_e1a1m")
+
+[editable path="TaskbarsBottom/Taskbar"]
+[editable path="TaskbarsBottom/Taskbar/BoxContainer/ScrollContainer"]

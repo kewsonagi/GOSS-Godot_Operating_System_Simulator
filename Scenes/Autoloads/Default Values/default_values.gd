@@ -8,29 +8,36 @@ var wallpaper_stretch_mode: TextureRect.StretchMode # int from 0 to 6
 @export var clickHandler: PackedScene = preload("res://Scenes/Autoloads/RClick Menu Manager/ClickHandler.tscn")
 #var soundManager2D: AudioStreamPlayer2D
 #var soundManager3D: AudioStreamPlayer3D
-static var windows: Array[FakeWindow] = []
-static var globalSettingsSave: IndieBlueprintSavedGame
-var saveFileName:String = "Global Settings"
+
+static var globalSettingsSave: SaveDataBasic
+var saveFileName:String = "Global Setting.ini"
 
 func _ready() -> void:
 	DisplayServer.window_set_min_size(Vector2i(600, 525))
 	
-	saveFileName = IndieBlueprintSavedGame.clean_filename(saveFileName)
-	if(!IndieBlueprintSaveManager.save_filename_exists(saveFileName)):
-		globalSettingsSave = IndieBlueprintSaveManager.create_new_save(saveFileName)
-	else:
-		globalSettingsSave = IndieBlueprintSaveManager.load_savegame(saveFileName)
-		if(!globalSettingsSave):
-			globalSettingsSave = IndieBlueprintSaveManager.create_new_save(saveFileName)
-		else:
-			load_state()
-
+	#saveFileName = UtilityHelper.GetCleanFileString(ResourceManager.GetPathToWindowSettings(), saveFileName, saveFileName.get_extension())
+	#globalSettingsSave = UtilityHelper.GetSavefile(ResourceManager.GetPathToWindowSettings(), saveFileName)
+	if(!globalSettingsSave):
+		globalSettingsSave = SaveDataBasic.new()
+	if(!globalSettingsSave.Load(UtilityHelper.GetCleanFileString(ResourceManager.GetPathToWindowSettings(), saveFileName, saveFileName.get_extension()))):
+		#setup any defaults
+		save_state()
+	# if(!IndieBlueprintSaveManager.save_filename_exists(saveFileName)):
+	# 	globalSettingsSave = IndieBlueprintSaveManager.create_new_save(saveFileName)
+	# else:
+	# 	globalSettingsSave = IndieBlueprintSaveManager.load_savegame(saveFileName)
+	# 	if(!globalSettingsSave):
+	# 		globalSettingsSave = IndieBlueprintSaveManager.create_new_save(saveFileName)
+	# 	else:
+	# 		load_state()
+	load_state()
 	save_state()
 
-func CallOnDelay(f: float, c: Callable) -> void:
-	get_tree().create_timer(f).timeout.connect(c)
+
 	
 func save_state() -> void:
+	if(!globalSettingsSave):return
+
 	globalSettingsSave.data["WallpaperName"] = wallpaper_name
 	globalSettingsSave.data["WallpaperStretchMode"] = wallpaper_stretch_mode
 	if(background_color_rect):
@@ -38,15 +45,19 @@ func save_state() -> void:
 	else:
 		globalSettingsSave.data["BackgroundColor"] = Color.GRAY
 	globalSettingsSave.data["WindowScale"] = get_window().content_scale_factor
-	globalSettingsSave.write_savegame()
+	globalSettingsSave.Save()
 
 func load_state() -> void:
-	wallpaper_name = globalSettingsSave.data["WallpaperName"]
-	wallpaper_stretch_mode = globalSettingsSave.data["WallpaperStretchMode"]
-	if(background_color_rect):
+	if(!globalSettingsSave.data):return
+	
+	if(globalSettingsSave.data.has("WallpaperName")):
+		wallpaper_name = globalSettingsSave.data["WallpaperName"]
+	if(globalSettingsSave.data.has("WallWallpaperStretchModepaperName")):
+		wallpaper_stretch_mode = globalSettingsSave.data["WallpaperStretchMode"]
+	if(background_color_rect and globalSettingsSave.data.has("BackgroundColor")):
 		background_color_rect.color = globalSettingsSave.data["BackgroundColor"]
-		print("loading defaults\nwallpaper name: %s\nbackground color: %s" % [wallpaper_name, background_color_rect.color])
-	get_window().content_scale_factor = globalSettingsSave.data["WindowScale"]
+	if(globalSettingsSave.data.has("WindowScale")):
+		get_window().content_scale_factor = globalSettingsSave.data["WindowScale"]
 	if (!wallpaper_name.is_empty() and wallpaper):
 		wallpaper.apply_wallpaper_from_path(wallpaper_name)
 	
@@ -58,7 +69,7 @@ func load_state() -> void:
 func save_wallpaperByName(filePath: String, fileName: String) -> void:
 	delete_wallpaper()
 	
-	var from: String = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), filePath, fileName]
+	var from: String = "%s/%s" % [filePath, fileName]
 	var to: String = "user://%s" % fileName
 	DirAccess.copy_absolute(from, to)
 	wallpaper_name = fileName
@@ -66,7 +77,7 @@ func save_wallpaperByName(filePath: String, fileName: String) -> void:
 func save_wallpaper(wallpaper_file: BaseFile) -> void:
 	delete_wallpaper()
 	
-	var from: String = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), wallpaper_file.szFilePath, wallpaper_file.szFileName]
+	var from: String = UtilityHelper.GetCleanFileString("%s%s" % [ResourceManager.GetPathToUserFiles(), wallpaper_file.szFilePath], wallpaper_file.szFileName,wallpaper_file.szFileName.get_extension())
 	var to: String = ProjectSettings.globalize_path("user://%s" % wallpaper_file.szFileName)
 	DirAccess.copy_absolute(from, to)
 	wallpaper_name = wallpaper_file.szFileName
@@ -78,69 +89,7 @@ func delete_wallpaper() -> void:
 	wallpaper_name = ""
 	save_state()
 
-func spawn_window(sceneToLoadInsideWindow: String, windowName: String = "Untitled", windowID: String ="game", data: Dictionary = {}, parentWindow: Node = null) -> Node:
-	var window: FakeWindow
-	window = ResourceLoader.load(sceneToLoadInsideWindow).instantiate()
-	
-	window.title_text = windowName;
-	window.SetID(windowID)
-	window.SetData(data)
-	if(parentWindow):
-		parentWindow.add_child(window)
-	else:
-		get_tree().current_scene.add_child(window)
-	
-	windows.append(window)
-	window.deleted.connect(CloseWindow)
-		
-	return window as Node
 
-func spawn_game_window(sceneToLoadInsideWindow: String, windowName: String = "Untitled", windowID: String ="game", data: Dictionary = {}, parentWindow: Node = null) -> Node:
-	#var boot: BootGame = load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
-	var window: FakeWindow
-	window = ResourceLoader.load("res://Scenes/Window/Game Window/game_window.tscn").instantiate()
-	data["BootScene"] = sceneToLoadInsideWindow
-
-	#var gameWindowNode: Node = window.get_node("%Game Window")
-	# var gameBootloader: Node = ResourceLoader.load(sceneToLoadInsideWindow).instantiate()
-	# if(gameBootloader is BootGame):
-	# 	gameWindowNode.add_child(gameBootloader)
-	# 	(gameBootloader as BootGame).StartGame()
-	# 	if((gameBootloader as BootGame).spawnedWindow):
-	# 		gameWindowNode.add_child((gameBootloader as BootGame).spawnedWindow)
-
-	# 	#gameBootloader.queue_free()
-	# else:
-	# 	gameWindowNode.add_child(gameBootloader)
-	
-	window.title_text = windowName;
-	window.SetID(windowID)
-	window.SetData(data)
-	if(parentWindow):
-		parentWindow.add_child(window)
-	else:
-		get_tree().current_scene.add_child(window)
-	
-	windows.append(window)
-	window.deleted.connect(CloseWindow)
-
-	return window as Node
-
-func AddWindowToTaskbar(window: FakeWindow, color: Color = Color.LIGHT_YELLOW, texture: Texture2D=null) -> void:
-	#add window to taskbar
-	var taskbar_button: Control = ResourceLoader.load("res://Scenes/Taskbar/taskbar_button.tscn").instantiate()
-	taskbar_button.target_window = window
-	if(texture):
-		taskbar_button.get_node("TextureMargin/TextureRect").texture = texture
-	#taskbar_button.active_color = color
-	taskbar_button.foregroundColor = color
-	get_tree().get_first_node_in_group("taskbar_buttons").add_child(taskbar_button)
-
-func CloseWindow(window: FakeWindow) -> void:
-	windows.erase(window)
-	
-func _exit_tree() -> void:
-	windows.clear()
 
 func AddClickHandler(node: Node) -> HandleClick:
 	if(node):

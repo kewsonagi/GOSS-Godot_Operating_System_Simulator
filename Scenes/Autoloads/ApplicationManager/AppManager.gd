@@ -12,19 +12,16 @@ func _ready() -> void:
 	if(instance == null):
 		instance = self
 		RegisterBuiltinApps()
-		print("registering apps")
 
 func RegisterBuiltinApps() -> void:
 	pathToApps = "%s/" % pathToApps
 	var  res: AppManifest
 	var apps: PackedStringArray = DirAccess.get_files_at(pathToApps)
 	for app in apps:
-		if(app.get_file().get_extension() == "tres"):#default resource extension for apps
-			print("trying to register app: %s" % app)
+		if(app.get_extension() == "tres" or app.get_extension() == "res"):#default resource extension for apps
 			#res = ResourceLoader.load("%s/%s" % [pathToApps.get_base_dir(), app])
 			res = AppManager.LoadAppManifest("%s/%s" % [pathToApps.get_base_dir(), app])
 			if(res):
-				print("registering app: %s" % (res as AppManifest).path)
 				AppManager.RegisterApp(app.get_file().get_basename(), res as AppManifest)
 
 static func LoadAppManifest(filepath:String) -> AppManifest:
@@ -37,8 +34,6 @@ static func LoadAppManifest(filepath:String) -> AppManifest:
 
 static func RegisterApp(key: String, resource: AppManifest) -> void:
 	if (!registeredApps.has(key)):
-		print("registering %s" % key)
-		print(resource.path)
 		#if this item is already registered under a different name, assign it that index and dont make a new one
 		appsList.append(resource)
 		registeredApps[key] = appsList.size() - 1
@@ -60,12 +55,12 @@ static func LaunchApp(appName: String, filepath: String, fallbackToOS: bool = tr
 static func LaunchCustomApp(app:AppManifest) -> Node:#window created
 	var filepath: String = app.path
 	var appData: Dictionary = {"Filename":filepath,"manifest":app}
-	var window: FakeWindow = DefaultValues.spawn_game_window(app.path, app.path.get_file(), filepath, appData)
+	var window: FakeWindow = Desktop.instance.SpawnGameWindow(app.path, app.path.get_file(), filepath, appData)
 	if(window):
 		AppManager.SetupWindow(window, app)
 		window.SetID("%s:%s" % [app.name, filepath])
 
-		DefaultValues.AddWindowToTaskbar(window, app.colorBGTaskbar, window.titlebarIcon.icon)
+		Desktop.instance.AddWindowToTaskbar(window, app.colorBGTaskbar, window.titlebarIcon.icon)
 		return window
 	return null
 
@@ -85,22 +80,22 @@ static func SetupWindow(window: FakeWindow, app: AppManifest) -> FakeWindow:
 		window.titlebarIcon.icon = app.icon
 		if(!app.customWindowTitle.is_empty()):
 			window.titleText.text = app.customWindowTitle
-		window.position.x = app.startWindowPlacement.position.x * DefaultValues.get_window().size.x
-		window.position.y = app.startWindowPlacement.position.y * DefaultValues.get_window().size.y
-		window.size.x = app.startWindowPlacement.size.x * DefaultValues.get_window().size.x - window.position.x
-		window.size.y = app.startWindowPlacement.size.y * DefaultValues.get_window().size.y - window.position.y
+		window.position.x = app.startWindowPlacement.position.x * UtilityHelper.GetDesktopRect().size.x + UtilityHelper.GetDesktopRect().position.x
+		window.position.y = app.startWindowPlacement.position.y * UtilityHelper.GetDesktopRect().size.y + UtilityHelper.GetDesktopRect().position.y
+		window.size.x = app.startWindowPlacement.size.x * UtilityHelper.GetDesktopRect().size.x - window.position.x
+		window.size.y = app.startWindowPlacement.size.y * UtilityHelper.GetDesktopRect().size.y - window.position.y
 		window.SetWindowResizeable(app.resizable)
 		window.SetBorderless(app.borderless)
 	return window
 
 static func CreateAppWindow(app: AppManifest, filepath: String) -> Node:
 	var appData: Dictionary = {"Filename":filepath,"manifest":app}
-	var window: FakeWindow = DefaultValues.spawn_window(app.path, app.path.get_file(), filepath, appData)
+	var window: FakeWindow = Desktop.instance.SpawnWindow(app.path, app.path.get_file(), filepath, appData)
 	if(window):
 		AppManager.SetupWindow(window, app)
 		window.SetID("%s:%s" % [app.name, filepath])
 
-		DefaultValues.AddWindowToTaskbar(window, app.colorBGTaskbar, window.titlebarIcon.icon)
+		Desktop.instance.AddWindowToTaskbar(window, app.colorBGTaskbar, window.titlebarIcon.icon)
 		return window
 	return null
 

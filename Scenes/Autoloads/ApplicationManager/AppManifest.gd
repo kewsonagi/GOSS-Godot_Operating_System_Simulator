@@ -1,6 +1,7 @@
 extends Resource
 
 class_name  AppManifest
+const APP_MANIFEST_EXT = "app"
 
 @export var key: String = "nameID"
 @export var name: String = "app name"
@@ -35,3 +36,9 @@ func _init() -> void:
     borderless = false
     bGame = false
     category = "General"
+
+func SaveManifest(filepath: String, filename: String) -> void:
+    var realPath: String = UtilityHelper.GetCleanFileString(filepath, filename, APP_MANIFEST_EXT)
+    if(!realPath.is_empty() and realPath.is_valid_filename()):
+        DirAccess.make_dir_recursive_absolute(path.get_base_dir())
+        ResourceSaver.save(self, realPath)

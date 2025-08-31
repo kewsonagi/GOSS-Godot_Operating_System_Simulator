@@ -4,18 +4,24 @@ extends TextureRect
 @export var parentWindow: FakeWindow
 var fileName: String
 var filePath: String
+var clickHandler: HandleClick
 
 func _ready() -> void:
 	if(parentWindow.creationData.has("Filename")):
-		print("image viewer filename: %s" % parentWindow.creationData["Filename"])
+		NotificationManager.ShowNotification("image viewer filename: %s" % parentWindow.creationData["Filename"])
 		import_image(parentWindow.creationData["Filename"])
 		fileName = parentWindow.creationData["Filename"]
 		filePath = fileName;
 		fileName = fileName.get_file()
 		filePath = filePath.get_base_dir()
 		
-		call_deferred("SetCustomWindowSettings")
+		#call_deferred("SetCustomWindowSettings")
+		SetCustomWindowSettings.call_deferred()
 		# parentWindow.titleText.text = parentWindow.creationData["Filename"]
+
+		clickHandler = DefaultValues.AddClickHandler(self)
+		if(clickHandler):
+			clickHandler.RightClickRelease.connect(HandleRightClick)
 
 func SetCustomWindowSettings() -> void:
 	var manifest: AppManifest = parentWindow.creationData["manifest"]

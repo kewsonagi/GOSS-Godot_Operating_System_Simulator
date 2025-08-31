@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://i0ptx45qfo16"]
+
+[ext_resource type="Script" uid="uid://ctvlt1sa8q16s" path="res://Widgets/WidgetManager.gd" id="1_v51f2"]
+
+[node name="WidgetManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_v51f2")
+pathToWidgets = "res://Widgets"

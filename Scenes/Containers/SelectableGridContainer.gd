@@ -45,7 +45,7 @@ var clickHandler: HandleClick
 
 
 func _ready() -> void:
-	clickHandler = DefaultValues.AddClickHandler(self)
+	clickHandler = UtilityHelper.AddInputHandler(self) #UtilityHelper.AddInputHandler(self)#
 	clickHandler.dragThreashold = 10
 	clickHandler.DragStart.connect(DragBegin)
 	clickHandler.DragEnd.connect(DragEnd)
@@ -105,7 +105,6 @@ func VisibleChildToggle(child: Control) -> void:
 		currentVisible.append(child)
 	else:
 		currentVisible.erase(child)
-	print("visible child changed: %s" % child)
 
 
 func HideChild(child: Control) -> void:
@@ -273,8 +272,6 @@ func UpdateGrid() -> void:
 		if child.size.x > largestChild.x:
 			largestChild.x = child.size.x
 
-		# if nNextPosition.x + child.size.x > totalChildrenSize.x:
-		# 	totalChildrenSize.x = nNextPosition.x + child.size.x
 		if nNextPosition.y + child.size.y > totalChildrenSize.y:
 			totalChildrenSize.y = nNextPosition.y + child.size.y
 
@@ -284,7 +281,6 @@ func UpdateGrid() -> void:
 		nLineCount = new_line_count
 
 	ShowVbar(totalChildrenSize.y > (size.y - bottomMargin - topMargin))
-	#ShowHBar(totalChildrenSize.x > (size.x - leftMargin - rightMargin))
 
 
 func CreateTween() -> void:
@@ -408,19 +404,16 @@ signal MiddleClickEnd(selection: Array[Node])
 
 
 func LeftClickStart() -> void:
-	#print("LeftClickStart")
-	vStartDragPosition = get_global_mouse_position()
+	vStartDragPosition = get_global_mouse_position() - UtilityHelper.GetDesktopRect().position
 	dragRect.position = vStartDragPosition
 
 
 func RightClickStart() -> void:
-	#print("RightClickStart")
-	vStartDragPosition = get_global_mouse_position()
+	vStartDragPosition = get_global_mouse_position() - UtilityHelper.GetDesktopRect().position
 	dragRect.position = vStartDragPosition
 
 
 func LeftClickReleased() -> void:
-	UtilityHelper.Log("LeftClickReleased")
 	#released left click without dragging, reset everything
 	if !bDragging:
 		LeftClickEnd.emit(selectedItemsPrev)
@@ -431,7 +424,6 @@ func LeftClickReleased() -> void:
 
 
 func RightClickReleased() -> void:
-	UtilityHelper.Log("RightClickReleased")
 	#released right click without dragging, reset everything
 	if !bDragging:
 		RightClickEnd.emit(selectedItemsPrev)
@@ -466,9 +458,8 @@ func ForceDeSelectItem(child: Node) -> void:
 
 
 func DragBegin() -> void:
-	UtilityHelper.Log("drag start")
 	bDragging = true
-	vStartDragPosition = get_global_mouse_position()
+	vStartDragPosition = get_global_mouse_position() - UtilityHelper.GetDesktopRect().position
 	dragRect.position = vStartDragPosition
 
 	if bDraggingOld: # we have a current selection
@@ -490,7 +481,6 @@ func DragBegin() -> void:
 func DragEnd() -> void:
 	if !bDragging:
 		return
-	UtilityHelper.Log("drag end")
 	DragSelecting.emit(selectedItems, selectedItemsPrev)
 	if bDraggingOld:
 		DraggingSelectionEnd.emit(selectedItemsPrev)
@@ -499,19 +489,8 @@ func DragEnd() -> void:
 		await get_tree().process_frame
 
 	bDragging = false
-	vEndDragPosition = get_global_mouse_position()
-	#set if we have a selection to check against on the next drag
-	#if(bDraggingOld):#we had a selection last time, so clear it, it was either dragged somewhere or
-	#	selectedItems.clear()
-	# await get_tree().process_frame
-	# var clearList: bool = false
-	# for item in selectedItems:
-	# 	if(!item or item.is_queued_for_deletion()):
-	# 		clearList = true
-	# 		break;
-	# if(clearList):
-	# 	print("clearing selected list")
-	# selectedItems.clear()
+	vEndDragPosition = get_global_mouse_position() - UtilityHelper.GetDesktopRect().position
+
 	selectedItems.clear()
 	bDraggingOld = false
 
@@ -544,7 +523,6 @@ func Dragging(deltaPosition: Vector2, deltaPositionAbsolute: Vector2) -> void:
 	for child: Node in currentChildren:
 		if SelectionHasChild(child):
 			selectedItems.append(child)
-	#if(selectedItems.size()>0):
 	DragSelecting.emit(selectedItems, selectedItemsPrev)
 
 

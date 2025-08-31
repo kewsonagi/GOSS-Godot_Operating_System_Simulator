@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://djcgcjwmcoddi"]
+[gd_scene load_steps=6 format=3 uid="uid://djcgcjwmcoddi"]
 
 [ext_resource type="Script" uid="uid://bcth31bwtd2ll" path="res://addons/FreeControl/src/CustomClasses/Routers/RouterStack/RouterStack.gd" id="1_11nlq"]
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_dav23"]
 [ext_resource type="Script" uid="uid://b52wsx6j07fla" path="res://addons/FreeControl/src/CustomClasses/Routers/Page/Page.gd" id="2_dav23"]
 [ext_resource type="Script" uid="uid://dutg3h625jf63" path="res://addons/FreeControl/src/CustomClasses/Carousel/Carousel.gd" id="3_7hgyg"]
-[ext_resource type="Script" uid="uid://0f6hh82bpisq" path="res://addons/tnowe_extra_controls/elements/interpolated_container/interpolated_free_container.gd" id="4_m7rpi"]
+[ext_resource type="Script" uid="uid://dg3tiyrtmxsad" path="res://addons/tnowe_extra_controls/elements/interpolated_container/interpolated_free_container.gd" id="4_m7rpi"]
 
 [node name="Test" type="Control"]
 layout_mode = 3
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_dav23")
 
 [node name="MenuBar" type="MenuBar" parent="."]
 custom_minimum_size = Vector2(0, 34.845)
@@ -72,4 +74,3 @@ metadata/_custom_type_script = "uid://dutg3h625jf63"
 [node name="InterpolatedFreeContainer" type="Container" parent="Panel/Carousel"]
 layout_mode = 2
 script = ExtResource("4_m7rpi")
-metadata/_custom_type_script = "uid://0f6hh82bpisq"

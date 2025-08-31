@@ -83,7 +83,7 @@ func AddButton(id: String, buttonName: String="OK", pos: Vector2=Vector2(0.5,0.5
 	controls.append(button)
 	return button
 
-func AddColorPicker(id: String, buttonName: String="", pos: Vector2=Vector2(0.5,0.5), dismissWindow:bool=false, defaultColor:Color=Color.LAVENDER_BLUSH, changedCallback: Callable=ColorPickerPressed, createdCallback: Callable=ColorPickerCreated, closedCallback: Callable=ColorPickerClosed, icon: Texture2D=null) -> Control:
+func AddColorPicker(id: String, buttonName: String="", defaultColor:Color=Color.LAVENDER_BLUSH, pos: Vector2=Vector2(0.5,0.5), dismissWindow:bool=false, changedCallback: Callable=ColorPickerPressed, createdCallback: Callable=ColorPickerCreated, closedCallback: Callable=ColorPickerClosed, icon: Texture2D=null) -> Control:
 	var button: ColorPickerButton = templateColorPicker.duplicate()
 	button.visible = true
 	controlContainer.add_child(button)

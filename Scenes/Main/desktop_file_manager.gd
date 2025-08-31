@@ -40,7 +40,7 @@ func _ready() -> void:
 	get_window().focus_entered.connect(_on_window_focus)
 	populate_file_manager()
 
-	DefaultValues.CallOnDelay(0.05, RefreshManager)
+	UtilityHelper.instance.CallOnDelay(0.05, RefreshManager)
 
 func copy_from_res(from: String, to: String) -> void:
 	var file_from: FileAccess = FileAccess.open(from, FileAccess.READ)
@@ -78,21 +78,38 @@ func _on_window_focus() -> void:
 
 func HandleRightClick() -> void:
 	RClickMenuManager.instance.ShowMenu("Desktop Menu", self)
-	RClickMenuManager.instance.AddMenuItem("Paste", Paste, ResourceManager.GetResource("Paste"))
+	if(CopyPasteManager.filesList.size()>0):
+		RClickMenuManager.instance.AddMenuItem("Paste", Paste, ResourceManager.GetResource("Paste"))
 	RClickMenuManager.instance.AddMenuItem("New Folder", NewFolder, ResourceManager.GetResource("Folder"))
 	RClickMenuManager.instance.AddMenuItem("New File", NewFile, ResourceManager.GetResource("File"))
 	RClickMenuManager.instance.AddMenuItem("Refresh", Refresh, ResourceManager.GetResource("Refresh"))
 	RClickMenuManager.instance.AddMenuItem("Properties", Properties)
 
+	RightClickMenuOpened.emit()
+
 func Paste() -> void:
 	CopyPasteManager.paste_folder(szFilePath)
 	BaseFileManager.RefreshAllFileManagers()
 
-func NewFolder() -> void:
-	CreateNewFolder()
+# func NewFolder() -> void:
+# 	CreateNewFolder()
+# 	var dialog:DialogBox = DialogManager.instance.CreateInputDialog("New Folder", "Accept", "Cancel", "NewName", "New Folder Copy")
+# 	dialog.Closed.connect((func(d:Dictionary) -> void:
+# 		if(d["OK"]):
+# 			CreateNewFolder(d["NewName"])
+# 			Refresh()
+# 		)
+# 	)
 
-func NewFile() -> void:
-	CreateNewFile("txt", BaseFile.E_FILE_TYPE.TEXT_FILE)
+# func NewFile() -> void:
+# 	CreateNewFile("txt", BaseFile.E_FILE_TYPE.TEXT_FILE)
+# 	var dialog:DialogBox = DialogManager.instance.CreateInputDialog("New File", "Accept", "Cancel", "NewName", "Untitled.txt")
+# 	dialog.Closed.connect((func(d:Dictionary) -> void:
+# 		if(d["OK"]):
+# 			CreateNewFile(d["NewName"], "txt", BaseFile.E_FILE_TYPE.TEXT_FILE)
+# 			Refresh()
+# 		)
+# 	)
 
 func Refresh() -> void:
 	RefreshManager()
@@ -136,4 +153,4 @@ func OnDroppedFolders(files: PackedStringArray) -> void:
 		# get_tree().get_first_node_in_group("desktop_file_manager").populate_file_manager()
 	#RefreshAllFileManagers()
 	for filemanagerWithin: BaseFileManager in managersWithin:
-		DefaultValues.CallOnDelay(0.1, filemanagerWithin.RefreshManager)
+		UtilityHelper.instance.CallOnDelay(0.1, filemanagerWithin.RefreshManager)

@@ -12,16 +12,16 @@ func OpenFile() -> void:
 	var windowParent:Node=null#get_tree().current_scene
 	var windowData: Dictionary = {}
 
-	var filename: String = szFileName;
+	var filename: String = UtilityHelper.GetCleanFileString(szFilePath, szFileName, szFileName.get_extension());
 	if(!szFilePath.is_empty()):
-		filename = "%s/%s" % [szFilePath, szFileName]
+		filename = UtilityHelper.GetCleanFileString(szFilePath, szFileName, szFileName.get_extension())#"%s/%s" % [szFilePath, szFileName]
 	
 	windowData["Filename"] = filename;
-	window = DefaultValues.spawn_window("res://Scenes/Window/Image Viewer/image_viewer.tscn", windowName, windowID, windowData, windowParent)
+	window = Desktop.instance.SpawnWindow("res://Scenes/Window/Image Viewer/image_viewer.tscn", windowName, windowID, windowData, windowParent)
 	#window.title_text = windowName#%"Folder Title".text
 	window.titlebarIcon.icon = fileTexture.texture
 	
-	DefaultValues.AddWindowToTaskbar(window, fileColor, fileTexture.texture)
+	Desktop.instance.AddWindowToTaskbar(window, fileColor, fileTexture.texture)
 	return
 
 func HandleRightClick() -> void:

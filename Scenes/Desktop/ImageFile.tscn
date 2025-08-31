@@ -32,6 +32,7 @@ bg_color = Color(0, 0, 0, 0.784314)
 [node name="Folder" type="Control" node_paths=PackedStringArray("hoverHighlightControl", "selectedHighlightControl", "fileTexture", "doubleClickTimer", "titleEditBox", "fileTitleControl") groups=["folder"]]
 custom_minimum_size = Vector2(80, 110)
 layout_mode = 3
+anchors_preset = 0
 offset_left = 10.0
 offset_right = 90.0
 offset_bottom = 110.0

@@ -1,0 +1,399 @@
+[gd_scene load_steps=32 format=3 uid="uid://js0a25rvurdh"]
+
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_l3duw"]
+[ext_resource type="PackedScene" uid="uid://da4oly47yx3ja" path="res://Scenes/Taskbar/start_menu_option.tscn" id="2_busrr"]
+[ext_resource type="PackedScene" uid="uid://02l6g8fyuv7e" path="res://Games/Godotris/boot.tscn" id="3_2ogu1"]
+[ext_resource type="PackedScene" uid="uid://cdor2s0hydipy" path="res://Games/Super Bit Boy/boot.tscn" id="4_cb7q3"]
+[ext_resource type="PackedScene" uid="uid://ohgwvdetih50" path="res://Games/Snake/boot.tscn" id="5_74wh5"]
+[ext_resource type="PackedScene" uid="uid://c5ak0ylkbsh6c" path="res://Games/Pong/boot.tscn" id="6_dh08x"]
+[ext_resource type="PackedScene" uid="uid://lmxmnq0enui8" path="res://Games/Cube Scene/boot.tscn" id="7_2bpgx"]
+[ext_resource type="PackedScene" uid="uid://1mg6dmwk6m1b" path="res://Games/RocketLander/boot.tscn" id="8_fq78i"]
+[ext_resource type="Texture2D" uid="uid://ct0c60k3q1y7x" path="res://Games/RocketLander/assets/images/main_menu.jpg" id="9_sorkx"]
+[ext_resource type="PackedScene" uid="uid://w1l6tjahy86p" path="res://Games/UnderworldPlatformer/boot.tscn" id="10_wkav2"]
+[ext_resource type="Texture2D" uid="uid://bolksinmvxt0v" path="res://Games/UnderworldPlatformer/Arta/Tiles/Transparent/tile_0243.png" id="11_j52co"]
+[ext_resource type="PackedScene" uid="uid://b76r00gtgrncy" path="res://Games/PebbleCalculator/boot.tscn" id="12_sjkvn"]
+[ext_resource type="Texture2D" uid="uid://blo1afxx8ll7m" path="res://Games/PebbleCalculator/assets/title_demo.png" id="13_ycqvm"]
+[ext_resource type="PackedScene" uid="uid://dujib0uv126o2" path="res://Games/minesweeper/boot.tscn" id="14_2xee7"]
+[ext_resource type="Texture2D" uid="uid://mpc1qb2w4tfq" path="res://Games/minesweeper/tiles.png" id="15_jssv7"]
+[ext_resource type="Script" uid="uid://db6mrqis6mthu" path="res://addons/multi_spliter_container/multi_split_container.gd" id="16_2ogu1"]
+[ext_resource type="Texture2D" uid="uid://copqhcnqdgm3b" path="res://Art/shaded/Power.png" id="16_76d4v"]
+[ext_resource type="Script" uid="uid://beplmlbkjbofd" path="res://addons/multi_spliter_container/split_container_item.gd" id="17_cb7q3"]
+[ext_resource type="Script" uid="uid://ovt5fnqwt48p" path="res://Scenes/Taskbar/power_button.gd" id="17_tbbf4"]
+[ext_resource type="Script" uid="uid://btlh4wrv04rc3" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="18_cb7q3"]
+[ext_resource type="PackedScene" uid="uid://dfodxrenoxf8w" path="res://Scenes/Main/Boot Splash/shutdown_splash.tscn" id="18_m2om8"]
+[ext_resource type="Script" uid="uid://c7ecgiqcwbgy0" path="res://addons/FreeControl/src/CustomClasses/AutoSizeLabels/AutoSizeLabel.gd" id="19_74wh5"]
+[ext_resource type="Texture2D" uid="uid://c52c3p0h1475m" path="res://Art/shaded/02-cog.png" id="19_yff06"]
+[ext_resource type="Script" uid="uid://bcvlao324av3w" path="res://Scenes/Taskbar/settings_button.gd" id="20_fkl24"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bho0"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.14973955, 0.00024895632, 0.26567283, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxws7"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbmie"]
+bg_color = Color(1, 0.247059, 0.188235, 0.588235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnonj"]
+bg_color = Color(0.666667, 0, 0, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dh2v"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
+corner_radius_top_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bm3y2"]
+bg_color = Color(0.4, 0.4, 0.4, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bd8k4"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 0.392157)
+corner_radius_top_left = 10
+
+[node name="Start Menu" type="Panel"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_l3duw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0bho0")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="GridContainer" parent="Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 3
+
+[node name="Godotris Option" parent="Panel/VBoxContainer" instance=ExtResource("2_busrr")]
+layout_mode = 2
+game_scene = "res://Games/Godotris/Game/boot.tscn"
+gameScene = ExtResource("3_2ogu1")
+title_text = "Godotris"
+description_text = "Stack blocks, clear lines!"
+
+[node name="Bit Boy" parent="Panel/VBoxContainer" instance=ExtResource("2_busrr")]
+layout_mode = 2
+game_scene = "res://Games/Super Bit Boy/boot.tscn"
+gameScene = ExtResource("4_cb7q3")
+title_text = "1 Bit Boy"
+description_text = "Bit Boy platform adventure"
+
+[node name="Snake Option" parent="Panel/VBoxContainer" instance=ExtResource("2_busrr")]
+layout_mode = 2
+game_scene = "res://Games/Snake/boot.tscn"
+gameScene = ExtResource("5_74wh5")
+title_text = "Snake"
+description_text = "Eat fruit, grow long!"
+
+[node name="Pong Option" parent="Panel/VBoxContainer" instance=ExtResource("2_busrr")]
+layout_mode = 2
+game_scene = "res://Games/Pong/boot.tscn"
+gameScene = ExtResource("6_dh08x")
+title_text = "Pong"
+description_text = "Timeless Classic"
+
+[node name="Cube Scene Option" parent="Panel/VBoxContainer" instance=ExtResource("2_busrr")]
+layout_mode = 2
+game_scene = "res://Games/Cube Scene/boot.tscn"
+gameScene = ExtResource("7_2bpgx")
+title_text = "Cube Scene"
+description_text = "THE CUBE. THE CUBE. THE CUBE."
+
+[node name="Rocket Lander" parent="Panel/VBoxContainer" instance=ExtResource("2_busrr")]
+layout_mode = 2
+game_scene = "res://Games/RocketLander/boot.tscn"
+gameScene = ExtResource("8_fq78i")
+title_text = "Rocket Lander"
+description_text = "Rocket Lander mocup"
+programIcon = ExtResource("9_sorkx")
+
+[node name="UnderworldPlatformer" parent="Panel/VBoxContainer" instance=ExtResource("2_busrr")]
+layout_mode = 2
+game_scene = "res://Games/UnderworldPlatformer/boot.tscn"
+gameScene = ExtResource("10_wkav2")
+title_text = "Underworld tales"
+description_text = "Underworld platformer with inverting worlds"
+programIcon = ExtResource("11_j52co")
+
+[node name="Calculator" parent="Panel/VBoxContainer" instance=ExtResource("2_busrr")]
+layout_mode = 2
+game_scene = "res://Scenes/PebbleCalculator/boot.tscn"
+gameScene = ExtResource("12_sjkvn")
+title_text = "Pebble Calc"
+description_text = "Pixel Calculator"
+programIcon = ExtResource("13_ycqvm")
+use_generic_pause_menu = false
+
+[node name="Minesweeper" parent="Panel/VBoxContainer" instance=ExtResource("2_busrr")]
+layout_mode = 2
+game_scene = "res://Games/minesweeper/boot.tscn"
+gameScene = ExtResource("14_2xee7")
+title_text = "Minesweeper"
+description_text = "Sweep some mines"
+programIcon = ExtResource("15_jssv7")
+use_generic_pause_menu = false
+
+[node name="MultiSplitContainer" type="Container" parent="Panel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("16_2ogu1")
+separator_line_color = Color(0.21, 0.24, 0.29, 1)
+separators_line_offsets = Array[float]([0.0, 0.0])
+_rect_size_editor = Vector2(1152, 648)
+drag_button_modulate = Color(0.605, 0.62, 0.645, 1)
+metadata/_custom_type_script = "uid://db6mrqis6mthu"
+
+[node name="Applications Container" type="Control" parent="Panel/MultiSplitContainer"]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("17_cb7q3")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MultiSplitContainer/Applications Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollapsibleContainer" type="Control" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer"]
+process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+clip_contents = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+script = ExtResource("18_cb7q3")
+folding_direction_preset = 10
+sizing_constraint = 1
+sizing_node = NodePath("Button")
+metadata/_custom_type_script = "uid://btlh4wrv04rc3"
+
+[node name="Button" type="Button" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer"]
+custom_minimum_size = Vector2(0, 36.48)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical = true
+
+[node name="BoxContainer" type="BoxContainer" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer/BoxContainer"]
+layout_mode = 2
+
+[node name="AutoSizeLabel" type="Label" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 1
+text = "Some application"
+autowrap_mode = 1
+clip_text = true
+script = ExtResource("19_74wh5")
+metadata/_custom_type_script = "uid://c7ecgiqcwbgy0"
+
+[node name="BoxContainer2" type="BoxContainer" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer/BoxContainer2"]
+layout_mode = 2
+
+[node name="AutoSizeLabel" type="Label" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer/BoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 1
+text = "Some application"
+autowrap_mode = 1
+clip_text = true
+script = ExtResource("19_74wh5")
+metadata/_custom_type_script = "uid://c7ecgiqcwbgy0"
+
+[node name="BoxContainer3" type="BoxContainer" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer/BoxContainer3"]
+layout_mode = 2
+
+[node name="AutoSizeLabel" type="Label" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer/BoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 1
+text = "Some application"
+autowrap_mode = 1
+clip_text = true
+script = ExtResource("19_74wh5")
+metadata/_custom_type_script = "uid://c7ecgiqcwbgy0"
+
+[node name="BoxContainer4" type="BoxContainer" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer/BoxContainer4"]
+layout_mode = 2
+
+[node name="AutoSizeLabel" type="Label" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer/BoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 1
+text = "Some application"
+autowrap_mode = 1
+clip_text = true
+script = ExtResource("19_74wh5")
+metadata/_custom_type_script = "uid://c7ecgiqcwbgy0"
+
+[node name="BoxContainer5" type="BoxContainer" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer/BoxContainer5"]
+layout_mode = 2
+
+[node name="AutoSizeLabel" type="Label" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer/BoxContainer5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 1
+text = "Some application"
+autowrap_mode = 1
+clip_text = true
+script = ExtResource("19_74wh5")
+metadata/_custom_type_script = "uid://c7ecgiqcwbgy0"
+
+[node name="BoxContainer6" type="BoxContainer" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer/BoxContainer6"]
+layout_mode = 2
+
+[node name="AutoSizeLabel" type="Label" parent="Panel/MultiSplitContainer/Applications Container/ScrollContainer/CollapsibleContainer/BoxContainer/BoxContainer6"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 1
+text = "Some application"
+autowrap_mode = 1
+clip_text = true
+script = ExtResource("19_74wh5")
+metadata/_custom_type_script = "uid://c7ecgiqcwbgy0"
+
+[node name="Center Home" type="Control" parent="Panel/MultiSplitContainer"]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("17_cb7q3")
+
+[node name="MultiSplitContainer" type="Container" parent="Panel/MultiSplitContainer/Center Home"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("16_2ogu1")
+separator_line_color = Color(0.21, 0.24, 0.29, 1)
+_rect_size_editor = Vector2(1152, 648)
+drag_button_modulate = Color(0.605, 0.62, 0.645, 1)
+metadata/_custom_type_script = "uid://db6mrqis6mthu"
+
+[node name="Widgets Container" type="Control" parent="Panel/MultiSplitContainer"]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("17_cb7q3")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MultiSplitContainer/Widgets Container"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FlowContainer" type="FlowContainer" parent="Panel/MultiSplitContainer/Widgets Container/ScrollContainer"]
+layout_mode = 2
+
+[node name="Power Button" type="Button" parent="."]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_lxws7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nbmie")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lnonj")
+action_mode = 0
+icon = ExtResource("16_76d4v")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("17_tbbf4")
+boot_splash_scene = ExtResource("18_m2om8")
+
+[node name="Settings Button" type="Button" parent="."]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -40.0
+offset_right = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_2dh2v")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bm3y2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bd8k4")
+action_mode = 0
+icon = ExtResource("19_yff06")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("20_fkl24")
+
+[connection signal="pressed" from="Power Button" to="Power Button" method="_on_pressed"]
+[connection signal="pressed" from="Settings Button" to="Settings Button" method="_on_pressed"]

@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://cojrqff5vocjv"]
+[gd_scene load_steps=13 format=3 uid="uid://cojrqff5vocjv"]
 
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_dejl3"]
 [ext_resource type="Script" uid="uid://5no6katibk3g" path="res://Scenes/Window/DialogWindow.gd" id="2_o7itm"]
 [ext_resource type="PackedScene" uid="uid://bg17qb4r5h3c8" path="res://Scenes/Window/top_bar.tscn" id="3_onta3"]
 [ext_resource type="PackedScene" uid="uid://bg78g4tvmukio" path="res://Scenes/Window/resize_spots.tscn" id="4_gbvfj"]
 [ext_resource type="Texture2D" uid="uid://cssnsu03d5qwm" path="res://examples/icon_texture/icons/actions/info.svg" id="4_onta3"]
+[ext_resource type="PackedScene" uid="uid://uje8qbdv1e5w" path="res://addons/ui_widget/scenes/widget/ui_bool_widget.tscn" id="6_kvjux"]
+[ext_resource type="PackedScene" uid="uid://d2m243dqm5hrx" path="res://addons/ui_widget/scenes/widget/ui_colorpicker_widget.tscn" id="7_lyh8x"]
+[ext_resource type="PackedScene" uid="uid://cnuou2s3p380h" path="res://addons/ui_widget/scenes/widget/ui_list_widget.tscn" id="8_t6trt"]
+[ext_resource type="PackedScene" uid="uid://bcp22sji5o65g" path="res://addons/ui_widget/scenes/widget/ui_number_widget.tscn" id="9_l4nhh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kp4o0"]
 bg_color = Color(0.27450982, 0.25882357, 0.36862746, 0)
@@ -229,7 +233,7 @@ offset_right = 120.0
 offset_bottom = 61.0
 pivot_offset = Vector2(60, 30)
 mouse_filter = 1
-value = 30.00000000174623
+value = 30.0
 
 [node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls/HSlider"]
 layout_mode = 1
@@ -309,6 +313,22 @@ offset_right = 265.0
 offset_bottom = 30.0
 theme = ExtResource("1_dejl3")
 alignment = 1
+
+[node name="UIBoolWidget" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls" instance=ExtResource("6_kvjux")]
+visible = false
+layout_mode = 0
+
+[node name="UIColorPickerWidget" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls" instance=ExtResource("7_lyh8x")]
+visible = false
+layout_mode = 0
+
+[node name="UIListWidget" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls" instance=ExtResource("8_t6trt")]
+visible = false
+layout_mode = 0
+
+[node name="UINumberWidget" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/DialogControls" instance=ExtResource("9_l4nhh")]
+visible = false
+layout_mode = 0
 
 [connection signal="gui_input" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" to="." method="_on_top_bar_gui_input"]
 [connection signal="mouse_entered" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" to="." method="_on_top_bar_mouse_entered"]

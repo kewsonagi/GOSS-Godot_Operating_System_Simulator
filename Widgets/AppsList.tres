@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WidgetConfig" load_steps=3 format=3 uid="uid://lal0k5bow8vl"]
+
+[ext_resource type="Texture2D" uid="uid://bjlntjvydwjgh" path="res://examples/icon_texture/icons/nodes/parallax_background.svg" id="1_lyix3"]
+[ext_resource type="Script" uid="uid://4quw8jgacf6o" path="res://Widgets/WidgetConfig.gd" id="2_pekup"]
+
+[resource]
+script = ExtResource("2_pekup")
+key = "AppsList"
+name = "List Windows"
+description = "Show icons of opened windows in an icon list"
+path = "res://Widgets/WindowListWidget.tscn"
+icon = ExtResource("1_lyix3")
+metadata/_custom_type_script = "uid://4quw8jgacf6o"

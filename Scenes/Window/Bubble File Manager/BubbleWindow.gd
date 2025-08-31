@@ -4,37 +4,32 @@ class_name BubbleFileManager
 ## The file manager window.
 
 func _ready() -> void:
-	if(parentWindow.creationData.has("StartPath")):
+	if(parentWindow and parentWindow.creationData.has("StartPath")):
 		szFilePath = parentWindow.creationData["StartPath"]
+		parentWindow.resized.connect(UpdateItems)
+	else:
+		szFilePath = ResourceManager.GetPathToUserFiles()
 	
 	super._ready()
-	parentWindow.resized.connect(UpdateItems)
 	clickHandler.BackButtonPressed.connect(_on_back_button_pressed)
 	populate_file_manager()
-	DefaultValues.CallOnDelay(0.05, RefreshManager)
+	UtilityHelper.instance.CallOnDelay(0.05, RefreshManager)
 
 func reload_window(folder_path: String) -> void:
 	# Reload the same path if not given folder_path
 	if !folder_path.is_empty():
 		szFilePath = folder_path
 	
-	# for child in GetChildren():
-	# 	if child is BaseFile:
-	# 		RemoveChild(child)
-	# 		child.queue_free()
-	#ClearAll()
 	if(szFilePath != folder_path):
 		ClearAll()
 	Refresh()
-	#populate_file_manager()
 	
 	#TODO make this less dumb
 	if(windowTitle):
 		windowTitle.text = "%s" % [szFilePath]
-	parentWindow.select_window(true)
-
-# func close_window() -> void:
-# 	$"../.."._on_close_button_pressed()
+	
+	if(parentWindow):
+		parentWindow.select_window(true)
 
 ## Goes to the folder above the currently shown one. Can't go higher than user://files/
 func _on_back_button_pressed() -> void:

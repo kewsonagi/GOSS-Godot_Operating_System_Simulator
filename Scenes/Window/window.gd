@@ -75,7 +75,7 @@ var creationData: Dictionary
 
 @export_category("Save Settings")
 var saveFileName: String = "window_settings"
-static var windowSaveFile: IndieBlueprintSavedGame
+static var windowSaveFile: SaveDataBasic
 var windowSavePosKey: String
 var windowSaveSizeKey: String
 var windowSaveMaximizedKey: String
@@ -150,14 +150,9 @@ func _ready() -> void:
 	if(closeButton):
 		closeButton.icon = closeIcon
 	
-	saveFileName = IndieBlueprintSavedGame.clean_filename(saveFileName)
+	#saveFileName = UtilityHelper.GetCleanFileString(ResourceManager.GetPathToWindowSettings(), saveFileName, saveFileName.get_extension())
 	if(!windowSaveFile):
-		if(!IndieBlueprintSaveManager.save_filename_exists(saveFileName)):
-			windowSaveFile = IndieBlueprintSaveManager.create_new_save(saveFileName)
-		else:
-			windowSaveFile = IndieBlueprintSaveManager.load_savegame(saveFileName)
-			if(!windowSaveFile):
-				windowSaveFile = IndieBlueprintSaveManager.create_new_save(saveFileName)
+		windowSaveFile = UtilityHelper.GetSavefile(ResourceManager.GetPathToWindowSettings(), saveFileName)
 	
 	SetID(windowID)
 
@@ -182,7 +177,7 @@ func SaveWindowState() -> void:
 	windowSaveFile.data[windowOpenedKey] = true
 	windowSaveFile.data[windowBorderlessKey] = bBorderless
 	windowSaveFile.data[windowResizableKey] = bResizable
-	windowSaveFile.write_savegame();
+	windowSaveFile.Save()
 
 
 #endregion
@@ -367,7 +362,8 @@ func select_window(play_fade_animation: bool) -> void:
 	tween.tween_property(self, "modulate:a", 1, 0.5)
 	
 	# Move in front of all other windows (+2 to ignore wallpaper and bg color)
-	get_parent().move_child(self, num_of_windows + 2)
+	self.move_to_front()
+	#get_parent().move_child(self, num_of_windows + 2)
 	
 	deselect_other_windows()
 
@@ -394,20 +390,20 @@ func deselect_other_windows() -> void:
 
 func clamp_window_inside_viewport() -> void:
 	if(viewportToCheck):
-		var game_window_size: Vector2 = viewportToCheck.get_visible_rect().size
+		#var game_window_size: Vector2 = viewportToCheck.get_visible_rect().size
 		#not bigger than the godot window
-		if (size.y > game_window_size.y - 40):
-			size.y = game_window_size.y - 40
-		if (size.x > game_window_size.x):
-			size.x = game_window_size.x
+		if (size.y > UtilityHelper.GetDesktopRect().size.y - UtilityHelper.GetDesktopRect().position.y):
+			size.y = UtilityHelper.GetDesktopRect().size.y - UtilityHelper.GetDesktopRect().position.y
+		if (size.x > UtilityHelper.GetDesktopRect().size.x - UtilityHelper.GetDesktopRect().position.x):
+			size.x = UtilityHelper.GetDesktopRect().size.x - UtilityHelper.GetDesktopRect().position.x
 		
-		size.y = clamp(size.y, minWindowSize.y, game_window_size.y-taskbarSize)
-		size.x = clamp(size.x, minWindowSize.x, game_window_size.x)
+		size.y = clamp(size.y, minWindowSize.y, UtilityHelper.GetDesktopRect().size.y - UtilityHelper.GetDesktopRect().position.y)
+		size.x = clamp(size.x, minWindowSize.x, UtilityHelper.GetDesktopRect().size.x - UtilityHelper.GetDesktopRect().position.x)
 
 		#position is somewhere inside the window
 		#but make sure there is atleast the min window size available so it can still be selected and moved
-		global_position.y = clamp(global_position.y, 0, game_window_size.y-60-minWindowSize.y)
-		global_position.x = clamp(global_position.x, -size.x+minWindowSize.x, game_window_size.x-minWindowSize.x)
+		global_position.y = clamp(global_position.y, UtilityHelper.GetDesktopRect().position.y, UtilityHelper.GetDesktopRect().size.y-minWindowSize.y)
+		global_position.x = clamp(global_position.x, UtilityHelper.GetDesktopRect().position.x-size.x+minWindowSize.x, UtilityHelper.GetDesktopRect().size.x-minWindowSize.x)
 
 func _on_viewport_size_changed() -> void:
 	if is_maximized:
@@ -459,19 +455,20 @@ func maximize_window(animatePos: bool = true) -> void:
 		marginContainer["theme_override_constants/margin_bottom"] = 0
 		
 		if(viewportToCheck):
-			var new_size: Vector2 = viewportToCheck.get_visible_rect().size
-			new_size.y -= 40 #Because taskbar
+			var new_size: Vector2 = UtilityHelper.GetDesktopRect().size - UtilityHelper.GetDesktopRect().position
+			#new_size.y -= 40 #Because taskbar
 		
 			var tween: Tween = create_tween()
 			tween.set_parallel(true)
 			tween.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 			if(animatePos):
-				tween.tween_property(self, "global_position", Vector2.ZERO, 0.35)
+				tween.tween_property(self, "global_position", UtilityHelper.GetDesktopRect().position, 0.35)
 			else:
-				global_position = Vector2.ZERO
+				global_position = UtilityHelper.GetDesktopRect().position
 			tween.tween_property(self["theme_override_styles/panel"], "bg_color:a", startPanelColorAlpha, 0.35)
 			await tween.tween_property(self, "size", new_size, 0.35).finished
 		
+	#clamp_window_inside_viewport()
 		#resizeButton.window_resized.emit()
 	maximized.emit(is_maximized)
 

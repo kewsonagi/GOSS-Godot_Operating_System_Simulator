@@ -1,0 +1,113 @@
+[gd_scene load_steps=14 format=3 uid="uid://csj0nqhompuaa"]
+
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_cog6c"]
+[ext_resource type="PackedScene" uid="uid://ufo3bc72b2rq" path="res://Scenes/Window/File Manager/file_manager.tscn" id="2_ggko7"]
+[ext_resource type="Texture2D" uid="uid://copqhcnqdgm3b" path="res://Art/shaded/Power.png" id="16_jxkvw"]
+[ext_resource type="Script" uid="uid://ovt5fnqwt48p" path="res://Scenes/Taskbar/power_button.gd" id="17_qeamr"]
+[ext_resource type="PackedScene" uid="uid://dfodxrenoxf8w" path="res://Scenes/Main/Boot Splash/shutdown_splash.tscn" id="18_71tn5"]
+[ext_resource type="Texture2D" uid="uid://c52c3p0h1475m" path="res://Art/shaded/02-cog.png" id="19_1orly"]
+[ext_resource type="Script" uid="uid://bcvlao324av3w" path="res://Scenes/Taskbar/settings_button.gd" id="20_prs78"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxws7"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbmie"]
+bg_color = Color(1, 0.247059, 0.188235, 0.588235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnonj"]
+bg_color = Color(0.666667, 0, 0, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dh2v"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
+corner_radius_top_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bm3y2"]
+bg_color = Color(0.4, 0.4, 0.4, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bd8k4"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 0.392157)
+corner_radius_top_left = 10
+
+[node name="Start Menu" type="SplitContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_cog6c")
+touch_dragger_enabled = true
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="FlowContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+alignment = 1
+vertical = true
+
+[node name="FileManagerWindow" parent="Panel/VBoxContainer" instance=ExtResource("2_ggko7")]
+layout_mode = 2
+startingUserDirectory = "user://files/"
+packFileExtension = ["tres", "res"]
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="FlowContainer" parent="Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+alignment = 1
+
+[node name="FileManagerWindow" parent="Panel2/VBoxContainer" instance=ExtResource("2_ggko7")]
+layout_mode = 2
+startingUserDirectory = "user://files/"
+packFileExtension = ["tres", "res"]
+
+[node name="Power Button" type="Button" parent="."]
+visible = false
+texture_filter = 3
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_lxws7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nbmie")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lnonj")
+action_mode = 0
+icon = ExtResource("16_jxkvw")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("17_qeamr")
+boot_splash_scene = ExtResource("18_71tn5")
+
+[node name="Settings Button" type="Button" parent="."]
+visible = false
+texture_filter = 3
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_2dh2v")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bm3y2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bd8k4")
+action_mode = 0
+icon = ExtResource("19_1orly")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("20_prs78")
+
+[connection signal="pressed" from="Power Button" to="Power Button" method="_on_pressed"]
+[connection signal="pressed" from="Settings Button" to="Settings Button" method="_on_pressed"]

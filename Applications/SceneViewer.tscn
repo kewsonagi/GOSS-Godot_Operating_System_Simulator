@@ -22,6 +22,18 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wclbr")
 [node name="SubViewport" parent="SubViewportContainer" index="0"]
 size = Vector2i(576, 354)
 
+[node name="Minimize Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer" index="0"]
+visible = true
+
+[node name="Maximize Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer" index="1"]
+visible = true
+
+[node name="Resize Spots" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="1"]
+visible = true
+
+[node name="DialogControls" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="2"]
+visible = false
+
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="SubViewportContainer/SubViewport" index="1"]
 anchors_preset = -1
 anchor_right = 1.0
@@ -43,7 +55,7 @@ stretch = true
 unique_name_in_owner = true
 own_world_3d = true
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(535, 301)
 size_2d_override = Vector2i(1152, 648)
 size_2d_override_stretch = true
 render_target_update_mode = 4

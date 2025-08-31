@@ -20,10 +20,16 @@ offset_right = 267.5
 theme_override_styles/panel = SubResource("StyleBoxFlat_wq0su")
 
 [node name="SubViewport" parent="SubViewportContainer" index="0"]
-size = Vector2i(535, 407)
+size = Vector2i(535, 200)
 
 [node name="MarginContainer" parent="SubViewportContainer/SubViewport" index="0"]
 mouse_filter = 2
+
+[node name="Minimize Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer" index="0"]
+visible = true
+
+[node name="Maximize Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/HBoxContainer" index="1"]
+visible = true
 
 [node name="Back" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar" index="3"]
 custom_minimum_size = Vector2(40, 24)
@@ -50,7 +56,14 @@ offset_top = 29.500004
 offset_right = -0.015014648
 offset_bottom = 2.5
 windowTitle = NodePath("../Top Bar/Title Text")
+packFileExtension = ["tres", "res"]
 parentWindow = NodePath("../../../../..")
+
+[node name="Resize Spots" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="2"]
+visible = true
+
+[node name="DialogControls" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="3"]
+visible = false
 
 [connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/Back" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/FileManagerWindow" method="_on_back_button_pressed"]
 

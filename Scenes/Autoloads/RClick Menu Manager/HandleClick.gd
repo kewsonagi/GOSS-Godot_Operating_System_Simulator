@@ -40,16 +40,26 @@ var scrollDown: bool = false
 var scrollLeft: bool = false
 var scrollRight: bool = false
 
-func _on_mouse_entered() -> void:
+func _on_mouse_entered_parent() -> void:
 	bMouseover = true
 	HoveringStart.emit()
-func _on_mouse_exited() -> void:
+func _on_mouse_exited_parent() -> void:
 	bMouseover = false
 	HoveringEnd.emit()
 	scrollUp = false
 	scrollDown = false
 	scrollLeft = false
 	scrollRight = false
+
+func _ready() -> void:
+	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	size_flags_vertical = Control.SIZE_EXPAND_FILL
+	set_anchors_preset(Control.PRESET_FULL_RECT)
+	mouse_filter = Control.MOUSE_FILTER_PASS
+	if(get_parent()):
+		get_parent_control().mouse_entered.connect(_on_mouse_entered_parent)
+		get_parent_control().mouse_exited.connect(_on_mouse_exited_parent)
+		get_parent_control().gui_input.connect(_on_gui_input_parent)
 
 func _physics_process(_delta: float) -> void:
 	if(!visible):return
@@ -69,6 +79,49 @@ func _physics_process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if(!self.visible):return
 	
+	# if(!bMouseover):
+	# 	if(self.get_global_rect().has_point(get_global_mouse_position())):
+	# 		bMouseover = true
+	# 		HoveringStart.emit()
+	# else:
+	# 	if(!self.get_global_rect().has_point(get_global_mouse_position())):
+	# 		bMouseover = false
+	# 		HoveringEnd.emit()
+	# 		scrollUp = false
+	# 		scrollDown = false
+	# 		scrollLeft = false
+	# 		scrollRight = false
+	
+	# ##########################
+	# ##########################
+	# ## old ongui events
+	# if(bMouseover):
+	# 	if(event.is_action_pressed(&"RightClick")):
+	# 		vStartDragPosition = get_global_mouse_position()
+	# 		vLastDragPosition = vStartDragPosition
+	# 		HandleRightClick()
+	# 		bClicked = true
+	# 	elif(event.is_action_pressed(&"LeftClick")):
+	# 		fTimeClicked = float(Time.get_ticks_msec() - nTimeOfClick) / 1000.0
+	# 		if(fTimeClicked<doubleClickSpeed*1.5):
+	# 			DoubleClick.emit()
+	# 		else:
+	# 			HandleLeftClick()
+	# 		fTimeClicked = 0
+	# 		nTimeOfClick = Time.get_ticks_msec()
+	# 		bClicked = true
+	# 		vStartDragPosition = get_global_mouse_position()
+	# 		vLastDragPosition = vStartDragPosition
+	# 	elif(event.is_action_pressed(&"MiddleMouse")):
+	# 		bClicked = true
+	# 		MiddleButtonPressed.emit()
+	# 	elif(event.is_action_pressed(&"MouseBack")):
+	# 		BackButtonPressed.emit()
+	# 	elif(event.is_action_pressed(&"MouseForward")):
+	# 		ForwardButtonPressed.emit()
+	##########################
+	##########################
+	
 	scrollUp = false
 	scrollDown = false
 	scrollLeft = false
@@ -86,20 +139,15 @@ func _input(event: InputEvent) -> void:
 		if(!bMouseover):
 			vStartDragPosition = get_global_mouse_position()
 			vLastDragPosition = vStartDragPosition
-			var thisContainer: Rect2
-			thisContainer.position = self.global_position
-			thisContainer.size = self.size
-			if(!thisContainer.has_point(get_global_mouse_position())):
+			
+			if(!self.get_global_rect().has_point(get_global_mouse_position())):
 				bClicked = false
 				NotClicked.emit()
 	elif(event.is_action_released(&"LeftClick")):
 		if(!bMouseover):
 			vStartDragPosition = get_global_mouse_position()
 			vLastDragPosition = vStartDragPosition
-			var thisContainer: Rect2
-			thisContainer.position = self.global_position
-			thisContainer.size = self.size
-			if(!thisContainer.has_point(get_global_mouse_position())):
+			if(!self.get_global_rect().has_point(get_global_mouse_position())):
 				bClicked = false
 				NotClickedRelease.emit()
 		if(bClicked):
@@ -112,6 +160,12 @@ func _input(event: InputEvent) -> void:
 		bRMB = false
 		bMMB = false
 	elif(event.is_action_released(&"RightClick")):
+		if(!bMouseover):
+			vStartDragPosition = get_global_mouse_position()
+			vLastDragPosition = vStartDragPosition
+			if(!self.get_global_rect().has_point(get_global_mouse_position())):
+				bClicked = false
+				NotClickedRelease.emit()
 		if(bClicked):
 			RightClickRelease.emit()
 		if(bDragging):
@@ -145,7 +199,7 @@ func _input(event: InputEvent) -> void:
 			ScrollingH.emit(-1*get_process_delta_time());
 	#if(event is InputEventJoypadMotion)
 
-func _on_gui_input(event: InputEvent) -> void:
+func _on_gui_input_parent(event: InputEvent) -> void:
 	if(bMouseover):
 		if(event.is_action_pressed(&"RightClick")):
 			vStartDragPosition = get_global_mouse_position()

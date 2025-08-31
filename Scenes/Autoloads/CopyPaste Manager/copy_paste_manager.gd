@@ -65,7 +65,6 @@ func paste_folder(to_path: String) -> void:
 		NotificationManager.ShowNotification("Error: Nothing to copy")
 		return
 	
-	print("copy paste: to path: %s" % toPath)
 	if(filesList and !filesList.is_empty()):
 		for file in filesList:
 			if(file and !file.is_queued_for_deletion() and file is BaseFile):
@@ -79,7 +78,6 @@ func paste_folder(to_path: String) -> void:
 						else:
 							fromPath = "%s%s" % [ResourceManager.GetPathToUserFiles(), f.szFileName]
 					packedFiles.append(fromPath)
-					print("copy paste: from path: %s" % fromPath)
 	
 	if state == StateEnum.COPY:
 		CopyAllFilesOrFolders(packedFiles, toPath, true, false)
@@ -88,83 +86,11 @@ func paste_folder(to_path: String) -> void:
 		CopyAllFilesOrFolders(packedFiles, toPath, true, true)
 	filesList.clear()
 
-# func paste_folder_copy(to_path: String) -> void:
-# 	var to: String = "user://files/%s/%s" % [to_path, target_folder_name]
-# 	if target_folder_type == BaseFile.E_FILE_TYPE.FOLDER:
-# 		var from: String = "user://files/%s" % target_folder_path
-# 		if from != to:
-# 			DirAccess.make_dir_absolute(to)
-# 			copy_directory_recursively(from, to)
-# 	else:
-# 		var from: String = "user://files/%s/%s" % [target_folder_path, target_folder_name]
-# 		if from != to:
-# 			DirAccess.copy_absolute(from, to)
-	
-# 	if target_folder != null:
-# 		target_folder.modulate.a = 1
-# 	if to_path.is_empty():
-# 		var desktop_file_manager: DesktopFileManager = get_tree().get_first_node_in_group("desktop_file_manager")
-# 		desktop_file_manager.delete_file_with_name(target_folder_name)
-# 		instantiate_file_and_sort(desktop_file_manager, to_path)
-# 	else:
-# 		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-# 			if file_manager.szFilePath == to_path:
-# 				file_manager.delete_file_with_name(target_folder_name)
-# 				instantiate_file_and_sort(file_manager, to_path)
-	
-# 	target_folder_name = ""
-# 	target_folder = null
-
-# func paste_folder_cut(to_path: String) -> void:
-# 	var to: String = "user://files/%s/%s" % [to_path, target_folder_name]
-# 	if target_folder_type == BaseFile.E_FILE_TYPE.FOLDER:
-# 		var from: String = "user://files/%s" % target_folder_path
-# 		DirAccess.rename_absolute(from, to)
-# 		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-# 			if file_manager.szFilePath.begins_with(target_folder_path):
-# 				file_manager.Close()
-# 			elif file_manager.szFilePath == to_path:
-# 				instantiate_file_and_sort(file_manager, to_path)
-# 	else:
-# 		var from: String = "user://files/%s/%s" % [target_folder_path, target_folder_name]
-# 		DirAccess.rename_absolute(from, to)
-# 		for file_manager: FileManagerWindow in get_tree().get_nodes_in_group("file_manager_window"):
-# 			if file_manager.szFilePath == to_path:
-# 				instantiate_file_and_sort(file_manager, to_path)
-	
-# 	if target_folder != null:
-# 		target_folder.get_parent().delete_file_with_name(target_folder_name)
-	
-# 	if to_path.is_empty():
-# 		var desktop_file_manager: DesktopFileManager = get_tree().get_first_node_in_group("desktop_file_manager")
-# 		instantiate_file_and_sort(desktop_file_manager, to_path)
-	
-# 	target_folder = null
-
-# func copy_directory_recursively(dir_path: String, to_path: String) -> void:
-# 	if to_path.begins_with(dir_path):
-# 		NotificationManager.ShowNotification("ERROR: Can't copy a folder into itself!")
-# 		return
-# 	for dir_name in DirAccess.get_directories_at(dir_path):
-# 		DirAccess.make_dir_absolute("%s/%s" % [to_path, dir_name])
-# 		copy_directory_recursively("%s/%s" % [dir_path, dir_name], "%s/%s" % [to_path, dir_name])
-# 	for file_name in DirAccess.get_files_at(dir_path):
-# 		DirAccess.copy_absolute("%s/%s" % [dir_path, file_name], "%s/%s" % [to_path, file_name])
-
-# ## Instantiates a new file in the file manager then refreshes. Used for adding a single file without causing a full refresh.
-# func instantiate_file_and_sort(file_manager: BaseFileManager, to_path: String) -> void:
-# 	if target_folder_type == BaseFile.E_FILE_TYPE.FOLDER:
-# 		file_manager.PopulateWithFile(target_folder_name, "%s/%s" % [to_path, target_folder_name], target_folder_type)
-# 	else:
-# 		file_manager.PopulateWithFile(target_folder_name, to_path, target_folder_type)
-# 	file_manager.SortFolders()
-
 #universal copy/cut paste for any files/folder
 #handles all sub folders and files
 #remember to refresh file managers if moving things around that you can browse in the app
 func CopyAllFilesOrFolders(files: PackedStringArray, to: String = "user://files/", override: bool = true, cut: bool = false) -> void:
 	for thisFile: String in files:
-		print(thisFile)
 		var dirToDelete: PackedStringArray
 		var filename: String = thisFile.get_file()#get the end of the path/file, including extension
 		
