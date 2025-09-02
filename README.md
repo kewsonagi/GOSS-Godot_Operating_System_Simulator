@@ -7,3 +7,4 @@ First Godot project as a test bed for simulating a desktop to learn various UI f
 ![alt text](https://github.com/kewsonagi/GOSS/blob/main/Screenshot%202025-09-02%20075157.png?raw=true)
 ![alt text](https://github.com/kewsonagi/GOSS/blob/main/Screenshot%202025-09-02%20075128.png?raw=true)
 ![alt text](https://github.com/kewsonagi/GOSS/blob/main/Screenshot%202025-08-10%20183823.png?raw=true)
+![alt text](https://github.com/kewsonagi/GOSS/blob/main/Screenshot%202025-08-10%20183807.png?raw=true)
