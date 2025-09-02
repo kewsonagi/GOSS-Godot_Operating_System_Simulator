@@ -230,7 +230,7 @@ func DeleteFile() -> void:
 func HandleRightClick() -> void:
 	show_selected_highlight()
 
-	RClickMenuManager.instance.ShowMenu("Base File Menu", self)
+	RClickMenuManager.instance.ShowMenu("Base File Menu", self, Color.SILVER)
 	RClickMenuManager.instance.AddMenuItem("Open Me!", OpenFile, ResourceManager.GetResource("Open"))
 	RClickMenuManager.instance.AddMenuItem("Copy", CopyFile, ResourceManager.GetResource("Copy"))
 	RClickMenuManager.instance.AddMenuItem("Cut", CutFile, ResourceManager.GetResource("Cut"))

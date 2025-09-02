@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func HandleRightClick() -> void:
 	RClickMenuManager.instance.ShowMenu("Window list widget", self)
-	RClickMenuManager.instance.AddMenuItem("Remove", RemoveWidget, ResourceManager.GetResource("Delete"))
+	RClickMenuManager.instance.AddMenuItem("Remove", RemoveWidget, ResourceManager.GetResource("Delete"), Color.PALE_VIOLET_RED)
 	
 func SetConfig(c: WidgetConfig) -> void:
 	config = c

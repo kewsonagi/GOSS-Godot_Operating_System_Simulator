@@ -79,6 +79,7 @@ func SetWidgetAnchor(anchor: E_WIDGET_ANCHOR) -> void:
 	elif(anchor == E_WIDGET_ANCHOR.RIGHT):
 		SetWidgetLayout(true)
 		#set_anchors_preset(Control.PRESET_RIGHT_WIDE)
+	UpdateListItemsRotate()
 
 func MoveWidgetLeft() -> void:
 	if(taskbarParent):
@@ -98,6 +99,8 @@ func AddTaskItem(taskItem: TaskbarItem) -> void:
 
 	taskItems.append(newItem)
 	taskbarListControl.add_child(newItem)
+	
+	UpdateListItemsRotate()
 
 func RemoveTaskItem(taskItem: TaskbarItem) -> void:
 	for item: TaskbarItem in taskItems:
@@ -105,3 +108,14 @@ func RemoveTaskItem(taskItem: TaskbarItem) -> void:
 			taskItems.erase(item)
 			item.queue_free()
 			break
+
+func UpdateListItemsRotate() -> void:
+	for newItem: TaskbarItem in taskItems:
+		if(anchorPreset == E_WIDGET_ANCHOR.BOTTOM):
+			newItem.SetRotation(0)
+		if(anchorPreset == E_WIDGET_ANCHOR.TOP):
+			newItem.SetRotation(180)
+		elif(anchorPreset == E_WIDGET_ANCHOR.LEFT):
+			newItem.SetRotation(90)
+		elif(anchorPreset == E_WIDGET_ANCHOR.RIGHT):
+			newItem.SetRotation(-90)

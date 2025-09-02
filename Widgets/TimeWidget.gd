@@ -5,6 +5,7 @@ class_name  TimeWidget
 ## Updates once every 10 seconds since string replacements can be a waste of resources.
 @export var timeText: RichTextLabel
 @export var dateText: RichTextLabel
+@export var rotationControl: Control
 
 func _ready() -> void:
 	super._ready()	
@@ -26,3 +27,14 @@ func update_time() -> void:
 
 func _on_timer_timeout() -> void:
 	update_time()
+
+func SetWidgetAnchor(anchor: E_WIDGET_ANCHOR) -> void:
+	super.SetWidgetAnchor(anchor)
+	if(anchor == E_WIDGET_ANCHOR.BOTTOM):
+		rotationControl.rotation_degrees = 0
+	elif(anchor == E_WIDGET_ANCHOR.TOP):
+		rotationControl.rotation_degrees = 0
+	elif(anchor == E_WIDGET_ANCHOR.LEFT):
+		rotationControl.rotation_degrees = 90
+	elif(anchor == E_WIDGET_ANCHOR.RIGHT):
+		rotationControl.rotation_degrees = -90

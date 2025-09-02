@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://clfr2ctk4xym4" path="res://Widgets/StartMenu.tres" id="2_a4qxp"]
 [ext_resource type="PackedScene" uid="uid://bbgh7s65hn2k4" path="res://Scenes/Taskbar/startMenu.tscn" id="4_spl81"]
 
-[node name="Start Button" type="MarginContainer" node_paths=PackedStringArray("start_menu")]
+[node name="Start Button" type="MarginContainer" node_paths=PackedStringArray("start_menu", "transformControl")]
 custom_minimum_size = Vector2(60, 60)
 anchors_preset = 8
 anchor_left = 0.5
@@ -24,22 +24,32 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 script = ExtResource("1_ebf78")
-start_menu = NodePath("Control/Start Menu")
+start_menu = NodePath("TransformNode/Control/Start Menu")
+transformControl = NodePath("TransformNode")
 config = ExtResource("2_a4qxp")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-texture_filter = 4
+[node name="TransformNode" type="Control" parent="."]
 layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="TransformNode"]
+texture_filter = 4
+layout_mode = 0
+offset_right = 54.0
+offset_bottom = 54.0
 mouse_filter = 2
 texture = ExtResource("2_7mume")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 2
+[node name="Control" type="Control" parent="TransformNode"]
+anchors_preset = 0
+offset_right = 54.0
+offset_bottom = 54.0
 mouse_filter = 1
 
-[node name="Start Menu" parent="Control" instance=ExtResource("4_spl81")]
+[node name="Start Menu" parent="TransformNode/Control" instance=ExtResource("4_spl81")]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0

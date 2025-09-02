@@ -6,6 +6,7 @@ class_name WidgetManager
 static var registeredWidgets: Dictionary#reg by app name, appList index
 static var widgetsList: Array[WidgetConfig]
 static var instance: WidgetManager = null
+static var registeredNames: PackedStringArray = []
 
 func _ready() -> void:
 	if(instance == null):
@@ -31,10 +32,13 @@ static func LoadWidgetConfig(filepath:String) -> WidgetConfig:
 		app = res as WidgetConfig
 	return app
 
+static func GetWidgetsRegisteredList() -> PackedStringArray:
+	return registeredNames
 
 static func RegisterWidget(key: String, resource: WidgetConfig) -> void:
 	if (!registeredWidgets.has(key)):
 		print("registering widget: %s" % key)
+		registeredNames.append(key)
 		#if this item is already registered under a different name, assign it that index and dont make a new one
 		widgetsList.append(resource)
 		registeredWidgets[key] = widgetsList.size() - 1
@@ -63,6 +67,9 @@ static func CreateWidget(appName: String) -> BaseWidget:
 					widget.SetConfig(conf)
 					return widget
 	return null
+
+static func GetWidget(appName: String) -> BaseWidget:
+	return CreateWidget(appName)
 
 static func LaunchCustomWindowWidget(app:WidgetConfig) -> Node:#window created
 	var filepath: String = app.path

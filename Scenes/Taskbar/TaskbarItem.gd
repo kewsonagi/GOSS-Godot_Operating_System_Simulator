@@ -22,6 +22,8 @@ var storeOldTextureRect: Texture
 @export var maximizedColor: Color = Color.INDIAN_RED
 @export var foregroundColor: Color = Color.LIGHT_YELLOW
 @export var backgroundColor: Color = Color.SANDY_BROWN
+@export var rotationControl: Control
+@export var activeContainer: Control
 
 var clickHandler: HandleClick
 
@@ -117,3 +119,9 @@ func Minimize() -> void:
 
 func Close() -> void:
 	target_window._on_close_button_pressed()
+
+func SetRotation(rot: float) -> void:
+	rotationControl.rotation_degrees = rot
+	if(rot > 95 or rot <-95):
+		previewNode.rotation_degrees = -rot
+		activeContainer.rotation_degrees = -rot

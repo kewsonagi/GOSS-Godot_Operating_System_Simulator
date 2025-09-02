@@ -1,11 +1,12 @@
-[gd_resource type="Theme" load_steps=55 format=3 uid="uid://b3klx57slj0l3"]
+[gd_resource type="Theme" load_steps=56 format=3 uid="uid://b3klx57slj0l3"]
 
-[ext_resource type="FontFile" uid="uid://bjepoycie77ya" path="res://Art/SharpMess.ttf" id="1_ewxn7"]
 [ext_resource type="FontFile" uid="uid://ccis5jdmr1vl3" path="res://Art/GuiAssets/fonts/ZeroCool.ttf" id="1_lws7m"]
+[ext_resource type="FontFile" uid="uid://dbcx381qyse40" path="res://Art/ReturnOfThePixels-Regular.otf" id="1_muebh"]
 [ext_resource type="Texture2D" uid="uid://udawlj7nryla" path="res://Art/soft_retro/art/checked.svg" id="2_k0c1y"]
 [ext_resource type="Texture2D" uid="uid://dl5qlemud0d4j" path="res://Art/soft_retro/art/toggle_on.svg" id="2_myavk"]
 [ext_resource type="Texture2D" uid="uid://gameaex7fm1g" path="res://Art/soft_retro/art/toggle_off.svg" id="3_208pi"]
 [ext_resource type="Texture2D" uid="uid://cbwip815aqfhq" path="res://Art/soft_retro/art/unchecked.svg" id="3_cwkfx"]
+[ext_resource type="FontFile" uid="uid://fhv0ah43o6m" path="res://Art/Thin Sans.ttf" id="7_rdkmb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0c1y"]
 bg_color = Color(1, 0.690196, 0.639216, 1)
@@ -310,13 +311,14 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 2
 
 [resource]
-Button/colors/font_color = Color(1, 0.87121904, 0.594605, 1)
+Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_disabled_color = Color(0.27451, 0.258824, 0.368627, 0.392157)
 Button/colors/font_focus_color = Color(1, 0.933333, 0.8, 1)
 Button/colors/font_hover_color = Color(0.27451, 0.258824, 0.368627, 1)
 Button/colors/font_hover_pressed_color = Color(0.10124843, 0.37617704, 0.99996966, 1)
 Button/colors/font_pressed_color = Color(0, 0.48239154, 0.8971097, 1)
-Button/fonts/font = ExtResource("1_ewxn7")
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_lws7m")
 Button/styles/disabled = SubResource("StyleBoxFlat_k0c1y")
 Button/styles/focus = SubResource("StyleBoxEmpty_lopid")
 Button/styles/hover = SubResource("StyleBoxFlat_myavk")
@@ -338,7 +340,7 @@ CheckButton/colors/font_focus_color = Color(1, 0.933333, 0.8, 1)
 CheckButton/colors/font_hover_color = Color(1, 0.933333, 0.8, 1)
 CheckButton/colors/font_hover_pressed_color = Color(1, 0.933333, 0.8, 1)
 CheckButton/colors/font_pressed_color = Color(1, 0.933333, 0.8, 1)
-CheckButton/fonts/font = ExtResource("1_ewxn7")
+CheckButton/fonts/font = ExtResource("1_lws7m")
 CheckButton/icons/checked = ExtResource("2_myavk")
 CheckButton/icons/unchecked = ExtResource("3_208pi")
 CheckButton/styles/focus = SubResource("StyleBoxEmpty_k0c1y")
@@ -358,14 +360,14 @@ HSlider/styles/grabber_area = SubResource("StyleBoxFlat_cwkfx")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_1b0k0")
 HSlider/styles/slider = SubResource("StyleBoxFlat_14r85")
 Label/colors/font_color = Color(1, 0.933333, 0.8, 1)
-Label/fonts/font = ExtResource("1_ewxn7")
+Label/fonts/font = ExtResource("1_lws7m")
 LineEdit/colors/caret_color = Color(1, 0.933333, 0.8, 1)
 LineEdit/colors/clear_button_color_pressed = Color(1, 0.933333, 0.8, 1)
 LineEdit/colors/font_color = Color(1, 0.933333, 0.8, 1)
 LineEdit/colors/font_placeholder_color = Color(1, 0.933333, 0.8, 0.392157)
 LineEdit/colors/font_selected_color = Color(1, 0.933333, 0.8, 1)
 LineEdit/colors/selection_color = Color(1, 0.690196, 0.639216, 1)
-LineEdit/fonts/font = ExtResource("1_ewxn7")
+LineEdit/fonts/font = ExtResource("1_muebh")
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_b3cdw")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_rga2m")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_41273")
@@ -374,7 +376,7 @@ ProgressBar/colors/font_color = Color(1, 0.933333, 0.8, 1)
 ProgressBar/fonts/font = ExtResource("1_lws7m")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_hbuoo")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_fmcpx")
-RichTextLabel/colors/default_color = Color(1, 0.6309362, 0.47650468, 1)
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
 RichTextLabel/colors/font_outline_color = Color(1, 0.4117647, 0.4509804, 1)
 RichTextLabel/colors/font_selected_color = Color(1, 0.6901961, 0.6392157, 1)
 RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -399,7 +401,7 @@ RichTextLabel/font_sizes/bold_italics_font_size = 16
 RichTextLabel/font_sizes/italics_font_size = 16
 RichTextLabel/font_sizes/mono_font_size = 16
 RichTextLabel/font_sizes/normal_font_size = 16
-RichTextLabel/fonts/bold_font = ExtResource("1_ewxn7")
+RichTextLabel/fonts/bold_font = ExtResource("7_rdkmb")
 RichTextLabel/fonts/bold_italics_font = ExtResource("1_lws7m")
 RichTextLabel/fonts/italics_font = ExtResource("1_lws7m")
 RichTextLabel/fonts/mono_font = ExtResource("1_lws7m")
@@ -411,7 +413,7 @@ TabContainer/colors/font_disabled_color = Color(1, 0.933333, 0.8, 0.392157)
 TabContainer/colors/font_hovered_color = Color(1, 0.933333, 0.8, 1)
 TabContainer/colors/font_selected_color = Color(1, 0.933333, 0.8, 1)
 TabContainer/colors/font_unselected_color = Color(1, 0.933333, 0.8, 1)
-TabContainer/fonts/font = ExtResource("1_ewxn7")
+TabContainer/fonts/font = ExtResource("1_lws7m")
 TabContainer/styles/panel = SubResource("StyleBoxFlat_rnlxr")
 TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_mdn0p")
 TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_g2lif")
@@ -435,7 +437,7 @@ TextEdit/constants/caret_width = 2
 TextEdit/constants/line_spacing = 1
 TextEdit/constants/outline_size = 0
 TextEdit/font_sizes/font_size = 16
-TextEdit/fonts/font = ExtResource("1_ewxn7")
+TextEdit/fonts/font = ExtResource("1_muebh")
 TextEdit/icons/space = null
 TextEdit/icons/tab = null
 TextEdit/styles/focus = SubResource("StyleBoxFlat_muebh")

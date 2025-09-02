@@ -33,7 +33,7 @@ func _ready() -> void:
 	submenuTemplate.visible = false
 
 #setup the menu and list with name and caller
-func ShowMenu(menuName: String, caller: Control) -> void:
+func ShowMenu(menuName: String, caller: Control, bgColor: Color = Color.REBECCA_PURPLE) -> void:
 	self.visible = true
 	size = startSize
 	menuCaller = caller
@@ -46,6 +46,7 @@ func ShowMenu(menuName: String, caller: Control) -> void:
 	global_position = get_global_mouse_position() + Vector2(-10, -10)
 	clamp_inside_viewport()
 	modulate.a = 0
+	self_modulate = bgColor
 	var tween: Tween = create_tween()
 	tween.tween_property(self, "modulate:a", 1, 0.15)
 	is_mouse_over = true
@@ -54,14 +55,15 @@ func IsOpened() -> bool:
 	return self.visible
 
 #add new item to the menu with a callback for what to do
-func AddMenuItem(itemName: String, callback: Callable, itemIcon: Texture2D=null) -> void:
+func AddMenuItem(itemName: String, callback: Callable, itemIcon: Texture2D=null, bgColor: Color = Color.PALE_TURQUOISE) -> void:
 	self.visible = true
 	var newItem: RClickMenuOption = menuItem.instantiate()
 	newItem.optionText.text = itemName
 	newItem.optionIcon.texture = itemIcon
 
-	newItem.option_clicked.connect(callback)
 	newItem.option_clicked.connect(DismissMenu)
+	newItem.option_clicked.connect(callback)
+	newItem.SetColor(bgColor)
 
 	var separator: Node = menuItemSeparator.instantiate()
 	itemContainer.add_child(separator)
@@ -92,25 +94,18 @@ func _input(event: InputEvent) -> void:
 	if(!is_mouse_over and event.is_pressed()):
 		DismissMenu()
 		return
-			#HideMenu()
-	# if event is InputEventMouseButton and event.is_pressed():
-	# 	if event.button_index == 1 and self.visible:
-	# 		HideMenu()
 
 func DismissMenu() -> void:
 	if(!self.visible): return
 	
-	var tween: Tween = create_tween()
-	await tween.tween_property(self, "modulate:a", 0, 0.10).finished
-	if modulate.a == 0:
-		self.visible = false
+	self.visible = false
 	for item:RClickMenuOption in currentMenuItems:
 		if(item.optionIcon):
 			ResourceManager.ReturnResourceByResource(item.optionIcon.texture)
 	Dismissed.emit()
 
 func clamp_inside_viewport() -> void:
-	var game_window_size: Vector2 = get_viewport_rect().size
+	var game_window_size: Vector2 = UtilityHelper.GetScreenRect().size
 	if (size.y > game_window_size.y - 40):
 		size.y = game_window_size.y - 40
 	if (size.x > game_window_size.x):

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dyffbipc6kbic" path="res://Scenes/Autoloads/RClick Menu Manager/ClickHandler.tscn" id="4_n2bka"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mcrnf"]
-bg_color = Color(0.35742635, 0.18129122, 0.46128613, 1)
+bg_color = Color(1, 1, 1, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -17,8 +17,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 4
 
-[node name="Context Menu Option" type="Panel" node_paths=PackedStringArray("optionText", "optionIcon")]
-self_modulate = Color(1, 1, 1, 0.4509804)
+[node name="Context Menu Option" type="Panel" node_paths=PackedStringArray("optionText", "optionIcon", "colorControl")]
 custom_minimum_size = Vector2(0, 30)
 offset_right = 180.0
 offset_bottom = 30.0
@@ -27,6 +26,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_mcrnf")
 script = ExtResource("2_n2bka")
 optionText = NodePath("CenterContainer/Option Text")
 optionIcon = NodePath("TextureRect")
+colorControl = NodePath(".")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

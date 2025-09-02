@@ -39,7 +39,15 @@ static func GetCleanFileString(filepath: String, filename: String, extension: St
 	else:
 		extension = extension.get_file().get_basename()
 
-	return ProjectSettings.globalize_path("%s/%s.%s" % [filepath.get_base_dir(),filename.get_file().get_basename(),extension])
+	if(!filepath.get_extension().is_empty() or filepath.ends_with("/")):
+		filepath = filepath.get_base_dir()
+
+	if(!filename.get_file().is_empty()):
+		filename = filename.get_file()
+	if(!filename.get_extension().is_empty()):
+		filename = filename.get_basename()
+
+	return ProjectSettings.globalize_path("%s/%s.%s" % [filepath,filename,extension])
 
 static func GetCleanFilePath(filepath: String) -> String:
 	return GetCleanFileString(filepath.get_base_dir(), filepath.get_file(), filepath.get_file().get_extension())

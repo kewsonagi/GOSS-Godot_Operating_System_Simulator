@@ -10,7 +10,7 @@ var wallpaper_stretch_mode: TextureRect.StretchMode # int from 0 to 6
 #var soundManager3D: AudioStreamPlayer3D
 
 static var globalSettingsSave: SaveDataBasic
-var saveFileName:String = "Global Setting.ini"
+var saveFileName:String = "Global Setting.tres"
 
 func _ready() -> void:
 	DisplayServer.window_set_min_size(Vector2i(600, 525))

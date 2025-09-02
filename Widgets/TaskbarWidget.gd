@@ -4,6 +4,7 @@ class_name TaskbarWidget
 
 @export_category("taskbar properties")
 @export var taskbarParent: Taskbar
+@export var transformControl: Control
 
 func RemoveWidget() -> void:
 	super.RemoveWidget()

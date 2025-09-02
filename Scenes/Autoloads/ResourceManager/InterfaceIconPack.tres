@@ -376,7 +376,6 @@ res = ExtResource("50_kkw8x")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a10kg"]
-load_path = "res://.godot/imported/20240707dragon9SlicesA.png-47d47435fd4a1612add50457b8767d09.s3tc.ctex"
 
 [sub_resource type="Resource" id="Resource_yw5y4"]
 script = ExtResource("1_bcrgb")
@@ -385,7 +384,6 @@ res = SubResource("CompressedTexture2D_a10kg")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fi7pf"]
-load_path = "res://.godot/imported/20240713dragonEmptyFrame.png-5a516926e32448b1418ae46b7c609cc8.s3tc.ctex"
 
 [sub_resource type="Resource" id="Resource_t8p0b"]
 script = ExtResource("1_bcrgb")

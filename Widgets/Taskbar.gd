@@ -5,7 +5,7 @@ class_name Taskbar
 ## Taskbar to hold pinned shortcuts to applications/widgets and other things
 ## Shows a list of opened windows
 @export var saveFilename: String = "TaskbarConfig"
-@export var saveExtension: String = ".ini"
+@export var saveExtension: String = ".tres"
 @export_category("Taskbar Properties")
 @export var bEnabled: bool = true
 @export var tempUniqueID: int = 0
@@ -41,6 +41,7 @@ func AddWidget(widget: TaskbarWidget) -> void:
 		widget.SetWidgetAnchor(BaseWidget.E_WIDGET_ANCHOR.TOP)
 	if(taskbarAnchor == Control.PRESET_RIGHT_WIDE):
 		widget.SetWidgetAnchor(BaseWidget.E_WIDGET_ANCHOR.RIGHT)
+	SaveBar()
 	
 func RemoveWidget(widget: TaskbarWidget) -> void:
 	#widget.RemoveWidget()
@@ -51,6 +52,7 @@ func RemoveWidget(widget: TaskbarWidget) -> void:
 
 func MoveWidget(widget: TaskbarWidget, moveAmount:int) -> void:
 	taskbarListControl.move_child(widget, widget.get_index()-moveAmount)
+	SaveBar()
 
 func _ready() -> void:
 	if(!taskbarSave):
@@ -92,10 +94,13 @@ func SetBarColor(c: Color, updateSave: bool = true) -> void:
 func ToggleBar(on: bool) -> void:
 	bEnabled = on
 	visible = bEnabled
+	SaveBar()
 
 func SaveProfile(profileName: String) -> void:
+	SaveBar()
 	var profileSave: SaveDataBasic = SaveDataBasic.new()
-	profileSave.Load(UtilityHelper.GetCleanFileString(ResourceManager.GetPathToWindowSettings(), "%s%s" % [saveFilename, profileName], saveExtension))
+	print(UtilityHelper.GetCleanFileString("%s/profiles/" % ResourceManager.GetPathToWindowSettings().get_base_dir(), profileName, saveExtension))
+	profileSave.Load(UtilityHelper.GetCleanFileString("%s/profiles/" % ResourceManager.GetPathToWindowSettings().get_base_dir(), profileName, saveExtension))
 	profileSave.data = taskbarSave.data
 	profileSave.Save()
 
@@ -130,11 +135,12 @@ func LoadBar() -> void:
 		if(newWidget):
 			newWidget.taskbarParent = self
 			AddWidget(newWidget)
+	SaveBar()
 
 func LoadProfile(prof: String) -> void:
 	var holdID: int = tempUniqueID
 	var profSave: SaveDataBasic = SaveDataBasic.new()
-	profSave.Load(UtilityHelper.GetCleanFileString(ResourceManager.GetPathToWindowSettings(), "%s%s" % [saveFilename, prof], saveExtension))
+	profSave.Load(UtilityHelper.GetCleanFileString("%s/profiles/" % ResourceManager.GetPathToWindowSettings().get_base_dir(), prof, saveExtension))
 	LoadBar()
 	tempUniqueID = holdID
 	SaveBar()
@@ -142,23 +148,42 @@ func LoadProfile(prof: String) -> void:
 
 func HandleRightClick() -> void:
 	if(!RClickManager.instance.IsOpened()):
-		RClickMenuManager.instance.ShowMenu("Taskbar", self)
-	RClickMenuManager.instance.AddMenuItem("Save Profile", AskSaveProfile, ResourceManager.GetResource("Save"))
-	RClickMenuManager.instance.AddMenuItem("Change Color", ChangeColor, ResourceManager.GetResource("Color"))
-	RClickMenuManager.instance.AddMenuItem("Move To", MoveToMenu, ResourceManager.GetResource("Move"))
-	RClickMenuManager.instance.AddMenuItem("Remove Taskbar", RemoveSelf, ResourceManager.GetResource("Delete"))
+		RClickMenuManager.instance.ShowMenu("Taskbar", self, Color.PALE_VIOLET_RED)
+	RClickMenuManager.instance.AddMenuItem("Save Profile", AskSaveProfile, ResourceManager.GetResource("Save"), Color.BLUE_VIOLET)
+	RClickMenuManager.instance.AddMenuItem("Add Widget", func() -> void: UtilityHelper.CallOnTimer(0.05, AddWidgetMenu, self), ResourceManager.GetResource("Add"), Color.LIME_GREEN)
+	RClickMenuManager.instance.AddMenuItem("Change Color", ChangeColor, ResourceManager.GetResource("ColorPicker"), Color.HOT_PINK)
+	RClickMenuManager.instance.AddMenuItem("Move To", func() -> void: UtilityHelper.CallOnTimer(0.05, MoveToMenu, self), ResourceManager.GetResource("Move"))
+	RClickMenuManager.instance.AddMenuItem("Load Profile", ShowProfileListMenu, ResourceManager.GetResource("Load"), Color.LIGHT_YELLOW)
+	RClickMenuManager.instance.AddMenuItem("Clear Bar", RemoveAllWidgets, ResourceManager.GetResource("Delete"), Color.ORANGE_RED)
+	RClickMenuManager.instance.AddMenuItem("Remove Taskbar", RemoveSelf, ResourceManager.GetResource("Delete"), Color.MEDIUM_VIOLET_RED)
 
-	RClickMenuManager.instance.AddMenuItem("Left", Desktop.instance.MoveTaskbarLeft.bind(self), ResourceManager.GetResource("Toggle"))
-	RClickMenuManager.instance.AddMenuItem("Right", Desktop.instance.MoveTaskbarRight.bind(self), ResourceManager.GetResource("Toggle"))
-	RClickMenuManager.instance.AddMenuItem("Top", Desktop.instance.MoveTaskbarTop.bind(self), ResourceManager.GetResource("Move"))
-	RClickMenuManager.instance.AddMenuItem("Bottom", Desktop.instance.MoveTaskbarBottom.bind(self), ResourceManager.GetResource("Move"))
+	# RClickMenuManager.instance.AddMenuItem("Left", Desktop.instance.MoveTaskbarLeft.bind(self), ResourceManager.GetResource("Toggle"))
+	# RClickMenuManager.instance.AddMenuItem("Right", Desktop.instance.MoveTaskbarRight.bind(self), ResourceManager.GetResource("Toggle"))
+	# RClickMenuManager.instance.AddMenuItem("Top", Desktop.instance.MoveTaskbarTop.bind(self), ResourceManager.GetResource("Move"))
+	# RClickMenuManager.instance.AddMenuItem("Bottom", Desktop.instance.MoveTaskbarBottom.bind(self), ResourceManager.GetResource("Move"))
 
 func MoveToMenu() -> void:
 	RClickMenuManager.instance.ShowMenu("Taskbar Move", self)
-	RClickMenuManager.instance.AddMenuItem("Left", Desktop.instance.MoveTaskbarLeft.bind(self), ResourceManager.GetResource("Toggle"))
-	RClickMenuManager.instance.AddMenuItem("Right", Desktop.instance.MoveTaskbarRight.bind(self), ResourceManager.GetResource("Toggle"))
-	RClickMenuManager.instance.AddMenuItem("Top", Desktop.instance.MoveTaskbarTop.bind(self), ResourceManager.GetResource("Move"))
-	RClickMenuManager.instance.AddMenuItem("Bottom", Desktop.instance.MoveTaskbarBottom.bind(self), ResourceManager.GetResource("Move"))
+	RClickMenuManager.instance.AddMenuItem("Left", Desktop.instance.MoveTaskbarLeft.bind(self), ResourceManager.GetResource("Toggle"), Color.LEMON_CHIFFON)
+	RClickMenuManager.instance.AddMenuItem("Right", Desktop.instance.MoveTaskbarRight.bind(self), ResourceManager.GetResource("Toggle"), Color.RED)
+	RClickMenuManager.instance.AddMenuItem("Top", Desktop.instance.MoveTaskbarTop.bind(self), ResourceManager.GetResource("Move"), Color.TURQUOISE)
+	RClickMenuManager.instance.AddMenuItem("Bottom", Desktop.instance.MoveTaskbarBottom.bind(self), ResourceManager.GetResource("Move"), Color.BROWN)
+
+func AddWidgetMenu() -> void:
+	RClickMenuManager.instance.ShowMenu("Taskbar Add Widgets", self, Color.LIME_GREEN)
+	for widgetName: String in WidgetManager.GetWidgetsRegisteredList():
+		RClickMenuManager.instance.AddMenuItem(widgetName, AddWidget.bind(WidgetManager.CreateWidget(widgetName)), ResourceManager.GetResource("Add"), Color.LIGHT_YELLOW)
+
+func RemoveAllWidgets() -> void:
+	for widget: BaseWidget in widgetsList:
+		RemoveWidget(widget)
+
+func ShowProfileListMenu() -> void:
+	RClickMenuManager.instance.ShowMenu("Taskbar Load", self, Color.LIGHT_YELLOW)
+	var profiles: PackedStringArray = DirAccess.get_files_at("%s/profiles/" % ResourceManager.GetPathToWindowSettings().get_base_dir())
+	print(profiles)
+	for prof: String in profiles:
+		RClickMenuManager.instance.AddMenuItem(prof, LoadProfile.bind(prof), ResourceManager.GetResource("Load"), Color.FIREBRICK)
 
 
 func RemoveSelf() -> void:

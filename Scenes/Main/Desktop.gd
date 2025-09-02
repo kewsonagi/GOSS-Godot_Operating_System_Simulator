@@ -89,7 +89,7 @@ func _OnResized() -> void:
 
 func HandleRightClick() -> void:
 	if(!RClickManager.instance.IsOpened()):
-		RClickMenuManager.instance.ShowMenu("Desktop Menu", self)
+		RClickMenuManager.instance.ShowMenu("Desktop Menu", self, Color.YELLOW)
 	RClickMenuManager.instance.AddMenuItem("Add Taskbar", AddTaskbar, ResourceManager.GetResource("Add"))
 
 func AddTaskbar() -> void:
