@@ -107,7 +107,7 @@ func SaveProfile(profileName: String) -> void:
 func SaveBar() -> void:
 	taskbarSave.data["color"] = barColor
 	taskbarSave.data["numWidgets"] = widgetsList.size()
-	taskbarSave.data["verticalBar"] = verticalBar
+	#taskbarSave.data["verticalBar"] = verticalBar
 	taskbarSave.data["tempUniqueID"] = tempUniqueID
 	for i: int in widgetsList.size():
 		taskbarSave.data["WidgetKey:%s" % i] = widgetsList.get(i).config.key
@@ -125,7 +125,7 @@ func LoadBar() -> void:
 	barColor = taskbarSave.Get("color", barColor)
 	SetBarColor(barColor, false)
 	var numWidgets:int = taskbarSave.Get("numWidgets", 0)
-	verticalBar = taskbarSave.Get("verticalBar", verticalBar)
+	#verticalBar = taskbarSave.Get("verticalBar", verticalBar)
 	tempUniqueID = taskbarSave.Get("tempUniqueID", tempUniqueID)
 	taskbarListControl.vertical = verticalBar
 
@@ -141,8 +141,17 @@ func LoadProfile(prof: String) -> void:
 	var holdID: int = tempUniqueID
 	var profSave: SaveDataBasic = SaveDataBasic.new()
 	profSave.Load(UtilityHelper.GetCleanFileString("%s/profiles/" % ResourceManager.GetPathToWindowSettings().get_base_dir(), prof, saveExtension))
+	taskbarSave.data = profSave.data.duplicate(true)
 	LoadBar()
 	tempUniqueID = holdID
+	if(taskbarAnchor == Control.PRESET_BOTTOM_WIDE):
+		AnchorBottom()
+	elif(taskbarAnchor == Control.PRESET_TOP_WIDE):
+		AnchorTop()
+	elif(taskbarAnchor == Control.PRESET_LEFT_WIDE):
+		AnchorLeft()
+	elif(taskbarAnchor == Control.PRESET_RIGHT_WIDE):
+		AnchorRight()
 	SaveBar()
 
 
