@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="InterfaceIconPack" load_steps=119 format=3 uid="uid://cksto4i6muwk3"]
+[gd_resource type="Resource" script_class="InterfaceIconPack" load_steps=118 format=3 uid="uid://cksto4i6muwk3"]
 
 [ext_resource type="Script" uid="uid://xpwum3qxxtem" path="res://Scenes/Autoloads/ResourceManager/InterfaceIcon.gd" id="1_bcrgb"]
 [ext_resource type="Script" uid="uid://cym03kkfjb1d2" path="res://Scenes/Autoloads/ResourceManager/InterfaceIconPack.gd" id="2_0ed6s"]
-[ext_resource type="Texture2D" uid="uid://clwme7bv4vexo" path="res://Art/Cartoony/elements/UnknownMonster1.png" id="2_pgml6"]
+[ext_resource type="Texture2D" uid="uid://cssnsu03d5qwm" path="res://examples/icon_texture/icons/actions/info.svg" id="2_bfeir"]
 [ext_resource type="Texture2D" uid="uid://b7b7g5pvlthfu" path="res://Art/Icons - icones/folder-03.png" id="3_5cr0s"]
 [ext_resource type="Texture2D" uid="uid://dc7np2e656ouf" path="res://Art/free-file-icons-master/512px/_blank.png" id="4_ouneg"]
 [ext_resource type="Texture2D" uid="uid://pl8b5yw4idqp" path="res://Art/Icons - icones/notepad-01.png" id="5_bfeir"]
@@ -34,30 +34,33 @@
 [ext_resource type="Texture2D" uid="uid://cffmu6cmup3ck" path="res://Art/assets/icons_bright (29).png" id="31_wi74r"]
 [ext_resource type="Texture2D" uid="uid://copqhcnqdgm3b" path="res://Art/shaded/Power.png" id="32_k0sra"]
 [ext_resource type="Texture2D" uid="uid://rff6q56ywphd" path="res://Art/assets/icons_bright (30).png" id="33_u56rd"]
+[ext_resource type="Texture2D" uid="uid://ts8kdgm1y880" path="res://Art/shaded/Skull.png" id="34_3se76"]
 [ext_resource type="Texture2D" uid="uid://cfv43ijt5hbp1" path="res://Art/assets/bubble.png" id="34_u0o84"]
 [ext_resource type="Texture2D" uid="uid://crdeyl0ic5m0" path="res://Art/shaded/PlayPause.png" id="35_aa610"]
+[ext_resource type="Texture2D" uid="uid://cthrqjdoppb38" path="res://Art/shaded/TextBox_Blank_Side.png" id="35_lnrny"]
 [ext_resource type="Texture2D" uid="uid://c7pk6pnxg26jr" path="res://Art/shaded/Play.png" id="36_pkia5"]
 [ext_resource type="Texture2D" uid="uid://c8w6ukw0dmro2" path="res://Art/shaded/37-plus-sign.png" id="37_epbve"]
 [ext_resource type="Texture2D" uid="uid://dotolycyvket7" path="res://Art/shaded/38-minus-sign.png" id="38_6ij0u"]
 [ext_resource type="Texture2D" uid="uid://dnsfq37lebakd" path="res://Art/Cartoony/PremadeButtons_XWhiteOutline.png" id="39_ydh5o"]
 [ext_resource type="Texture2D" uid="uid://dheaadjenecqa" path="res://Art/Cartoony/elements/Cross2.png" id="40_4ob5j"]
-[ext_resource type="Texture2D" uid="uid://ljfmxt6rb7a5" path="res://Art/Cartoony/elements/DoubleLine1.png" id="41_aig4w"]
 [ext_resource type="Texture2D" uid="uid://cpeaabe6t0mhr" path="res://Art/Icons/Software_Windowed_Mode_Floating_Maximize.png" id="42_bvu3w"]
+[ext_resource type="Texture2D" uid="uid://bh8fwmn1hkvl7" path="res://Art/Icons/Software_Signs_Maths_Minus_Subtract_Drawback_Remove_Delete_Dash.png" id="43_3se76"]
 [ext_resource type="Texture2D" uid="uid://7t7y4f1uctp0" path="res://Art/shaded/Restart.png" id="43_gl4i7"]
-[ext_resource type="Texture2D" uid="uid://5f6jv8jdkxoi" path="res://Art/assets/Frame.png" id="44_jy11g"]
-[ext_resource type="Texture2D" uid="uid://c47c28nxd6c0d" path="res://Games/UnderworldPlatformer/Arta/Tilemap/fan_border.png" id="45_gwi4q"]
-[ext_resource type="Texture2D" uid="uid://vihhkno4fht3" path="res://Art/Icons_1024 px/Buttons/Button (13).png" id="46_tdd50"]
-[ext_resource type="Texture2D" uid="uid://cft3sbmfgpapr" path="res://Art/Icons_1024 px/Buttons/Button (14).png" id="47_5yoq7"]
-[ext_resource type="Texture2D" uid="uid://g47m2cuxrjls" path="res://Art/assets/textbox.png" id="48_rilpq"]
-[ext_resource type="Texture2D" uid="uid://og0ay62u31bc" path="res://Art/TextBox_Middle.png" id="49_5y7cb"]
-[ext_resource type="Texture2D" uid="uid://c78orawv6sx2m" path="res://Art/shaded/TextBox_Blank_Middle.png" id="50_kkw8x"]
-[ext_resource type="Texture2D" uid="uid://dyodg6l6e0p0u" path="res://Art/tinyRPG_manaSoulGUI_v_1_0/20250420manaSoul9SlicesA-Sheet.png" id="51_m3rn7"]
+[ext_resource type="Texture2D" uid="uid://blc7sp6wjw0tc" path="res://Art/shaded/WideSlider_Blank_Frame.png" id="46_lnrny"]
+[ext_resource type="Texture2D" uid="uid://dbcg0o2t0qbx6" path="res://Art/assets/icons_bright (53).png" id="47_r8mcr"]
+[ext_resource type="Texture2D" uid="uid://cu0i1lvo3hthi" path="res://Art/shaded/IconButton_Large_Blank_Square.png" id="48_r8mcr"]
+[ext_resource type="Texture2D" uid="uid://badebbqc2gn0k" path="res://Art/TextBox_Blank_Middle.png" id="49_8wjms"]
+[ext_resource type="Texture2D" uid="uid://ba0ootgvp1vc4" path="res://Art/shaded/Upload.png" id="51_8wjms"]
 [ext_resource type="Texture2D" uid="uid://b5pybp5kii3e8" path="res://Art/shaded/15-file-empty.png" id="52_nsjxf"]
+[ext_resource type="Texture2D" uid="uid://c5eayem7upfd2" path="res://Art/shaded/MouseComputer.png" id="52_pu4bp"]
+[ext_resource type="Texture2D" uid="uid://dl5qlemud0d4j" path="res://Art/soft_retro/art/toggle_on.svg" id="53_1v7rg"]
+[ext_resource type="Texture2D" uid="uid://udawlj7nryla" path="res://Art/soft_retro/art/checked.svg" id="54_7ycjp"]
+[ext_resource type="Texture2D" uid="uid://ccablx3vsv77g" path="res://Art/Icons - icones/eyedrop.png" id="55_mwjjf"]
 
 [sub_resource type="Resource" id="Resource_xqxrs"]
 script = ExtResource("1_bcrgb")
 key = "Unknown"
-res = ExtResource("2_pgml6")
+res = ExtResource("2_bfeir")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_mupru"]
@@ -252,25 +255,16 @@ key = "Warning"
 res = ExtResource("33_u56rd")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1r5ku"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8b5ay"]
-atlas = SubResource("CompressedTexture2D_1r5ku")
-region = Rect2(109, 40, 11, 14)
-margin = Rect2(2, 1, 3, 1)
-
 [sub_resource type="Resource" id="Resource_v2pt2"]
 script = ExtResource("1_bcrgb")
 key = "Death"
-res = SubResource("AtlasTexture_8b5ay")
+res = ExtResource("34_3se76")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_caim1"]
 
 [sub_resource type="Resource" id="Resource_kij7c"]
 script = ExtResource("1_bcrgb")
 key = "Message"
-res = SubResource("CompressedTexture2D_caim1")
+res = ExtResource("35_lnrny")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_1phvw"]
@@ -318,7 +312,7 @@ metadata/_custom_type_script = "uid://xpwum3qxxtem"
 [sub_resource type="Resource" id="Resource_4fv3n"]
 script = ExtResource("1_bcrgb")
 key = "Minimize"
-res = ExtResource("41_aig4w")
+res = ExtResource("43_3se76")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_w41kw"]
@@ -336,69 +330,70 @@ metadata/_custom_type_script = "uid://xpwum3qxxtem"
 [sub_resource type="Resource" id="Resource_sjqg5"]
 script = ExtResource("1_bcrgb")
 key = "Frame"
-res = ExtResource("44_jy11g")
+res = ExtResource("46_lnrny")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_n44oh"]
 script = ExtResource("1_bcrgb")
-key = "BGButton"
-res = ExtResource("45_gwi4q")
+key = "Add"
+res = ExtResource("47_r8mcr")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_k5mjr"]
 script = ExtResource("1_bcrgb")
-key = "ButtonBGSquare"
-res = ExtResource("46_tdd50")
+key = "Remove"
+res = ExtResource("14_iwlgb")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_o6nvt"]
 script = ExtResource("1_bcrgb")
 key = "ButtonBGRound"
-res = ExtResource("47_5yoq7")
+res = ExtResource("48_r8mcr")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pu4bp"]
+load_path = "res://.godot/imported/textbox.png-4272e3e83e5d88ec5b4083cd13d9a7ed.s3tc.ctex"
 
 [sub_resource type="Resource" id="Resource_a07ye"]
 script = ExtResource("1_bcrgb")
 key = "TitleBG"
-res = ExtResource("48_rilpq")
+res = SubResource("CompressedTexture2D_pu4bp")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_207s0"]
 script = ExtResource("1_bcrgb")
 key = "TextBubbleDark"
-res = ExtResource("49_5y7cb")
+res = ExtResource("49_8wjms")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_2yi66"]
 script = ExtResource("1_bcrgb")
-key = "TextBubbleLight"
-res = ExtResource("50_kkw8x")
+key = "Load"
+res = ExtResource("51_8wjms")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a10kg"]
 
 [sub_resource type="Resource" id="Resource_yw5y4"]
 script = ExtResource("1_bcrgb")
-key = "Window"
-res = SubResource("CompressedTexture2D_a10kg")
+key = "Move"
+res = ExtResource("52_pu4bp")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fi7pf"]
 
 [sub_resource type="Resource" id="Resource_t8p0b"]
 script = ExtResource("1_bcrgb")
-key = "PixelButtonBG"
-res = SubResource("CompressedTexture2D_fi7pf")
+key = "Toggle"
+res = ExtResource("53_1v7rg")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_ou5m4"]
 script = ExtResource("1_bcrgb")
-key = "Frame2"
-res = ExtResource("51_m3rn7")
+key = "Check"
+res = ExtResource("54_7ycjp")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_rtwb3"]
 script = ExtResource("1_bcrgb")
+key = "ColorPicker"
+res = ExtResource("55_mwjjf")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="Resource" id="Resource_sjjtn"]

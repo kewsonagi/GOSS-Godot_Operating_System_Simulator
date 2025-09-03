@@ -1,0 +1,109 @@
+[gd_scene load_steps=7 format=3 uid="uid://ufo3bc72b2rq"]
+
+[ext_resource type="Script" uid="uid://0e08uudim1di" path="res://Scenes/Window/File Manager/FileSystemExplorer.gd" id="1_w4ovl"]
+[ext_resource type="PackedScene" uid="uid://chw3lje7gvraw" path="res://Scenes/Desktop/BaseFile.tscn" id="2_1lel7"]
+[ext_resource type="PackedScene" uid="uid://dwordakddalqi" path="res://Scenes/Desktop/AppFile.tscn" id="4_w4ovl"]
+[ext_resource type="PackedScene" uid="uid://cje5khn2cbuyd" path="res://Scenes/Desktop/PackFile.tscn" id="5_1lel7"]
+[ext_resource type="PackedScene" uid="uid://cwsu2o7l3rfm4" path="res://Scenes/Desktop/FolderFile.tscn" id="5_dg2rn"]
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="7_gg3p0"]
+
+[node name="FileManagerWindow" type="Control" node_paths=PackedStringArray("hSlideControl", "hScrollControl", "vSlideControl", "vScrollControl", "childContainer")]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 30.0
+offset_bottom = 0.8500061
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_w4ovl")
+baseFile = ExtResource("2_1lel7")
+folderFile = ExtResource("5_dg2rn")
+appFile = ExtResource("4_w4ovl")
+appFileExtension = "tres"
+packFile = ExtResource("5_1lel7")
+animSpeed = 0.3000000000029104
+hSpacing = 20
+vSpacing = 20
+leftMargin = 5
+topMargin = 5
+rightMargin = -10
+bottomMargin = -20
+hSlideControl = NodePath("HSlider")
+hScrollControl = NodePath("HScrollBar")
+vSlideControl = NodePath("VSlider")
+vScrollControl = NodePath("VScrollBar")
+childContainer = NodePath("ContainerChild")
+metadata/_custom_type_script = "uid://0e08uudim1di"
+
+[node name="ContainerChild" type="Control" parent="."]
+clip_children = 2
+clip_contents = true
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -16.0
+offset_right = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("7_gg3p0")
+max_value = 1.0
+step = 0.05000000000291038
+
+[node name="VSlider" type="VSlider" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = 30.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("7_gg3p0")
+max_value = 1.0
+step = 0.05000000000291038
+
+[node name="HScrollBar" type="HScrollBar" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -30.0
+offset_right = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("7_gg3p0")
+max_value = 1.0
+step = 0.05000000000291038
+value = 1.0
+
+[node name="VScrollBar" type="VScrollBar" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = 30.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("7_gg3p0")
+max_value = 1.0
+step = 0.05000000000291038
+value = 1.0

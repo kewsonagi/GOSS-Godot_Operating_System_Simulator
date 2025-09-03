@@ -18,6 +18,7 @@ var taskbarAnchor:int = Control.PRESET_BOTTOM_WIDE
 #static list for all the taskbars, opened window representations, and to the save file for taskbar settings/profiles
 static var barList: Array[Taskbar]
 static var taskbarWindowThumbnails: Array[TaskbarItem]
+var uniqueWidgetID: int = 0
 var taskbarSave: SaveDataBasic = null
 
 var widgetsList: Array[TaskbarWidget]
@@ -31,6 +32,7 @@ static func RemoveTaskbar(bar: Taskbar) -> void:
 
 func AddWidget(widget: TaskbarWidget) -> void:
 	widgetsList.append(widget)
+	widget.taskbarParent = self
 	taskbarListControl.add_child(widget)
 	widget.SetWidgetLayout(verticalBar)
 	if(taskbarAnchor == Control.PRESET_LEFT_WIDE):
@@ -41,17 +43,25 @@ func AddWidget(widget: TaskbarWidget) -> void:
 		widget.SetWidgetAnchor(BaseWidget.E_WIDGET_ANCHOR.TOP)
 	if(taskbarAnchor == Control.PRESET_RIGHT_WIDE):
 		widget.SetWidgetAnchor(BaseWidget.E_WIDGET_ANCHOR.RIGHT)
+	
+	widget.SetWidgetID(uniqueWidgetID)
+	uniqueWidgetID+=1
+	
 	SaveBar()
 	
 func RemoveWidget(widget: TaskbarWidget) -> void:
 	#widget.RemoveWidget()
 	widgetsList.erase(widget)
-	taskbarListControl.remove_child(widget)
+	#taskbarListControl.remove_child(widget)
 	widget.queue_free()
 	SaveBar()
 
 func MoveWidget(widget: TaskbarWidget, moveAmount:int) -> void:
 	taskbarListControl.move_child(widget, widget.get_index()-moveAmount)
+	# widgetsList.clear()
+	# for child: Node in taskbarListControl.get_children():
+	# 	if(child and child is TaskbarWidget):
+	# 		widgetsList.append(child as TaskbarWidget)
 	SaveBar()
 
 func _ready() -> void:
@@ -99,7 +109,6 @@ func ToggleBar(on: bool) -> void:
 func SaveProfile(profileName: String) -> void:
 	SaveBar()
 	var profileSave: SaveDataBasic = SaveDataBasic.new()
-	print(UtilityHelper.GetCleanFileString("%s/profiles/" % ResourceManager.GetPathToWindowSettings().get_base_dir(), profileName, saveExtension))
 	profileSave.Load(UtilityHelper.GetCleanFileString("%s/profiles/" % ResourceManager.GetPathToWindowSettings().get_base_dir(), profileName, saveExtension))
 	profileSave.data = taskbarSave.data
 	profileSave.Save()
@@ -107,10 +116,12 @@ func SaveProfile(profileName: String) -> void:
 func SaveBar() -> void:
 	taskbarSave.data["color"] = barColor
 	taskbarSave.data["numWidgets"] = widgetsList.size()
+	taskbarSave.data["uniqueWidgetID"] = uniqueWidgetID
 	#taskbarSave.data["verticalBar"] = verticalBar
 	taskbarSave.data["tempUniqueID"] = tempUniqueID
 	for i: int in widgetsList.size():
 		taskbarSave.data["WidgetKey:%s" % i] = widgetsList.get(i).config.key
+		taskbarSave.data["WidgetID:%s" % i] = widgetsList.get(i).widgetID
 		widgetsList.get(i).SaveWidget(taskbarSave.data)
 
 	taskbarSave.Save()
@@ -128,13 +139,29 @@ func LoadBar() -> void:
 	#verticalBar = taskbarSave.Get("verticalBar", verticalBar)
 	tempUniqueID = taskbarSave.Get("tempUniqueID", tempUniqueID)
 	taskbarListControl.vertical = verticalBar
+	uniqueWidgetID = taskbarSave.Get("uniqueWidgetID", uniqueWidgetID)
 
 	for i: int in numWidgets:
-		var newWidget:TaskbarWidget = WidgetManager.CreateWidget(taskbarSave.data["WidgetKey:%s" % i])
-		print(taskbarSave.data["WidgetKey:%s" % i])
+		var newWidget:TaskbarWidget = WidgetManager.CreateWidget(taskbarSave.Get("WidgetKey:%s" % [i], "Unknown"))
+		var thisWidgetID: String = taskbarSave.Get("WidgetID:%s" % [i], "%s%s" % [newWidget.config.key, uniqueWidgetID])
 		if(newWidget):
 			newWidget.taskbarParent = self
-			AddWidget(newWidget)
+			newWidget.widgetID = thisWidgetID
+			newWidget.LoadWidget(taskbarSave.data)
+			widgetsList.append(newWidget)
+			taskbarListControl.add_child(newWidget)
+			newWidget.SetWidgetLayout(verticalBar)
+			if(taskbarAnchor == Control.PRESET_LEFT_WIDE):
+				newWidget.SetWidgetAnchor(BaseWidget.E_WIDGET_ANCHOR.LEFT)
+			if(taskbarAnchor == Control.PRESET_BOTTOM_WIDE):
+				newWidget.SetWidgetAnchor(BaseWidget.E_WIDGET_ANCHOR.BOTTOM)
+			if(taskbarAnchor == Control.PRESET_TOP_WIDE):
+				newWidget.SetWidgetAnchor(BaseWidget.E_WIDGET_ANCHOR.TOP)
+			if(taskbarAnchor == Control.PRESET_RIGHT_WIDE):
+				newWidget.SetWidgetAnchor(BaseWidget.E_WIDGET_ANCHOR.RIGHT)
+
+			#AddWidget(newWidget)
+			#newWidget.widgetID = thisWidgetID
 	SaveBar()
 
 func LoadProfile(prof: String) -> void:
@@ -161,7 +188,7 @@ func HandleRightClick() -> void:
 	RClickMenuManager.instance.AddMenuItem("Save Profile", AskSaveProfile, ResourceManager.GetResource("Save"), Color.BLUE_VIOLET)
 	RClickMenuManager.instance.AddMenuItem("Add Widget", func() -> void: UtilityHelper.CallOnTimer(0.05, AddWidgetMenu, self), ResourceManager.GetResource("Add"), Color.LIME_GREEN)
 	RClickMenuManager.instance.AddMenuItem("Change Color", ChangeColor, ResourceManager.GetResource("ColorPicker"), Color.HOT_PINK)
-	RClickMenuManager.instance.AddMenuItem("Move To", func() -> void: UtilityHelper.CallOnTimer(0.05, MoveToMenu, self), ResourceManager.GetResource("Move"))
+	RClickMenuManager.instance.AddMenuItem("Taskbar Anchor", func() -> void: UtilityHelper.CallOnTimer(0.05, MoveToMenu, self), ResourceManager.GetResource("Move"))
 	RClickMenuManager.instance.AddMenuItem("Load Profile", ShowProfileListMenu, ResourceManager.GetResource("Load"), Color.LIGHT_YELLOW)
 	RClickMenuManager.instance.AddMenuItem("Clear Bar", RemoveAllWidgets, ResourceManager.GetResource("Delete"), Color.ORANGE_RED)
 	RClickMenuManager.instance.AddMenuItem("Remove Taskbar", RemoveSelf, ResourceManager.GetResource("Delete"), Color.MEDIUM_VIOLET_RED)
@@ -173,8 +200,8 @@ func HandleRightClick() -> void:
 
 func MoveToMenu() -> void:
 	RClickMenuManager.instance.ShowMenu("Taskbar Move", self)
-	RClickMenuManager.instance.AddMenuItem("Left", Desktop.instance.MoveTaskbarLeft.bind(self), ResourceManager.GetResource("Toggle"), Color.LEMON_CHIFFON)
-	RClickMenuManager.instance.AddMenuItem("Right", Desktop.instance.MoveTaskbarRight.bind(self), ResourceManager.GetResource("Toggle"), Color.RED)
+	RClickMenuManager.instance.AddMenuItem("Left", Desktop.instance.MoveTaskbarLeft.bind(self), ResourceManager.GetResource("Move"), Color.LEMON_CHIFFON)
+	RClickMenuManager.instance.AddMenuItem("Right", Desktop.instance.MoveTaskbarRight.bind(self), ResourceManager.GetResource("Move"), Color.RED)
 	RClickMenuManager.instance.AddMenuItem("Top", Desktop.instance.MoveTaskbarTop.bind(self), ResourceManager.GetResource("Move"), Color.TURQUOISE)
 	RClickMenuManager.instance.AddMenuItem("Bottom", Desktop.instance.MoveTaskbarBottom.bind(self), ResourceManager.GetResource("Move"), Color.BROWN)
 
@@ -185,12 +212,17 @@ func AddWidgetMenu() -> void:
 
 func RemoveAllWidgets() -> void:
 	for widget: BaseWidget in widgetsList:
-		RemoveWidget(widget)
+		taskbarListControl.remove_child(widget)
+		widget.queue_free()
+	widgetsList.clear()
+	for child: Node in taskbarListControl.get_children():
+		child.queue_free()
+
+	SaveBar()
 
 func ShowProfileListMenu() -> void:
 	RClickMenuManager.instance.ShowMenu("Taskbar Load", self, Color.LIGHT_YELLOW)
 	var profiles: PackedStringArray = DirAccess.get_files_at("%s/profiles/" % ResourceManager.GetPathToWindowSettings().get_base_dir())
-	print(profiles)
 	for prof: String in profiles:
 		RClickMenuManager.instance.AddMenuItem(prof, LoadProfile.bind(prof), ResourceManager.GetResource("Load"), Color.FIREBRICK)
 

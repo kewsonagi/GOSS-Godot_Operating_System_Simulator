@@ -235,15 +235,6 @@ vertical = true
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Start Button" parent="TaskbarsBottom/Taskbar/BoxContainer" index="0"]
-visible = true
-
-[node name="ScrollContainer" parent="TaskbarsBottom/Taskbar/BoxContainer" index="1"]
-visible = true
-
-[node name="TimeAndDate" parent="TaskbarsBottom/Taskbar/BoxContainer" index="2"]
-visible = true
-
 [node name="Boot Splash" parent="." instance=ExtResource("3_ifoxq")]
 visible = false
 
@@ -260,4 +251,3 @@ mouse_filter = 2
 script = ExtResource("14_e1a1m")
 
 [editable path="TaskbarsBottom/Taskbar"]
-[editable path="TaskbarsBottom/Taskbar/BoxContainer/ScrollContainer"]

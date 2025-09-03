@@ -32,11 +32,14 @@ func OpenThis() -> void:
 		var windowData: Dictionary = {}
 
 		windowData["StartPath"] = szFilePath;
-		window = Desktop.instance.SpawnWindow("res://Scenes/Window/File Manager/file_manager_window.tscn", windowName, windowID, windowData,windowParent)
+		windowData["Filename"] = szFilePath;
+		#window = Desktop.instance.SpawnWindow("res://Scenes/Window/File Manager/FileSystemViewerWindow.tscn", windowName, windowID, windowData,windowParent)
+		window = AppManager.LaunchApp("FileExplorer", szFilePath)
+		window.creationData = windowData.duplicate(true)
 		#window.title_text = windowName#%"Folder Title".text
 		window.titlebarIcon.icon = fileTexture.texture
 	
-		Desktop.instance.AddWindowToTaskbar(window, fileColor, fileTexture.texture)
+		#Desktop.instance.AddWindowToTaskbar(window, fileColor, fileTexture.texture)
 	return
 
 func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:

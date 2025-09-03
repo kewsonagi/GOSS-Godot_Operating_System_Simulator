@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WidgetConfig" load_steps=3 format=3 uid="uid://di21l3glkqlpc"]
+
+[ext_resource type="Texture2D" uid="uid://b5pybp5kii3e8" path="res://Art/shaded/15-file-empty.png" id="1_icdh5"]
+[ext_resource type="Script" uid="uid://4quw8jgacf6o" path="res://Widgets/WidgetConfig.gd" id="2_8csa5"]
+
+[resource]
+script = ExtResource("2_8csa5")
+key = "Start"
+name = "Start Menu"
+description = "Standard start menu widget"
+path = "res://Widgets/StartWidget.tscn"
+resizable = false
+metadata/_custom_type_script = "uid://4quw8jgacf6o"

@@ -16,9 +16,12 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_ldmvc")
+barColor = null
 taskbarListControl = NodePath("HBoxContainer")
 transformControl = NodePath("HBoxContainer")
 config = ExtResource("2_ltwbu")
+anchorPreset = null
+verticalWidget = null
 
 [node name="HBoxContainer" type="BoxContainer" parent="." groups=["taskbar_buttons"]]
 layout_mode = 2

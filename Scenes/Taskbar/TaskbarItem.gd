@@ -25,6 +25,8 @@ var storeOldTextureRect: Texture
 @export var rotationControl: Control
 @export var activeContainer: Control
 
+signal RightClickedMenuSetup(taskItem: TaskbarItem)
+
 var clickHandler: HandleClick
 
 func _ready() -> void:
@@ -110,6 +112,8 @@ func HandleRightClick() -> void:
 	RClickMenuManager.instance.AddMenuItem("Maximize", Maximize, ResourceManager.GetResource("Maximize"))
 	RClickMenuManager.instance.AddMenuItem("Hide", Minimize)
 	RClickMenuManager.instance.AddMenuItem("Close", Close, ResourceManager.GetResource("Close"))
+
+	RightClickedMenuSetup.emit(self)
 
 func Maximize() -> void:
 	target_window.maximize_window(true)

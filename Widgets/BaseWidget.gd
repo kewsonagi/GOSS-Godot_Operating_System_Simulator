@@ -8,9 +8,13 @@ enum E_WIDGET_ANCHOR {LEFT, RIGHT, TOP, BOTTOM, FULL}
 @export var config: WidgetConfig
 @export var anchorPreset: E_WIDGET_ANCHOR = E_WIDGET_ANCHOR.FULL
 @export var verticalWidget: bool
+@export var widgetID: String = ""
 var clickHandler: HandleClick
 
 func _ready() -> void:
+	if(widgetID.is_empty()):
+		if(config):
+			widgetID = config.key
 	clickHandler = get_node_or_null("ClickHandler")
 	if(!clickHandler):
 		clickHandler = UtilityHelper.AddInputHandler(self)
@@ -18,8 +22,8 @@ func _ready() -> void:
 
 func HandleRightClick() -> void:
 	RClickMenuManager.instance.ShowMenu("Window list widget", self)
-	RClickMenuManager.instance.AddMenuItem("Remove", RemoveWidget, ResourceManager.GetResource("Delete"), Color.PALE_VIOLET_RED)
-	
+	RClickMenuManager.instance.AddMenuItem("Remove %s" % config.key, RemoveWidget, ResourceManager.GetResource("Delete"), Color.PALE_VIOLET_RED)
+
 func SetConfig(c: WidgetConfig) -> void:
 	config = c
 
@@ -38,3 +42,6 @@ func SetWidgetLayout(v: bool) -> void:
 
 func SetWidgetAnchor(anchor: E_WIDGET_ANCHOR) -> void:
 	anchorPreset = anchor
+
+func SetWidgetID(id: int) -> void:
+	widgetID = "%s%s" % [config.key, id]

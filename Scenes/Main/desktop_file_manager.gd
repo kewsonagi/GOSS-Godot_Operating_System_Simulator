@@ -77,18 +77,24 @@ func _on_window_focus() -> void:
 			return
 
 func HandleRightClick() -> void:
-	RClickMenuManager.instance.ShowMenu("Desktop Menu", self, Color.ORCHID)
-	if(BaseFile.selectedFiles.size()>0):
-		RClickMenuManager.instance.AddMenuItem("Open Files", OpenFiles, ResourceManager.GetResource("Open"), Color.PALE_GREEN)
-		RClickMenuManager.instance.AddMenuItem("Copy", CopyFiles, ResourceManager.GetResource("Copy"), Color.LIGHT_BLUE)
-	if(CopyPasteManager.filesList.size()>0):
-		RClickMenuManager.instance.AddMenuItem("Paste", Paste, ResourceManager.GetResource("Paste"), Color.LIGHT_YELLOW)
-	RClickMenuManager.instance.AddMenuItem("New Folder", NewFolder, ResourceManager.GetResource("Folder"), Color.YELLOW)
-	RClickMenuManager.instance.AddMenuItem("New File", NewFile, ResourceManager.GetResource("File"), Color.SLATE_BLUE)
-	RClickMenuManager.instance.AddMenuItem("Refresh", Refresh, ResourceManager.GetResource("Refresh"), Color.ORANGE)
-	RClickMenuManager.instance.AddMenuItem("Properties", Properties)
+	super.HandleRightClick()
+	# RClickMenuManager.instance.ShowMenu("Desktop Menu", self, Color.ORCHID)
+	# if(BaseFile.selectedFiles.size()>0):
+	# 	if(BaseFile.selectedFiles.size()>0):
+	# 		filesSelected.clear()
+	# 		filesSelected.append_array(BaseFile.selectedFiles)
+	# 	RClickMenuManager.instance.AddMenuItem("Open Files", OpenFiles, ResourceManager.GetResource("Open"), Color.PALE_GREEN)
+	# 	RClickMenuManager.instance.AddMenuItem("Copy", CopyFiles, ResourceManager.GetResource("Copy"), Color.LIGHT_BLUE)
+	# 	RClickMenuManager.instance.AddMenuItem("Cut", CutFiles, ResourceManager.GetResource("Cut"), Color.AQUAMARINE)
+	# 	RClickMenuManager.instance.AddMenuItem("Rename", ShowRenameDialog, ResourceManager.GetResource("Edit"), Color.CHOCOLATE)
+	# if(CopyPasteManager.filesList.size()>0):
+	# 	RClickMenuManager.instance.AddMenuItem("Paste", Paste, ResourceManager.GetResource("Paste"), Color.LIGHT_YELLOW)
+	# RClickMenuManager.instance.AddMenuItem("New Folder", NewFolder, ResourceManager.GetResource("Folder"), Color.YELLOW)
+	# RClickMenuManager.instance.AddMenuItem("New File", NewFile, ResourceManager.GetResource("File"), Color.SLATE_BLUE)
+	# RClickMenuManager.instance.AddMenuItem("Refresh", Refresh, ResourceManager.GetResource("Refresh"), Color.ORANGE)
+	# RClickMenuManager.instance.AddMenuItem("Properties", Properties)
 
-	RightClickMenuOpened.emit()
+	# RightClickMenuOpened.emit()
 
 func Copy() -> void:
 	CopyPasteManager.CopyMultiple(BaseFile.selectedFiles)

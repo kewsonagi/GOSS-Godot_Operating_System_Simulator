@@ -24,7 +24,6 @@ anchors_preset = 0
 offset_right = 60.0
 offset_bottom = 50.0
 pivot_offset = Vector2(30, 30)
-mouse_filter = 1
 theme = ExtResource("2_o62jr")
 script = ExtResource("1_j5fdb")
 texture_rect = NodePath("Control/TextureMargin/TextureRect")

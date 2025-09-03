@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_loxuf")
-key = "Start"
+key = "StartMenu"
 name = "Start Menu"
 description = "Standard start menu widget"
 path = "res://Widgets/StartWidget.tscn"

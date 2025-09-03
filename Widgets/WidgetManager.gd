@@ -12,7 +12,6 @@ func _ready() -> void:
 	if(instance == null):
 		instance = self
 		RegisterBuiltinWidgets()
-		print("registering widgets")
 
 func RegisterBuiltinWidgets() -> void:
 	pathToWidgets = "%s/" % pathToWidgets
@@ -37,7 +36,6 @@ static func GetWidgetsRegisteredList() -> PackedStringArray:
 
 static func RegisterWidget(key: String, resource: WidgetConfig) -> void:
 	if (!registeredWidgets.has(key)):
-		print("registering widget: %s" % key)
 		registeredNames.append(key)
 		#if this item is already registered under a different name, assign it that index and dont make a new one
 		widgetsList.append(resource)

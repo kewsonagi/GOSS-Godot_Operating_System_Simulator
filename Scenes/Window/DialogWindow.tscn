@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_dejl3"]
 [ext_resource type="Script" uid="uid://5no6katibk3g" path="res://Scenes/Window/DialogWindow.gd" id="2_o7itm"]
-[ext_resource type="PackedScene" uid="uid://bg17qb4r5h3c8" path="res://Scenes/Window/top_bar.tscn" id="3_onta3"]
-[ext_resource type="PackedScene" uid="uid://bg78g4tvmukio" path="res://Scenes/Window/resize_spots.tscn" id="4_gbvfj"]
+[ext_resource type="PackedScene" uid="uid://bg17qb4r5h3c8" path="res://Scenes/Window/WindowTitleBar.tscn" id="3_onta3"]
+[ext_resource type="PackedScene" uid="uid://bg78g4tvmukio" path="res://Scenes/Window/ResizeWindowZones.tscn" id="4_gbvfj"]
 [ext_resource type="Texture2D" uid="uid://cssnsu03d5qwm" path="res://examples/icon_texture/icons/actions/info.svg" id="4_onta3"]
 [ext_resource type="PackedScene" uid="uid://uje8qbdv1e5w" path="res://addons/ui_widget/scenes/widget/ui_bool_widget.tscn" id="6_kvjux"]
 [ext_resource type="PackedScene" uid="uid://d2m243dqm5hrx" path="res://addons/ui_widget/scenes/widget/ui_colorpicker_widget.tscn" id="7_lyh8x"]
@@ -38,7 +38,7 @@ corner_detail = 6
 [node name="Window" type="Panel" node_paths=PackedStringArray("controlContainer", "templateButton", "templateColorPicker", "templateCheckbox", "templateInputField", "templateTextField", "templateRangeH", "templateRangeV", "templateOptionButton", "top_bar", "maximizeButton", "minimizeButton", "closeButton", "titleText", "titlebarIcon", "borderNode", "marginContainer", "transitionsNode", "previewCaptureViewport") groups=["window"]]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(250, 150)
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -145,31 +145,52 @@ layout_mode = 1
 mouse_filter = 2
 
 [node name="Resize Drag SpotTopRight" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="0" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+anchors_preset = 1
+offset_left = -23.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 23.000008
 mouse_filter = 0
 windowToResize = NodePath("../../../../../..")
 parentWindow = NodePath("../../../../../..")
 
 [node name="Resize Drag SpotBottomLeft" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="2" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+anchors_preset = 2
+offset_left = 0.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 0.0
 mouse_filter = 0
 windowToResize = NodePath("../../../../../..")
 parentWindow = NodePath("../../../../../..")
 
 [node name="Resize Drag Spot Left" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="4" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+anchors_preset = 9
+offset_left = 0.0
+offset_bottom = 0.0
 mouse_filter = 0
 windowToResize = NodePath("../../../../../..")
 parentWindow = NodePath("../../../../../..")
 
 [node name="Resize Drag Spot Right" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="6" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+anchors_preset = 11
+offset_left = 0.0
+offset_bottom = 0.0
 mouse_filter = 0
 windowToResize = NodePath("../../../../../..")
 parentWindow = NodePath("../../../../../..")
 
 [node name="Resize Drag Spot Bottom" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="8" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+anchors_preset = 12
+offset_top = 0.0
+offset_bottom = 0.0
 mouse_filter = 0
 windowToResize = NodePath("../../../../../..")
 parentWindow = NodePath("../../../../../..")
 
 [node name="Resize Drag Spot Top" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="10" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+anchors_preset = 10
+offset_bottom = 0.0
 mouse_filter = 0
 windowToResize = NodePath("../../../../../..")
 parentWindow = NodePath("../../../../../..")
@@ -180,12 +201,18 @@ windowToResize = NodePath("../../../../../..")
 parentWindow = NodePath("../../../../../..")
 
 [node name="Resize Drag Spot" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="14" node_paths=PackedStringArray("windowToResize", "parentWindow")]
+anchors_preset = 3
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 0.0
+offset_bottom = 0.0
 mouse_filter = 0
 windowToResize = NodePath("../../../../../..")
 parentWindow = NodePath("../../../../../..")
 
 [node name="DialogControls" type="Control" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode"]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 31.5

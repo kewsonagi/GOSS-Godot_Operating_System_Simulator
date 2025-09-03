@@ -1,0 +1,89 @@
+[gd_scene load_steps=7 format=3 uid="uid://be1elqsel8sn3"]
+
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_t7oml"]
+[ext_resource type="Script" uid="uid://232ghxd7qowf" path="res://Scenes/Taskbar/PinnedTaskbarItem.gd" id="2_t7oml"]
+[ext_resource type="Texture2D" uid="uid://cu0i1lvo3hthi" path="res://Art/shaded/IconButton_Large_Blank_Square.png" id="3_vqu5n"]
+[ext_resource type="Texture2D" uid="uid://dkykl0kqhvwg3" path="res://Art/Alternate (2).png" id="4_c3ysm"]
+[ext_resource type="PackedScene" uid="uid://dyffbipc6kbic" path="res://Scenes/Autoloads/RClick Menu Manager/ClickHandler.tscn" id="5_t0317"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hj143"]
+bg_color = Color(0.73580927, 0.37430733, 3.85046e-07, 1)
+border_width_left = 3
+border_width_top = 2
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.6745098, 0.039215688, 0, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_detail = 4
+
+[node name="TaskbarButton" type="Control" node_paths=PackedStringArray("texture_rect", "selected_background", "activeBGPanel", "rotationControl", "activeContainer")]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 60.0
+offset_bottom = 50.0
+pivot_offset = Vector2(30, 30)
+theme = ExtResource("1_t7oml")
+script = ExtResource("2_t7oml")
+texture_rect = NodePath("Control/TextureMargin/TextureRect")
+selected_background = NodePath("Control/SelectedBackground")
+active_color = Color(1, 1, 1, 1)
+activeBGPanel = NodePath("Control/TextureMargin/Panel")
+rotationControl = NodePath("Control")
+activeContainer = NodePath("Control/TextureMargin")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(30, 30)
+
+[node name="SelectedBackground" type="TextureRect" parent="Control"]
+modulate = Color(0, 0.498039, 1, 0.470588)
+texture_filter = 1
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 60.0
+pivot_offset = Vector2(30, 30)
+theme = ExtResource("1_t7oml")
+texture = ExtResource("3_vqu5n")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureMargin" type="MarginContainer" parent="Control"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(30, 30)
+mouse_filter = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="Panel" type="Panel" parent="Control/TextureMargin"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("1_t7oml")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hj143")
+
+[node name="TextureRect" type="TextureRect" parent="Control/TextureMargin"]
+self_modulate = Color(0.6203002, 0.59423864, 0.55087095, 0.6745098)
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("1_t7oml")
+texture = ExtResource("4_c3ysm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ClickHandler" parent="." instance=ExtResource("5_t0317")]
+layout_mode = 1

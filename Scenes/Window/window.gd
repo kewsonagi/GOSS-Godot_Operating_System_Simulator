@@ -136,6 +136,7 @@ func _ready() -> void:
 
 	num_of_windows += 1
 	select_window(false)
+	move_to_front()
 	
 	viewportToCheck.size_changed.connect(_on_viewport_size_changed)
 	#UIAnimation.animate_pop(self)
@@ -156,6 +157,7 @@ func _ready() -> void:
 	
 	SetID(windowID)
 
+	creationData = creationData.duplicate(true)
 	if(creationData.has("manifest")):
 		var manifest: AppManifest = creationData["manifest"]
 		if(manifest):

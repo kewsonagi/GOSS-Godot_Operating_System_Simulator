@@ -30,15 +30,12 @@ func Load(filename: String) -> bool:
 	else:
 		savePath = UtilityHelper.GetCleanFileString(savePath.get_base_dir(), filename, extension)
 
-	print("loading savefile: %s" % savePath)
-
 	if(!FileAccess.file_exists(savePath)):
 		if(!DirAccess.dir_exists_absolute(savePath.get_base_dir())):
 			DirAccess.make_dir_recursive_absolute(savePath.get_base_dir())
 		FileAccess.open(savePath, FileAccess.WRITE)
 		ResourceManager.SaveResource(self, savePath)
 		newlyCreated = true
-		print("creating new save at: %s" % savePath)
 	var newRes: SaveDataBasic = ResourceLoader.load(savePath)
 	data = newRes.data.duplicate(true)
 

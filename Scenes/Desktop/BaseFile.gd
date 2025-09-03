@@ -175,7 +175,10 @@ func delete_file() -> void:
 
 func OpenThis() -> void:
 	var filePath: String = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), szFilePath, szFileName]
-	AppManager.LaunchAppByExt(szFileName.get_extension(), filePath, true)
+	if(!szFileName.get_extension().is_empty()):
+		AppManager.LaunchAppByExt(szFileName.get_extension(), filePath, true)
+	else:
+		AppManager.LaunchApp("FileExplorer", filePath)
 	
 func OpenFile() -> void:
 	for file: Node in selectedFiles:

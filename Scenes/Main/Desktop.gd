@@ -240,7 +240,6 @@ func SaveDesktop() -> void:
 	desktopSave.Save()
 
 func LoadDesktop() -> void:
-	print(desktopSave.data)
 	uniqueIDCounter = desktopSave.Get("uniqueIDCounter", uniqueIDCounter)
 	for child: Node in anchorContainerBottom.get_children():
 		child.queue_free()
@@ -254,7 +253,6 @@ func LoadDesktop() -> void:
 	
 	var containerCount: int = desktopSave.Get("anchorContainerBottom:children", 0)
 	var newTaskbar: Taskbar
-	print("anchorContainerBottom: %s" % containerCount)
 	for i: int in containerCount:
 		newTaskbar = taskbarTemplate.instantiate()
 		newTaskbar.tempUniqueID = desktopSave.Get("anchorContainerBottom:%s" % [i], newTaskbar.tempUniqueID)
@@ -264,7 +262,6 @@ func LoadDesktop() -> void:
 		newTaskbar.AnchorBottom()
 
 	containerCount = desktopSave.Get("anchorContainerTop:children", 0)
-	print("anchorContainerTop: %s" % containerCount)
 	for i: int in containerCount:
 		newTaskbar = taskbarTemplate.instantiate()
 		newTaskbar.tempUniqueID = desktopSave.Get("anchorContainerTop:%s" % [i], newTaskbar.tempUniqueID)
@@ -274,7 +271,6 @@ func LoadDesktop() -> void:
 		newTaskbar.AnchorTop()
 
 	containerCount = desktopSave.Get("anchorContainerLeft:children", 0)
-	print("anchorContainerLeft: %s" % containerCount)
 	for i: int in containerCount:
 		newTaskbar = taskbarTemplate.instantiate()
 		newTaskbar.tempUniqueID = desktopSave.Get("anchorContainerLeft:%s" % [i], newTaskbar.tempUniqueID)
@@ -284,7 +280,6 @@ func LoadDesktop() -> void:
 		newTaskbar.AnchorLeft()
 
 	containerCount = desktopSave.Get("anchorContainerRight:children", 0)
-	print("anchorContainerRight: %s" % containerCount)
 	for i: int in containerCount:
 		newTaskbar = taskbarTemplate.instantiate()
 		newTaskbar.tempUniqueID = desktopSave.Get("anchorContainerRight:%s" % [i], newTaskbar.tempUniqueID)

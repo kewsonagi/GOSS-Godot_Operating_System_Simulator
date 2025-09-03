@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://csj0nqhompuaa"]
 
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_cog6c"]
-[ext_resource type="PackedScene" uid="uid://ufo3bc72b2rq" path="res://Scenes/Window/File Manager/file_manager.tscn" id="2_ggko7"]
+[ext_resource type="PackedScene" uid="uid://ufo3bc72b2rq" path="res://Scenes/Window/File Manager/FileVSystemViewer.tscn" id="2_ggko7"]
 [ext_resource type="Texture2D" uid="uid://copqhcnqdgm3b" path="res://Art/shaded/Power.png" id="16_jxkvw"]
 [ext_resource type="Script" uid="uid://ovt5fnqwt48p" path="res://Scenes/Taskbar/power_button.gd" id="17_qeamr"]
 [ext_resource type="PackedScene" uid="uid://dfodxrenoxf8w" path="res://Scenes/Main/Boot Splash/shutdown_splash.tscn" id="18_71tn5"]
