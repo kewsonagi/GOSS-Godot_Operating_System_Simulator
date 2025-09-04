@@ -56,7 +56,6 @@ func SetPinnedCreationData(d: Dictionary, t: Texture2D = null) -> void:
 		#pinnedThumbnail = texture_rect.texture.duplicate()
 	thumbnailRect.texture = pinnedThumbnail
 	if(pinnedThumbnailCopy):
-		print(previewNode.size)
 		pinnedThumbnailCopy.resize(previewNode.size.x, previewNode.size.y)
 
 func _on_mouse_entered() -> void:
