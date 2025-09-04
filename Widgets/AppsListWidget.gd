@@ -19,6 +19,13 @@ func SaveWidget(data: Dictionary) -> void:
 	for i:int in pinnedItems.size():
 		data["%spinnedItemData: %s" % [widgetID,i]] = pinnedItems[i].pinnedCreationData
 
+		if(pinnedItems[i].pinnedThumbnail):
+			data["%spinnedItemTexture: %s" % [widgetID,i]] = ImageTexture.create_from_image(pinnedItems[i].pinnedThumbnailCopy)
+		# var imgPath: String = "%s%spinnedImageTexture: %s.png" % [ResourceManager.GetPathToWindowSettings(), widgetID,i]
+		# if(pinnedItems[i].pinnedThumbnail):
+		# 	if(pinnedItems[i].pinnedThumbnail.get_image()):
+		# 		pinnedItems[i].pinnedThumbnail.get_image().save_png(imgPath)
+
 func LoadWidget(data: Dictionary) -> void:
 	super.LoadWidget(data)
 
@@ -30,7 +37,19 @@ func LoadWidget(data: Dictionary) -> void:
 		var numPins:int = data["%s:numPinnedItems" % widgetID]
 		for i:int in numPins:
 			var d: Dictionary = data["%spinnedItemData: %s" % [widgetID, i]]
-			var pinnedTask: PinnedTaskbarItem = CreatePinnedTaskbarItem(d)
+			var tex: Texture2D = config.icon
+			#query for the icon of the file that is pinned
+			if(d.has("Filename")):
+				tex = AppManager.GetAppIconByExt(d["Filename"].get_extension())
+			#check for a custom icon from the manifest, if one exists, usually only needed for custom apps or games that have no extension associated with them
+			if(d.has("manifest")):
+				tex = AppManager.GetAppIcon((d["manifest"] as AppManifest).key)
+
+			#get saved thumbnail if one exists
+			if(data.has("%spinnedItemTexture: %s" % [widgetID,i])):
+				tex = data["%spinnedItemTexture: %s" % [widgetID,i]]
+
+			var pinnedTask: PinnedTaskbarItem = CreatePinnedTaskbarItem(d, tex)
 
 func _ready() -> void:
 	super._ready()
@@ -105,13 +124,14 @@ func PinnedItemMenu(pin: PinnedTaskbarItem) -> void:
 	RClickMenuManager.instance.AddMenuItem("Remove Pin", RemovePinnedItem.bind(pin), ResourceManager.GetResource("Delete"), Color.ORANGE_RED)
 
 func PinTaskbarItem(taskItem: TaskbarItem) -> void:
-	var pinnedTask: PinnedTaskbarItem = CreatePinnedTaskbarItem(taskItem.target_window.creationData)
+	var pinnedTask: PinnedTaskbarItem = CreatePinnedTaskbarItem(taskItem.target_window.creationData, taskItem.hoverPreviewTexture.texture)
 	taskbarParent.SaveBar()
+	UpdateListItemsRotate()
 	
-func CreatePinnedTaskbarItem(d: Dictionary) -> PinnedTaskbarItem:
+func CreatePinnedTaskbarItem(d: Dictionary, t: Texture2D) -> PinnedTaskbarItem:
 	var pinnedTask: PinnedTaskbarItem = pinnedItemTemplate.instantiate()
 	if(pinnedTask):
-		pinnedTask.SetPinnedCreationData(d)
+		pinnedTask.SetPinnedCreationData(d, t)
 		pinnedTask.RightClickedMenuSetup.connect(PinnedItemMenu)
 		pinnedItems.append(pinnedTask)
 		taskbarListControl.add_child(pinnedTask)
@@ -129,7 +149,7 @@ func RemovePinnedItem(taskItem: PinnedTaskbarItem) -> void:
 func RemoveTaskItem(taskItem: TaskbarItem) -> void:
 	for item: TaskbarItem in taskItems:
 		if(item.target_window == taskItem.target_window):
-			taskbarListControl.remove_child(taskItem)
+			#taskbarListControl.remove_child(taskItem)
 			taskItems.erase(item)
 			item.queue_free()
 			break

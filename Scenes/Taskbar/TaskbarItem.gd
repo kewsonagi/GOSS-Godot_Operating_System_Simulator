@@ -37,6 +37,7 @@ func _ready() -> void:
 	target_window.resized.connect(_on_window_Resized)
 	texture_rect.self_modulate = active_color
 	storeOldTextureRect = texture_rect.texture
+	hoverPreviewTexture.texture = texture_rect.texture
 
 	clickHandler = get_node_or_null("ClickHandler")
 	if(clickHandler):
@@ -47,9 +48,11 @@ func _ready() -> void:
 
 	activeBGPanel["theme_override_styles/panel"] = activeBGPanel["theme_override_styles/panel"].duplicate()
 	SetActiveColor()
+	previewNode.visible = true;
+	UtilityHelper.CallOnTimer(0.05, func()->void: previewNode.visible = false, self)
 
 func _on_mouse_entered() -> void:
-	TweenAnimator.float_bob(self, 6, .4)#(self, 1.3, 0.2)
+	# TweenAnimator.float_bob(self, 6, .4)#(self, 1.3, 0.2)
 
 	TweenAnimator.fade_in(previewNode, 0.3)
 	previewNode.visible = true;
@@ -58,7 +61,7 @@ func _on_mouse_entered() -> void:
 		hoverPreviewTexture.texture = target_window.previewCaptureViewport.get_viewport().get_texture()
 
 func _on_mouse_exited() -> void:
-	TweenAnimator.float_bob(self, 6, .4)#(self, 1.3, 0.2)
+	# TweenAnimator.float_bob(self, 6, .4)#(self, 1.3, 0.2)
 	TweenAnimator.fade_out(previewNode, 0.3)
 	previewNode.visible = false;
 
