@@ -1,8 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://bbgh7s65hn2k4"]
+[gd_scene load_steps=29 format=3 uid="uid://bbgh7s65hn2k4"]
 
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_b5oku"]
 [ext_resource type="PackedScene" uid="uid://da4oly47yx3ja" path="res://Scenes/Taskbar/start_menu_option.tscn" id="1_ev35c"]
 [ext_resource type="PackedScene" uid="uid://02l6g8fyuv7e" path="res://Games/Godotris/boot.tscn" id="2_b5oku"]
+[ext_resource type="Texture2D" uid="uid://bvvdctur6sisw" path="res://icon.svg" id="2_x74fg"]
 [ext_resource type="PackedScene" uid="uid://cdor2s0hydipy" path="res://Games/Super Bit Boy/boot.tscn" id="3_x74fg"]
 [ext_resource type="PackedScene" uid="uid://ohgwvdetih50" path="res://Games/Snake/boot.tscn" id="4_ghhra"]
 [ext_resource type="PackedScene" uid="uid://c5ak0ylkbsh6c" path="res://Games/Pong/boot.tscn" id="5_82r84"]
@@ -54,12 +55,19 @@ bg_color = Color(0.501961, 0.501961, 0.501961, 0.392157)
 corner_radius_top_left = 10
 
 [node name="Start Menu" type="Panel"]
-anchors_preset = -1
-offset_top = 60.0
 offset_right = 350.0
-offset_bottom = 616.0
+offset_bottom = 556.0
 theme = ExtResource("1_b5oku")
 theme_override_styles/panel = SubResource("StyleBoxFlat_0bho0")
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+offset_right = 4.0
+offset_bottom = 4.0
+icon = ExtResource("2_x74fg")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

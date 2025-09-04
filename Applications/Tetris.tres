@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AppManifest" load_steps=3 format=3 uid="uid://dl6udafi08isr"]
+
+[ext_resource type="Texture2D" uid="uid://corqh86yafyh5" path="res://Art/free-file-icons-master/512px/bazel.svg" id="1_bk45x"]
+[ext_resource type="Script" uid="uid://db3jxs22pw5gq" path="res://Scenes/Autoloads/ApplicationManager/AppManifest.gd" id="2_88pum"]
+
+[resource]
+script = ExtResource("2_88pum")
+key = "Tetris"
+name = "Tetris"
+description = "Tetris Demo game"
+path = "res://Games/Godotris/boot.tscn"
+icon = ExtResource("1_bk45x")
+colorBGTaskbar = Color(0.6623414, 0.49803263, 0, 1)
+colorBGWindow = Color(0.62827384, 0.7653068, 1, 1)
+colorBGTitle = Color(0.28167343, 0.22368535, 1, 1)
+customWindowTitle = null
+bGame = true
+metadata/_custom_type_script = "uid://db3jxs22pw5gq"

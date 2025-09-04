@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://da4oly47yx3ja"]
+[gd_scene load_steps=5 format=3 uid="uid://da4oly47yx3ja"]
 
 [ext_resource type="Script" uid="uid://b4pjauo2jicy2" path="res://Scenes/Taskbar/start_menu_option.gd" id="1_2fneu"]
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_ukxjw"]
 [ext_resource type="Texture2D" uid="uid://c0ovs3dnopxua" path="res://Art/Icons - icones/games-01.png" id="2_j6xxd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0gkon"]
@@ -15,6 +16,7 @@ border_color = Color(0, 1, 0.952941, 1)
 clip_contents = true
 custom_minimum_size = Vector2(120, 120)
 pivot_offset = Vector2(60, 60)
+theme = ExtResource("1_ukxjw")
 script = ExtResource("1_2fneu")
 game_scene = "res://Games/CatPlatformer/scenes/spashscreen.tscn"
 use_generic_pause_menu = true

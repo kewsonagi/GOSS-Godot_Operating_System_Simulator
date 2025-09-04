@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AppManifest" load_steps=3 format=3 uid="uid://d0jky5nhx2n3i"]
+
+[ext_resource type="Texture2D" uid="uid://22rtmyyx5ymm" path="res://Art/Icons - icones/games-02.png" id="1_7hjft"]
+[ext_resource type="Script" uid="uid://db3jxs22pw5gq" path="res://Scenes/Autoloads/ApplicationManager/AppManifest.gd" id="2_105jw"]
+
+[resource]
+script = ExtResource("2_105jw")
+key = "Pong"
+name = "Pong Demo"
+description = "Basic pong demo game"
+path = "res://Games/Pong/boot.tscn"
+icon = ExtResource("1_7hjft")
+colorBGTaskbar = Color(0.6623414, 0.49803263, 0, 1)
+colorBGWindow = Color(0.62827384, 0.7653068, 1, 1)
+colorBGTitle = Color(0.28167343, 0.22368535, 1, 1)
+customWindowTitle = null
+bGame = true
+metadata/_custom_type_script = "uid://db3jxs22pw5gq"

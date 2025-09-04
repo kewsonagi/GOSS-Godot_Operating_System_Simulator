@@ -31,6 +31,8 @@ static func LoadAppManifest(filepath:String) -> AppManifest:
 		app = res as AppManifest
 	return app
 
+static func GetListOfAppsAvailable() -> Array[AppManifest]:
+	return appsList
 
 static func RegisterApp(key: String, resource: AppManifest) -> void:
 	if (!registeredApps.has(key)):
@@ -46,7 +48,10 @@ static func LaunchApp(appName: String, filepath: String, fallbackToOS: bool = tr
 	if(registeredApps.has(appName)):
 		var app: AppManifest = appsList[registeredApps[appName]]
 		if(FileAccess.file_exists(app.path)):
-			return CreateAppWindow(app, filepath)
+			if(app.bGame):
+				return LaunchCustomApp(app)
+			else:
+				return CreateAppWindow(app, filepath)
 			
 	if(fallbackToOS):
 		OS.shell_open(filepath)

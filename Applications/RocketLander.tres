@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AppManifest" load_steps=3 format=3 uid="uid://t1usst3ls0p0"]
+
+[ext_resource type="Texture2D" uid="uid://ct0c60k3q1y7x" path="res://Games/RocketLander/assets/images/main_menu.jpg" id="1_2v27w"]
+[ext_resource type="Script" uid="uid://db3jxs22pw5gq" path="res://Scenes/Autoloads/ApplicationManager/AppManifest.gd" id="2_i7orr"]
+
+[resource]
+script = ExtResource("2_i7orr")
+key = "RocketLander"
+name = "Rocket ship lander"
+description = "2D rocket ship lander style game"
+path = "res://Games/RocketLander/boot.tscn"
+icon = ExtResource("1_2v27w")
+colorBGTaskbar = Color(0.6623414, 0.49803263, 0, 1)
+colorBGWindow = Color(0.62827384, 0.7653068, 1, 1)
+colorBGTitle = Color(0.28167343, 0.22368535, 1, 1)
+customWindowTitle = null
+borderless = true
+bGame = true
+metadata/_custom_type_script = "uid://db3jxs22pw5gq"

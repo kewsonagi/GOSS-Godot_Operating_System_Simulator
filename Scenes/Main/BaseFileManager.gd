@@ -39,6 +39,8 @@ func populate_file_manager() -> void:
 func RefreshManager() -> void:
 	ClearAll()
 	directories.clear()
+	if(!DirAccess.dir_exists_absolute("%s%s" % [startingUserDirectory, szFilePath])):
+		szFilePath = ""
 	directories = DirAccess.get_directories_at("%s%s" % [startingUserDirectory, szFilePath])
 	#itemLocations.clear()
 	if (directories):

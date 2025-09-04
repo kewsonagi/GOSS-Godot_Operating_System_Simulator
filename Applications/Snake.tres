@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AppManifest" load_steps=3 format=3 uid="uid://bcpgw0j03150k"]
+
+[ext_resource type="Texture2D" uid="uid://dl762edkijix4" path="res://Art/Icons - icones/games-03.png" id="1_nd5qt"]
+[ext_resource type="Script" uid="uid://db3jxs22pw5gq" path="res://Scenes/Autoloads/ApplicationManager/AppManifest.gd" id="2_6u3ca"]
+
+[resource]
+script = ExtResource("2_6u3ca")
+key = "Snake"
+name = "Snake Demo"
+description = "Snake demo game"
+path = "res://Games/Snake/boot.tscn"
+icon = ExtResource("1_nd5qt")
+colorBGTaskbar = Color(0.6623414, 0.49803263, 0, 1)
+colorBGWindow = Color(0.62827384, 0.7653068, 1, 1)
+colorBGTitle = Color(0.28167343, 0.22368535, 1, 1)
+customWindowTitle = null
+bGame = true
+metadata/_custom_type_script = "uid://db3jxs22pw5gq"

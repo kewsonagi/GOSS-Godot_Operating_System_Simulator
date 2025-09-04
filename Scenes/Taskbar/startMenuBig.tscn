@@ -58,7 +58,7 @@ bg_color = Color(0.501961, 0.501961, 0.501961, 0.392157)
 corner_radius_top_left = 10
 
 [node name="Start Menu" type="Panel"]
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 64.0
@@ -193,7 +193,7 @@ editor_description = "
 			
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 clip_contents = true
-custom_minimum_size = Vector2(40, 0)
+custom_minimum_size = Vector2(40, 36.48)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0

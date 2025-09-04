@@ -1,21 +1,72 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlchsrtufo30l"]
+[gd_scene load_steps=31 format=3 uid="uid://dlchsrtufo30l"]
 
 [ext_resource type="Script" uid="uid://baqft1svk6o2i" path="res://Widgets/StartWidget.gd" id="1_ebf78"]
 [ext_resource type="Texture2D" uid="uid://bvvdctur6sisw" path="res://icon.svg" id="2_7mume"]
 [ext_resource type="Resource" uid="uid://clfr2ctk4xym4" path="res://Widgets/StartMenu.tres" id="2_a4qxp"]
-[ext_resource type="PackedScene" uid="uid://bbgh7s65hn2k4" path="res://Scenes/Taskbar/startMenu.tscn" id="4_spl81"]
+[ext_resource type="Texture2D" uid="uid://copqhcnqdgm3b" path="res://Art/shaded/Power.png" id="3_bsdlj"]
+[ext_resource type="Script" uid="uid://ovt5fnqwt48p" path="res://Scenes/Taskbar/power_button.gd" id="4_swo3p"]
+[ext_resource type="PackedScene" uid="uid://dfodxrenoxf8w" path="res://Scenes/Main/Boot Splash/shutdown_splash.tscn" id="5_smqtd"]
+[ext_resource type="Texture2D" uid="uid://c52c3p0h1475m" path="res://Art/shaded/02-cog.png" id="6_alvgw"]
+[ext_resource type="Script" uid="uid://bcvlao324av3w" path="res://Scenes/Taskbar/settings_button.gd" id="7_mnh1r"]
+[ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="9_gk2ky"]
+[ext_resource type="PackedScene" uid="uid://da4oly47yx3ja" path="res://Scenes/Taskbar/start_menu_option.tscn" id="10_usyxf"]
+[ext_resource type="PackedScene" uid="uid://02l6g8fyuv7e" path="res://Games/Godotris/boot.tscn" id="11_5p4dx"]
+[ext_resource type="PackedScene" uid="uid://cdor2s0hydipy" path="res://Games/Super Bit Boy/boot.tscn" id="12_t5vt4"]
+[ext_resource type="PackedScene" uid="uid://ohgwvdetih50" path="res://Games/Snake/boot.tscn" id="13_y3drq"]
+[ext_resource type="PackedScene" uid="uid://c5ak0ylkbsh6c" path="res://Games/Pong/boot.tscn" id="14_wpyr3"]
+[ext_resource type="PackedScene" uid="uid://lmxmnq0enui8" path="res://Games/Cube Scene/boot.tscn" id="15_3cb4l"]
+[ext_resource type="PackedScene" uid="uid://1mg6dmwk6m1b" path="res://Games/RocketLander/boot.tscn" id="16_q2d35"]
+[ext_resource type="Texture2D" uid="uid://ct0c60k3q1y7x" path="res://Games/RocketLander/assets/images/main_menu.jpg" id="17_splho"]
+[ext_resource type="PackedScene" uid="uid://w1l6tjahy86p" path="res://Games/UnderworldPlatformer/boot.tscn" id="18_aal8m"]
+[ext_resource type="Texture2D" uid="uid://bolksinmvxt0v" path="res://Games/UnderworldPlatformer/Arta/Tiles/Transparent/tile_0243.png" id="19_u3qkt"]
+[ext_resource type="PackedScene" uid="uid://b76r00gtgrncy" path="res://Games/PebbleCalculator/boot.tscn" id="20_fpesh"]
+[ext_resource type="Texture2D" uid="uid://blo1afxx8ll7m" path="res://Games/PebbleCalculator/assets/title_demo.png" id="21_kml8d"]
+[ext_resource type="PackedScene" uid="uid://dujib0uv126o2" path="res://Games/minesweeper/boot.tscn" id="22_8qm33"]
+[ext_resource type="Texture2D" uid="uid://mpc1qb2w4tfq" path="res://Games/minesweeper/tiles.png" id="23_ptsnd"]
 
-[node name="Start Button" type="MarginContainer" node_paths=PackedStringArray("start_menu", "transformControl")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxws7"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbmie"]
+bg_color = Color(1, 0.247059, 0.188235, 0.588235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnonj"]
+bg_color = Color(0.666667, 0, 0, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dh2v"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
+corner_radius_top_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bm3y2"]
+bg_color = Color(0.4, 0.4, 0.4, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bd8k4"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 0.392157)
+corner_radius_top_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bho0"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.14973955, 0.00024895632, 0.26567283, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Start Button" type="MarginContainer" node_paths=PackedStringArray("startMenu", "transformControl")]
 custom_minimum_size = Vector2(60, 60)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -30.0
-offset_right = 30.0
-offset_bottom = 30.0
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -516.0
+offset_bottom = -264.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(30, 30)
@@ -24,7 +75,8 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 script = ExtResource("1_ebf78")
-start_menu = NodePath("TransformNode/Control/Start Menu")
+startMenu = NodePath("TransformNode/Control")
+shutdownSplash = ExtResource("5_smqtd")
 transformControl = NodePath("TransformNode")
 config = ExtResource("2_a4qxp")
 
@@ -32,34 +84,192 @@ config = ExtResource("2_a4qxp")
 layout_mode = 2
 mouse_filter = 2
 
+[node name="Power Button" type="Button" parent="TransformNode"]
+visible = false
+texture_filter = 3
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -14.0
+offset_top = -94.0
+offset_right = 26.0
+offset_bottom = -54.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_lxws7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nbmie")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lnonj")
+action_mode = 0
+icon = ExtResource("3_bsdlj")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_swo3p")
+boot_splash_scene = ExtResource("5_smqtd")
+
+[node name="Settings Button" type="Button" parent="TransformNode"]
+visible = false
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -54.0
+offset_top = -94.0
+offset_right = -14.0
+offset_bottom = -54.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_2dh2v")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bm3y2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bd8k4")
+action_mode = 0
+icon = ExtResource("6_alvgw")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("7_mnh1r")
+
 [node name="TextureRect" type="TextureRect" parent="TransformNode"]
 texture_filter = 4
 layout_mode = 0
-offset_right = 54.0
-offset_bottom = 54.0
+offset_right = 60.0
+offset_bottom = 60.0
+pivot_offset = Vector2(30, 30)
 mouse_filter = 2
 texture = ExtResource("2_7mume")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Control" type="Control" parent="TransformNode"]
-anchors_preset = 0
-offset_right = 54.0
-offset_bottom = 54.0
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 
-[node name="Start Menu" parent="TransformNode/Control" instance=ExtResource("4_spl81")]
-visible = false
+[node name="Start Menu" type="Panel" parent="TransformNode/Control"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 180.34
-offset_top = 173.53
-offset_right = 180.34
-offset_bottom = 173.53
+offset_top = -54.0
+offset_bottom = -54.0
 grow_vertical = 0
 mouse_filter = 1
+theme = ExtResource("9_gk2ky")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0bho0")
+
+[node name="Button" type="Button" parent="TransformNode/Control/Start Menu"]
+visible = false
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+offset_right = 4.0
+offset_bottom = 4.0
+icon = ExtResource("2_7mume")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="TransformNode/Control/Start Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="GridContainer" parent="TransformNode/Control/Start Menu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 360.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 3
+
+[node name="Godotris Option" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+layout_mode = 2
+game_scene = "res://Games/Godotris/Game/boot.tscn"
+gameScene = ExtResource("11_5p4dx")
+title_text = "Godotris"
+description_text = "Stack blocks, clear lines!"
+
+[node name="Bit Boy" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+layout_mode = 2
+game_scene = "res://Games/Super Bit Boy/boot.tscn"
+gameScene = ExtResource("12_t5vt4")
+title_text = "1 Bit Boy"
+description_text = "Bit Boy platform adventure"
+
+[node name="Snake Option" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+layout_mode = 2
+game_scene = "res://Games/Snake/boot.tscn"
+gameScene = ExtResource("13_y3drq")
+title_text = "Snake"
+description_text = "Eat fruit, grow long!"
+
+[node name="Pong Option" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+layout_mode = 2
+game_scene = "res://Games/Pong/boot.tscn"
+gameScene = ExtResource("14_wpyr3")
+title_text = "Pong"
+description_text = "Timeless Classic"
+
+[node name="Cube Scene Option" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+layout_mode = 2
+game_scene = "res://Games/Cube Scene/boot.tscn"
+gameScene = ExtResource("15_3cb4l")
+title_text = "Cube Scene"
+description_text = "THE CUBE. THE CUBE. THE CUBE."
+
+[node name="Rocket Lander" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+layout_mode = 2
+game_scene = "res://Games/RocketLander/boot.tscn"
+gameScene = ExtResource("16_q2d35")
+title_text = "Rocket Lander"
+description_text = "Rocket Lander mocup"
+programIcon = ExtResource("17_splho")
+
+[node name="UnderworldPlatformer" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+layout_mode = 2
+game_scene = "res://Games/UnderworldPlatformer/boot.tscn"
+gameScene = ExtResource("18_aal8m")
+title_text = "Underworld tales"
+description_text = "Underworld platformer with inverting worlds"
+programIcon = ExtResource("19_u3qkt")
+
+[node name="Calculator" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+layout_mode = 2
+game_scene = "res://Scenes/PebbleCalculator/boot.tscn"
+gameScene = ExtResource("20_fpesh")
+title_text = "Pebble Calc"
+description_text = "Pixel Calculator"
+programIcon = ExtResource("21_kml8d")
+use_generic_pause_menu = false
+
+[node name="Minesweeper" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+layout_mode = 2
+game_scene = "res://Games/minesweeper/boot.tscn"
+gameScene = ExtResource("22_8qm33")
+title_text = "Minesweeper"
+description_text = "Sweep some mines"
+programIcon = ExtResource("23_ptsnd")
+use_generic_pause_menu = false
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="TransformNode/Power Button" to="TransformNode/Power Button" method="_on_pressed"]
+[connection signal="pressed" from="TransformNode/Settings Button" to="TransformNode/Settings Button" method="_on_pressed"]

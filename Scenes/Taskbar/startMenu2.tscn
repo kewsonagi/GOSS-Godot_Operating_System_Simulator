@@ -58,7 +58,6 @@ vertical = true
 [node name="FileManagerWindow" parent="Panel/VBoxContainer" instance=ExtResource("2_ggko7")]
 layout_mode = 2
 startingUserDirectory = "user://files/"
-packFileExtension = ["tres", "res"]
 
 [node name="Panel2" type="Panel" parent="."]
 layout_mode = 2
@@ -78,7 +77,6 @@ alignment = 1
 [node name="FileManagerWindow" parent="Panel2/VBoxContainer" instance=ExtResource("2_ggko7")]
 layout_mode = 2
 startingUserDirectory = "user://files/"
-packFileExtension = ["tres", "res"]
 
 [node name="Power Button" type="Button" parent="."]
 visible = false
