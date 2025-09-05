@@ -96,5 +96,26 @@ static func GetScreenRect() -> Rect2:
 static func GetDesktopRect() -> Rect2:
 	return Desktop.desktopRect
 
+static func GlobalizePath(s: String) -> String:
+	if(s.begins_with("res://")):
+		if OS.has_feature("editor"):
+			return ProjectSettings.globalize_path(s)
+		else:
+			s = s.replace("res://", "")
+			return OS.get_executable_path().get_base_dir().path_join(s)
+
+	
+	return ProjectSettings.globalize_path(s)
+	
 func CallOnDelay(f: float, c: Callable) -> void:
 	get_tree().create_timer(f).timeout.connect(c)
+
+static func CopyFile(from: String, to: String, override: bool=false) -> void:
+	if(!override and FileAccess.file_exists(to)):return
+
+	var fromFile: FileAccess = FileAccess.open(from, FileAccess.READ)
+	var toFile: FileAccess = FileAccess.open(to, FileAccess.WRITE)
+	toFile.store_buffer(fromFile.get_buffer(fromFile.get_length()))
+	
+	fromFile.close()
+	toFile.close()

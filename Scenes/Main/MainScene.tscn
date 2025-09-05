@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://crccellk2oo41" path="res://Scenes/Main/desktop_file_manager.gd" id="1_c0q37"]
 [ext_resource type="Texture2D" uid="uid://bwxnhif5h1cck" path="res://Art/Pixel_32.png" id="1_r8g3u"]
 [ext_resource type="Script" uid="uid://fgth35grbgyv" path="res://Scenes/Main/wallpaper.gd" id="1_xkkt2"]
-[ext_resource type="PackedScene" uid="uid://cfj5p5pgfnywp" path="res://Widgets/taskbar.tscn" id="2_35ao4"]
+[ext_resource type="PackedScene" uid="uid://cfj5p5pgfnywp" path="res://Scenes/Widgets/taskbar.tscn" id="2_35ao4"]
 [ext_resource type="PackedScene" uid="uid://b7mejsbueubva" path="res://Scenes/Taskbar/TaskbarItem.tscn" id="2_y53yf"]
 [ext_resource type="PackedScene" uid="uid://c73tsgfxmn37a" path="res://Scenes/Window/Game Window/game_window.tscn" id="3_4sg3s"]
 [ext_resource type="PackedScene" uid="uid://bwyybu5i3kid" path="res://Scenes/Main/Boot Splash/boot_splash.tscn" id="3_ifoxq"]
@@ -190,6 +190,7 @@ mouse_filter = 2
 layout_mode = 2
 mouse_filter = 0
 tempUniqueID = 3
+verticalBar = true
 
 [node name="TaskbarsRight" type="BoxContainer" parent="."]
 layout_mode = 1
@@ -205,6 +206,7 @@ mouse_filter = 2
 layout_mode = 2
 mouse_filter = 0
 tempUniqueID = 2
+verticalBar = true
 
 [node name="TaskbarsTop" type="BoxContainer" parent="."]
 layout_mode = 1

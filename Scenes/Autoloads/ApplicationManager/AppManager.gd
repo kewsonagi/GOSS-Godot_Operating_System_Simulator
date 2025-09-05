@@ -3,6 +3,7 @@ class_name AppManager
 
 # static var instance: ResourceManager = null
 @export_dir var pathToApps: String
+@export var defaultApps: Array[AppManifest]
 static var registeredApps: Dictionary#reg by app name, appList index
 static var registeredAppsByExtension: Dictionary#reg by extension, appList index
 static var appsList: Array[AppManifest]
@@ -14,15 +15,40 @@ func _ready() -> void:
 		RegisterBuiltinApps()
 
 func RegisterBuiltinApps() -> void:
-	pathToApps = "%s/" % pathToApps
+	if(!pathToApps.ends_with("/")):
+		pathToApps = "%s/" % pathToApps
+	# pathToApps = UtilityHelper.GlobalizePath(pathToApps)
 	var  res: AppManifest
+	var fullIconPath: String
+	var fullExternalIconPath: String
 	var apps: PackedStringArray = DirAccess.get_files_at(pathToApps)
-	for app in apps:
+	for app: String in apps:
+		if(app.get_extension() == "import"):
+			app = app.replace(".import", "")
+		if(app.get_extension() == "remap"):
+			app = app.replace(".remap", "")
+
 		if(app.get_extension() == "tres" or app.get_extension() == "res"):#default resource extension for apps
+			fullIconPath = "%s/%s" % [pathToApps.get_base_dir(), app]
+			fullExternalIconPath = "%s/%s" % [ResourceManager.GetPathToApplications(), app]
+			UtilityHelper.CopyFile(fullIconPath, fullExternalIconPath)
 			#res = ResourceLoader.load("%s/%s" % [pathToApps.get_base_dir(), app])
-			res = AppManager.LoadAppManifest("%s/%s" % [pathToApps.get_base_dir(), app])
+			res = AppManager.LoadAppManifest(fullIconPath)
 			if(res):
 				AppManager.RegisterApp(app.get_file().get_basename(), res as AppManifest)
+	
+	var externalapps: PackedStringArray = DirAccess.get_files_at(ResourceManager.GetPathToApplications())
+	for app: String in externalapps:
+		if(app.get_extension() == "tres" or app.get_extension() == "res"):#default resource extension for apps
+			fullExternalIconPath = "%s/%s" % [ResourceManager.GetPathToApplications(), app]
+			UtilityHelper.CopyFile(fullIconPath, fullExternalIconPath)
+			#res = ResourceLoader.load("%s/%s" % [pathToApps.get_base_dir(), app])
+			res = AppManager.LoadAppManifest(fullExternalIconPath)
+			res.path = ProjectSettings.globalize_path(res.path)
+			if(res):
+				AppManager.RegisterApp(app.get_file().get_basename(), res as AppManifest)
+	# for app: AppManifest in defaultApps:
+	# 	AppManager.RegisterApp(app.key, app)
 
 static func LoadAppManifest(filepath:String) -> AppManifest:
 	var  res: Resource = ResourceLoader.load(filepath)
@@ -47,11 +73,11 @@ static func RegisterApp(key: String, resource: AppManifest) -> void:
 static func LaunchApp(appName: String, filepath: String, fallbackToOS: bool = true) -> Node:#window created
 	if(registeredApps.has(appName)):
 		var app: AppManifest = appsList[registeredApps[appName]]
-		if(FileAccess.file_exists(app.path)):
-			if(app.bGame):
-				return LaunchCustomApp(app)
-			else:
-				return CreateAppWindow(app, filepath)
+		#if(FileAccess.file_exists(app.path)):
+		if(app.bGame):
+			return LaunchCustomApp(app)
+		else:
+			return CreateAppWindow(app, filepath)
 			
 	if(fallbackToOS):
 		OS.shell_open(filepath)
@@ -72,8 +98,8 @@ static func LaunchCustomApp(app:AppManifest) -> Node:#window created
 static func LaunchAppByExt(ext: String, filepath: String, fallbackToOS: bool = true) -> Node:#window created
 	if(registeredAppsByExtension.has(ext)):
 		var app: AppManifest = appsList[registeredAppsByExtension[ext]]
-		if(FileAccess.file_exists(app.path)):
-			return CreateAppWindow(app, filepath)
+		#if(FileAccess.file_exists(app.path)):
+		return CreateAppWindow(app, filepath)
 			
 	if(fallbackToOS):
 		UtilityHelper.Log("falling back to OS level open: %s" % filepath)

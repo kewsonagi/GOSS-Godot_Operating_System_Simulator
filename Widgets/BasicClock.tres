@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="WidgetConfig" load_steps=3 format=3 uid="uid://qpstfwqefkx"]
 
 [ext_resource type="Texture2D" uid="uid://ty6d1sml5hye" path="res://Art/Icons/Software_Clock_Time_Wait_1.png" id="1_qmv36"]
-[ext_resource type="Script" uid="uid://4quw8jgacf6o" path="res://Widgets/WidgetConfig.gd" id="2_tiehl"]
+[ext_resource type="Script" uid="uid://4quw8jgacf6o" path="res://Scenes/Widgets/WidgetConfig.gd" id="2_qmv36"]
 
 [resource]
-script = ExtResource("2_tiehl")
+script = ExtResource("2_qmv36")
 key = "BasicClock"
 name = "Standard Digital Clock"
 description = "Regular time with date widget"
-path = "res://Widgets/TimeWidget.tscn"
+path = "res://Scenes/Widgets/TimeWidget.tscn"
 icon = ExtResource("1_qmv36")
 metadata/_custom_type_script = "uid://4quw8jgacf6o"

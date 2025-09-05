@@ -104,9 +104,10 @@ func PopulateWithFile(fileName: String, path: String, fileType: BaseFile.E_FILE_
 	#load a thumbnail if one exists for this file extension
 	var fileIcon: Texture2D = ResourceManager.GetResourceOrNull(fileName.get_basename())
 	if !fileIcon:
-		fileIcon = ResourceManager.GetResourceOrNull(fileName.get_extension())
-	if !fileIcon:
 		fileIcon = AppManager.GetAppIconByExt(fileName.get_extension())
+	if !fileIcon:
+		fileIcon = ResourceManager.GetResourceOrNull(fileName.get_extension())
+	
 	if fileIcon:
 		file.fileIcon = fileIcon
 

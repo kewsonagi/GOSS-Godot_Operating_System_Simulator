@@ -24,7 +24,7 @@ func HandleLeftClick() -> void:
 	for app: AppManifest in appsList:
 		RClickMenuManager.instance.AddMenuItem(app.name, func() -> void:
 			AppManager.LaunchApp(app.key, ResourceManager.GetPathToUserFiles()),
-			ResourceManager.GetResource("Start"), Color.SPRING_GREEN)
+			ResourceManager.GetResource("Start"), app.colorBGWindow)
 	
 
 func Shutdown() -> void:

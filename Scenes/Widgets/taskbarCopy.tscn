@@ -23,10 +23,10 @@
 [ext_resource type="Script" uid="uid://clkes7h7romou" path="res://Scenes/Taskbar/start_button.gd" id="21_aiooy"]
 [ext_resource type="Texture2D" uid="uid://bvvdctur6sisw" path="res://icon.svg" id="22_3g2ov"]
 [ext_resource type="Script" uid="uid://33k2ree3e2yt" path="res://Scenes/Taskbar/taskbar_time.gd" id="23_4al8l"]
-[ext_resource type="Script" uid="uid://iqrujff75jsb" path="res://Widgets/Taskbar.gd" id="24_h6j2w"]
-[ext_resource type="PackedScene" uid="uid://dlchsrtufo30l" path="res://Widgets/StartWidget.tscn" id="25_214t5"]
-[ext_resource type="PackedScene" uid="uid://cawmw4n6ksji7" path="res://Widgets/WindowListWidget.tscn" id="26_wirk8"]
-[ext_resource type="PackedScene" uid="uid://cjivrryqpnwpk" path="res://Widgets/TimeWidget.tscn" id="27_1hep1"]
+[ext_resource type="Script" uid="uid://iqrujff75jsb" path="res://Scenes/Widgets/Taskbar.gd" id="24_h6j2w"]
+[ext_resource type="PackedScene" uid="uid://dlchsrtufo30l" path="res://Scenes/Widgets/StartWidget.tscn" id="25_214t5"]
+[ext_resource type="PackedScene" uid="uid://cawmw4n6ksji7" path="res://Scenes/Widgets/WindowListWidget.tscn" id="26_wirk8"]
+[ext_resource type="PackedScene" uid="uid://cjivrryqpnwpk" path="res://Scenes/Widgets/TimeWidget.tscn" id="27_1hep1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bho0"]
 content_margin_left = 0.0
@@ -551,6 +551,16 @@ taskbarListControl = NodePath("ScrollContainer")
 [node name="Start Button" parent="TaskbarBottom" node_paths=PackedStringArray("taskbarParent") instance=ExtResource("25_214t5")]
 layout_mode = 0
 anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 1
+grow_vertical = 1
 taskbarParent = NodePath("..")
 
 [node name="ScrollContainer" parent="TaskbarBottom" node_paths=PackedStringArray("taskbarParent") instance=ExtResource("26_wirk8")]
@@ -560,6 +570,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 0.0
 offset_right = 0.0
+offset_bottom = 60.0
 grow_horizontal = 1
 grow_vertical = 1
 taskbarParent = NodePath("..")
@@ -567,6 +578,11 @@ taskbarParent = NodePath("..")
 [node name="TimeAndDate" parent="TaskbarBottom" node_paths=PackedStringArray("taskbarParent") instance=ExtResource("27_1hep1")]
 layout_mode = 1
 anchors_preset = 6
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -92.0
+offset_right = 0.0
+grow_horizontal = 0
 taskbarParent = NodePath("..")
 
 [connection signal="pressed" from="StartMenuAnchor/Start Menu/Power Button" to="StartMenuAnchor/Start Menu/Power Button" method="_on_pressed"]

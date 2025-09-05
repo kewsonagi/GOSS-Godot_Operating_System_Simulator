@@ -1,0 +1,20 @@
+[gd_scene load_steps=7 format=3 uid="uid://i0ptx45qfo16"]
+
+[ext_resource type="Script" uid="uid://ctvlt1sa8q16s" path="res://Scenes/Widgets/WidgetManager.gd" id="1_v51f2"]
+[ext_resource type="Script" uid="uid://4quw8jgacf6o" path="res://Scenes/Widgets/WidgetConfig.gd" id="2_hoby4"]
+[ext_resource type="Resource" uid="uid://qpstfwqefkx" path="res://Widgets/BasicClock.tres" id="3_gvp06"]
+[ext_resource type="Resource" uid="uid://di21l3glkqlpc" path="res://Widgets/Start.tres" id="4_qh4fy"]
+[ext_resource type="Resource" uid="uid://lal0k5bow8vl" path="res://Widgets/AppsList.tres" id="5_dqsgh"]
+[ext_resource type="Resource" uid="uid://clfr2ctk4xym4" path="res://Widgets/StartMenu.tres" id="6_8v28i"]
+
+[node name="WidgetManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_v51f2")
+pathToWidgets = "res://Widgets/"
+defaultWidgets = Array[ExtResource("2_hoby4")]([ExtResource("3_gvp06"), ExtResource("4_qh4fy"), ExtResource("5_dqsgh"), ExtResource("6_8v28i")])

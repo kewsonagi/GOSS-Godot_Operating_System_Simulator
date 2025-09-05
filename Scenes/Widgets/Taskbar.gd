@@ -31,6 +31,8 @@ static func RemoveTaskbar(bar: Taskbar) -> void:
 	barList.erase(bar)
 
 func AddWidget(widget: TaskbarWidget) -> void:
+	if(!widget):return
+
 	widgetsList.append(widget)
 	widget.taskbarParent = self
 	taskbarListControl.add_child(widget)
@@ -50,6 +52,7 @@ func AddWidget(widget: TaskbarWidget) -> void:
 	SaveBar()
 	
 func RemoveWidget(widget: TaskbarWidget) -> void:
+	if(!widget):return
 	#widget.RemoveWidget()
 	widgetsList.erase(widget)
 	#taskbarListControl.remove_child(widget)
@@ -143,6 +146,8 @@ func LoadBar() -> void:
 
 	for i: int in numWidgets:
 		var newWidget:TaskbarWidget = WidgetManager.CreateWidget(taskbarSave.Get("WidgetKey:%s" % [i], "Unknown"))
+		print(newWidget)
+		print(taskbarSave.Get("WidgetKey:%s" % [i], "Unknown"))
 		var thisWidgetID: String = taskbarSave.Get("WidgetID:%s" % [i], "%s%s" % [newWidget.config.key, uniqueWidgetID])
 		if(newWidget):
 			newWidget.taskbarParent = self
@@ -277,7 +282,7 @@ func MoveWindowToNewTaskbar(bar: Taskbar) -> void:
 	var newChildren: Array[Node]
 	
 	#remove from old bar
-	for child: Node in bar.taskbarListControl:
+	for child: Node in bar.taskbarListControl.get_children():
 		newChildren.append(child)
 		bar.taskbarListControl.remove_child(child)
 	#add to this bar

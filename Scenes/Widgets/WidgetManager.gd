@@ -3,6 +3,7 @@ class_name WidgetManager
 
 # static var instance: ResourceManager = null
 @export_dir var pathToWidgets: String
+@export var defaultWidgets: Array[WidgetConfig]
 static var registeredWidgets: Dictionary#reg by app name, appList index
 static var widgetsList: Array[WidgetConfig]
 static var instance: WidgetManager = null
@@ -14,15 +15,43 @@ func _ready() -> void:
 		RegisterBuiltinWidgets()
 
 func RegisterBuiltinWidgets() -> void:
-	pathToWidgets = "%s/" % pathToWidgets
+	if(!pathToWidgets.ends_with("/")):
+		pathToWidgets = "%s/" % pathToWidgets
+	# pathToWidgets = UtilityHelper.GlobalizePath(pathToWidgets)
+
 	var  res: WidgetConfig
+	var fullIconPath: String
+	var fullExternalIconPath: String
 	var apps: PackedStringArray = DirAccess.get_files_at(pathToWidgets)
 	for app in apps:
+		if(app.get_extension() == "import"):
+			app = app.replace(".import", "")
+		if(app.get_extension() == "remap"):
+			app = app.replace(".remap", "")
+
 		if(app.get_extension() == "tres" or app.get_extension() == "res"):#default resource extension for apps
+			fullIconPath = "%s/%s" % [pathToWidgets.get_base_dir(), app]
+			fullExternalIconPath = "%s/%s" % [ResourceManager.GetPathToWidgets(), app]
+			UtilityHelper.CopyFile(fullIconPath, fullExternalIconPath)
 			#res = ResourceLoader.load("%s/%s" % [pathToWidgets.get_base_dir(), app])
-			res = WidgetManager.LoadWidgetConfig("%s/%s" % [pathToWidgets.get_base_dir(), app])
+			res = WidgetManager.LoadWidgetConfig(fullIconPath)
+			print("trying to register widget: %s, at: %s" % [res, fullIconPath])
 			if(res):
 				WidgetManager.RegisterWidget(res.key, res)
+	#load external widgets that may have been added as a mod, pck, etc	
+	var externalapps: PackedStringArray = DirAccess.get_files_at(ResourceManager.GetPathToWidgets())
+	for app in externalapps:
+		if(app.get_extension() == "tres" or app.get_extension() == "res"):#default resource extension for apps
+			fullExternalIconPath = "%s/%s" % [ResourceManager.GetPathToWidgets(), app]
+			#res = ResourceLoader.load("%s/%s" % [pathToWidgets.get_base_dir(), app])
+			res = WidgetManager.LoadWidgetConfig(fullExternalIconPath)
+			print("trying to register widget: %s, at: %s" % [res, fullExternalIconPath])
+			res.path = ProjectSettings.globalize_path(res.path)
+
+			if(res):
+				WidgetManager.RegisterWidget(res.key, res)
+	# for app: WidgetConfig in defaultWidgets:
+	# 	WidgetManager.RegisterWidget(app.key, app)
 
 static func LoadWidgetConfig(filepath:String) -> WidgetConfig:
 	var  res: Resource = ResourceLoader.load(filepath)
@@ -38,6 +67,7 @@ static func RegisterWidget(key: String, resource: WidgetConfig) -> void:
 	if (!registeredWidgets.has(key)):
 		registeredNames.append(key)
 		#if this item is already registered under a different name, assign it that index and dont make a new one
+		print("registered widget: %s, with: %s" % [key, resource])
 		widgetsList.append(resource)
 		registeredWidgets[key] = widgetsList.size() - 1
 		# if resource.extensionAssociations and !resource.extensionAssociations.is_empty():
@@ -47,8 +77,8 @@ static func RegisterWidget(key: String, resource: WidgetConfig) -> void:
 static func LaunchWindowWidget(appName: String, filepath: String, fallbackToOS: bool = true) -> Node:#window created
 	if(registeredWidgets.has(appName)):
 		var app: WidgetConfig = widgetsList[registeredWidgets[appName]]
-		if(FileAccess.file_exists(app.path)):
-			return CreateWidgetWindow(app, filepath)
+		#if(FileAccess.file_exists(app.path)):
+		return CreateWidgetWindow(app, filepath)
 			
 	if(fallbackToOS):
 		OS.shell_open(filepath)
@@ -57,13 +87,13 @@ static func LaunchWindowWidget(appName: String, filepath: String, fallbackToOS: 
 static func CreateWidget(appName: String) -> BaseWidget:
 	if(registeredWidgets.has(appName)):
 		var conf: WidgetConfig = widgetsList[registeredWidgets[appName]]
-		if(FileAccess.file_exists(conf.path)):
-			var scene: PackedScene = ResourceLoader.load(conf.path) as PackedScene
-			if(scene):
-				var widget: BaseWidget = scene.instantiate() as BaseWidget
-				if(widget):
-					widget.SetConfig(conf)
-					return widget
+		#if(FileAccess.file_exists(conf.path)):
+		var scene: PackedScene = ResourceLoader.load(conf.path) as PackedScene
+		if(scene):
+			var widget: BaseWidget = scene.instantiate() as BaseWidget
+			if(widget):
+				widget.SetConfig(conf)
+				return widget
 	return null
 
 static func GetWidget(appName: String) -> BaseWidget:

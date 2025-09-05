@@ -352,7 +352,6 @@ res = ExtResource("48_r8mcr")
 metadata/_custom_type_script = "uid://xpwum3qxxtem"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pu4bp"]
-load_path = "res://.godot/imported/textbox.png-4272e3e83e5d88ec5b4083cd13d9a7ed.s3tc.ctex"
 
 [sub_resource type="Resource" id="Resource_a07ye"]
 script = ExtResource("1_bcrgb")

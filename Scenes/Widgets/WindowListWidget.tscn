@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cawmw4n6ksji7"]
 
-[ext_resource type="Script" uid="uid://cc2a2c82s6s3y" path="res://Widgets/AppsListWidget.gd" id="1_ldmvc"]
+[ext_resource type="Script" uid="uid://cc2a2c82s6s3y" path="res://Scenes/Widgets/AppsListWidget.gd" id="1_ldmvc"]
 [ext_resource type="Resource" uid="uid://lal0k5bow8vl" path="res://Widgets/AppsList.tres" id="2_ltwbu"]
 
 [node name="ScrollContainer" type="ScrollContainer" node_paths=PackedStringArray("taskbarListControl", "transformControl")]

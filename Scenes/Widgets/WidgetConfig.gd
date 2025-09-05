@@ -1,7 +1,7 @@
 extends Resource
 
 class_name  WidgetConfig
-const WIDGET_EXT = "conf"
+const WIDGET_EXT = "tres"
 
 @export var key: String = "nameID"
 @export var name: String = "widget name"

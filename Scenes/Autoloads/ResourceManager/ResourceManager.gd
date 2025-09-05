@@ -106,6 +106,8 @@ static func CreateDefaultPaths() -> void:
 	DirAccess.make_dir_recursive_absolute(GetPathToPackFiles())
 	DirAccess.make_dir_recursive_absolute(GetPathToApplications())
 	DirAccess.make_dir_recursive_absolute(GetPathToGames())
+	DirAccess.make_dir_recursive_absolute(GetPathToApplicationsIcons())
+	DirAccess.make_dir_recursive_absolute(GetPathToWidgets())
 static func GetPathToSave() -> String:
 	return ProjectSettings.globalize_path("user://settings/save/")
 static func GetPathToUser() -> String:
@@ -118,5 +120,9 @@ static func GetPathToPackFiles() -> String:
 	return ProjectSettings.globalize_path("user://mods/")
 static func GetPathToApplications() -> String:
 	return ProjectSettings.globalize_path("user://apps/")
+static func GetPathToWidgets() -> String:
+	return ProjectSettings.globalize_path("user://widgets/")
+static func GetPathToApplicationsIcons() -> String:
+	return ProjectSettings.globalize_path("user://apps/icons/")
 static func GetPathToGames() -> String:
 	return ProjectSettings.globalize_path("user://games/")

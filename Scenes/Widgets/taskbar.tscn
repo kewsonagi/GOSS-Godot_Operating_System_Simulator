@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_7g4n6"]
 [ext_resource type="PackedScene" uid="uid://dyffbipc6kbic" path="res://Scenes/Autoloads/RClick Menu Manager/ClickHandler.tscn" id="3_xuldr"]
-[ext_resource type="Script" uid="uid://iqrujff75jsb" path="res://Widgets/Taskbar.gd" id="24_lr0nb"]
+[ext_resource type="Script" uid="uid://iqrujff75jsb" path="res://Scenes/Widgets/Taskbar.gd" id="24_lr0nb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuldr"]
 bg_color = Color(0.35686275, 0.18039216, 0.4627451, 1)

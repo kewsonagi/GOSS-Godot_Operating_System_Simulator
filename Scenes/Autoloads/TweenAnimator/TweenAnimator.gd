@@ -1,5 +1,5 @@
-@tool
-@icon("res://addons/TweenAnimator/icon.png")
+
+extends Node
 ## Call TweenAnimator.<animation>(node, optional param).
 ## For the Looping Tweens, call it a first time to toggle on and a second time to toggle off.
 ##
@@ -8,7 +8,7 @@
 ## It can be used in both editor plugins and runtime code. 
 ## The class is designed to facilitate quick visual effects without needing to manually manage tweening logic and to be usable anywhere in a project.
 
-class_name TweenAnimator extends EditorPlugin
+class_name TweenAnimator #extends EditorPlugin
 
 # Global state dictionary to track node active animations and origin parameters
 static var node_tweens: Dictionary = {}

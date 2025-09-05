@@ -2,7 +2,7 @@ extends Control
 
 class_name Desktop
 
-@export var taskbarTemplate: PackedScene = preload("res://Widgets/taskbar.tscn")
+@export var taskbarTemplate: PackedScene = preload("res://Scenes/Widgets/taskbar.tscn")
 @export var taskbarItemTemplate: PackedScene
 @export var gameWindowTemplate: PackedScene
 ## The desktop file manager.
@@ -255,6 +255,7 @@ func LoadDesktop() -> void:
 	var newTaskbar: Taskbar
 	for i: int in containerCount:
 		newTaskbar = taskbarTemplate.instantiate()
+		if(!newTaskbar):return
 		newTaskbar.tempUniqueID = desktopSave.Get("anchorContainerBottom:%s" % [i], newTaskbar.tempUniqueID)
 		taskbars.append(newTaskbar)
 		anchorContainerBottom.add_child(newTaskbar)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjivrryqpnwpk"]
 
-[ext_resource type="Script" uid="uid://btepaes3roms5" path="res://Widgets/TimeWidget.gd" id="1_3tfac"]
+[ext_resource type="Script" uid="uid://btepaes3roms5" path="res://Scenes/Widgets/TimeWidget.gd" id="1_3tfac"]
 [ext_resource type="Resource" uid="uid://qpstfwqefkx" path="res://Widgets/BasicClock.tres" id="2_vn06x"]
 
 [node name="TimeAndDate" type="Control" node_paths=PackedStringArray("timeText", "dateText", "rotationControl", "transformControl")]
