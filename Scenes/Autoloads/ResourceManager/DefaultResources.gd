@@ -47,9 +47,10 @@ func RegisterFileExtensionIcons() -> void:
 			#copy files from internal res to external user directory
 			fullExternalIconPath = "%s/%s" % [ResourceManager.GetPathToApplicationsIcons(), iconFile]
 			#certain default resources only load from internal locations for some reason?
-			var img: Image = Image.load_from_file(fullExternalIconPath)
-			if(img):
-				res = ImageTexture.create_from_image(img)
+			# var img: Image = Image.load_from_file(fullExternalIconPath)
+			# if(img):
+			# 	res = ImageTexture.create_from_image(img)
+			res = ResourceLoader.load(fullIconPath)
 			if(res):
 				ResourceManager.RegisterResource(iconFile.get_basename(), res)
 	# for tex: Texture2D in defaultIcons:
