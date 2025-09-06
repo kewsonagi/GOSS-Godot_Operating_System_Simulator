@@ -35,7 +35,6 @@ func RegisterBuiltinWidgets() -> void:
 			UtilityHelper.CopyFile(fullIconPath, fullExternalIconPath)
 			#res = ResourceLoader.load("%s/%s" % [pathToWidgets.get_base_dir(), app])
 			res = WidgetManager.LoadWidgetConfig(fullIconPath)
-			print("trying to register widget: %s, at: %s" % [res, fullIconPath])
 			if(res):
 				WidgetManager.RegisterWidget(res.key, res)
 	#load external widgets that may have been added as a mod, pck, etc	
@@ -45,7 +44,6 @@ func RegisterBuiltinWidgets() -> void:
 			fullExternalIconPath = "%s/%s" % [ResourceManager.GetPathToWidgets(), app]
 			#res = ResourceLoader.load("%s/%s" % [pathToWidgets.get_base_dir(), app])
 			res = WidgetManager.LoadWidgetConfig(fullExternalIconPath)
-			print("trying to register widget: %s, at: %s" % [res, fullExternalIconPath])
 			res.path = ProjectSettings.globalize_path(res.path)
 
 			if(res):
@@ -67,7 +65,6 @@ static func RegisterWidget(key: String, resource: WidgetConfig) -> void:
 	if (!registeredWidgets.has(key)):
 		registeredNames.append(key)
 		#if this item is already registered under a different name, assign it that index and dont make a new one
-		print("registered widget: %s, with: %s" % [key, resource])
 		widgetsList.append(resource)
 		registeredWidgets[key] = widgetsList.size() - 1
 		# if resource.extensionAssociations and !resource.extensionAssociations.is_empty():

@@ -146,8 +146,6 @@ func LoadBar() -> void:
 
 	for i: int in numWidgets:
 		var newWidget:TaskbarWidget = WidgetManager.CreateWidget(taskbarSave.Get("WidgetKey:%s" % [i], "Unknown"))
-		print(newWidget)
-		print(taskbarSave.Get("WidgetKey:%s" % [i], "Unknown"))
 		var thisWidgetID: String = taskbarSave.Get("WidgetID:%s" % [i], "%s%s" % [newWidget.config.key, uniqueWidgetID])
 		if(newWidget):
 			newWidget.taskbarParent = self

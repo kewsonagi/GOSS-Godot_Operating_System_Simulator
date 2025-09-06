@@ -31,28 +31,30 @@ func play_animation() -> void:
 	bootImageShadow.scale = scaleBegin;
 
 	TweenAnimator.fade_out(bootBackground, timeLength)
-	TweenAnimator.disappear(bootBackground, timeLength)
+	# TweenAnimator.disappear(bootBackground, timeLength)
 	TweenAnimator.fade_out(bootImage, timeLength*1.5)
 	TweenAnimator.fade_out(bootImageShadow, timeLength*1.5)
-	TweenAnimator.float_bob(bootImage, 10, timeLength/8.0)
-	TweenAnimator.float_bob(bootImageShadow, 10, timeLength/8.0)
+	# TweenAnimator.float_bob(bootImage, 10, timeLength/8.0)
+	# TweenAnimator.float_bob(bootImageShadow, 10, timeLength/8.0)
 	TweenAnimator.wiggle_scale(bootImage, 0.1, timeLength)
 	TweenAnimator.wiggle_scale(bootImageShadow, 0.1, timeLength)
-	await get_tree().create_timer(timeLength).timeout
-	await get_tree().create_timer(timeLength/2.0).timeout
 	
-	queue_free()
+	UtilityHelper.CallOnTimer(timeLength, RemoveBoot, self)
 
 func play_quit_animation() -> void:
 	bootImage.scale = scaleBegin;
 	bootImageShadow.scale = scaleBegin;
 	TweenAnimator.fade_out(bootBackground, timeLength)
-	TweenAnimator.disappear(bootBackground, timeLength)
+	# TweenAnimator.disappear(bootBackground, timeLength)
 	TweenAnimator.float_bob(bootImage, 10, timeLength/8.0)
 	TweenAnimator.float_bob(bootImageShadow, 10, timeLength/8.0)
 	TweenAnimator.fade_out(bootImage, timeLength*1.5)
 	TweenAnimator.fade_out(bootImageShadow, timeLength*1.5)
 	
-	await get_tree().create_timer(timeLength).timeout
-	
+	UtilityHelper.CallOnTimer(timeLength, Quit, self)
+
+func RemoveBoot() -> void:
+	queue_free()
+
+func Quit() -> void:
 	get_tree().quit()

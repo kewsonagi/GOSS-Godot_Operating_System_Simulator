@@ -117,14 +117,16 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 # ------
 
 func show_hover_highlight() -> void:
-	var tween: Tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property(hoverHighlightControl, "self_modulate:a", 1, 0.25).from(0.1)
+	# var tween: Tween = create_tween()
+	# tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	# tween.tween_property(hoverHighlightControl, "self_modulate:a", 1, 0.25).from(0.1)
+	hoverHighlightControl.self_modulate.a = 1
 
 func hide_hover_highlight() -> void:
-	var tween: Tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(hoverHighlightControl, "self_modulate:a", 0, 0.25)
+	# var tween: Tween = create_tween()
+	# tween.set_trans(Tween.TRANS_CUBIC)
+	# tween.tween_property(hoverHighlightControl, "self_modulate:a", 0, 0.25)
+	hoverHighlightControl.self_modulate.a = 0
 
 func show_selected_highlight() -> void:
 	selectedHighlightControl.visible = true

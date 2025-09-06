@@ -52,20 +52,22 @@ func add_wallpaper(image: Image) -> void:
 	image.generate_mipmaps()
 	var texture_import: ImageTexture = ImageTexture.create_from_image(image)
 	
-	var tween: Tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC)
+	# var tween: Tween = create_tween()
+	# tween.set_trans(Tween.TRANS_CUBIC)
 	#await tween.tween_property(self, "self_modulate:a", 0.5, 0.5).finished
 	
 	texture = texture_import
 	
-	tween.tween_property(self, "self_modulate:a", 1, 0.5)
+	# tween.tween_property(self, "self_modulate:a", 1, 0.5)
+	self_modulate.a = 1
 
 func remove_wallpaper() -> void:
 	DefaultValues.delete_wallpaper()
-	var tween: Tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC)
+	# var tween: Tween = create_tween()
+	# tween.set_trans(Tween.TRANS_CUBIC)
 	#await tween.tween_property(self, "self_modulate:a", 0.5, 0.5).finished
-	tween.tween_property(self, "self_modulate:a", 0, 0.5)
+	# tween.tween_property(self, "self_modulate:a", 0, 0.5)
+	self_modulate.a = 0
 	
 	texture = null
 	texture = dummyTexture#.duplicate()
