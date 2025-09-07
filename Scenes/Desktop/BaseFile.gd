@@ -12,6 +12,7 @@ enum E_FILE_TYPE {FOLDER, TEXT_FILE, IMAGE, SCENE_FILE, UNKNOWN, APP, PCK}
 
 var szFileName: String
 var szFilePath: String # Relative to user://files/
+var szStartingDrivePath: String
 
 var bMouseOver: bool
 
@@ -145,7 +146,7 @@ func hide_selected_highlight() -> void:
 
 func delete_file() -> void:
 	if eFileType == E_FILE_TYPE.FOLDER:
-		var delete_path: String = ProjectSettings.globalize_path("%s%s" % [ResourceManager.GetPathToUserFiles(),szFilePath])
+		var delete_path: String = ProjectSettings.globalize_path("%s%s" % [szStartingDrivePath,szFilePath])
 		if !DirAccess.dir_exists_absolute(delete_path):
 			return
 		OS.move_to_trash(delete_path)
@@ -158,7 +159,7 @@ func delete_file() -> void:
 				file_manager.delete_file_with_name(szFileName)
 				#file_manager.UpdateItems()
 	else:
-		var delete_path: String = ProjectSettings.globalize_path("%s%s/%s" % [ResourceManager.GetPathToUserFiles(), szFilePath, szFileName])
+		var delete_path: String = ProjectSettings.globalize_path("%s%s/%s" % [szStartingDrivePath, szFilePath, szFileName])
 		if !FileAccess.file_exists(delete_path):
 			return
 		OS.move_to_trash(delete_path)
@@ -176,7 +177,7 @@ func delete_file() -> void:
 	queue_free()
 
 func OpenThis() -> void:
-	var filePath: String = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), szFilePath, szFileName]
+	var filePath: String = "%s%s/%s" % [szStartingDrivePath, szFilePath, szFileName]
 	if(!szFileName.get_extension().is_empty()):
 		AppManager.LaunchAppByExt(szFileName.get_extension(), filePath, true)
 	else:
@@ -203,7 +204,7 @@ func DeleteFile() -> void:
 
 			#########################
 			if(f.eFileType == E_FILE_TYPE.FOLDER):
-				var delete_path: String = ProjectSettings.globalize_path("%s%s" % [ResourceManager.GetPathToUserFiles(),f.szFilePath])
+				var delete_path: String = ProjectSettings.globalize_path("%s%s" % [szStartingDrivePath,f.szFilePath])
 				if !DirAccess.dir_exists_absolute(delete_path):
 					return
 				OS.move_to_trash(delete_path)
@@ -216,7 +217,7 @@ func DeleteFile() -> void:
 					#	file_manager.delete_file_with_name(f.szFileName)
 						#file_manager.UpdateItems()
 			else:
-				var delete_path: String = ProjectSettings.globalize_path("%s%s/%s" % [ResourceManager.GetPathToUserFiles(), f.szFilePath, f.szFileName])
+				var delete_path: String = ProjectSettings.globalize_path("%s%s/%s" % [szStartingDrivePath, f.szFilePath, f.szFileName])
 				if !FileAccess.file_exists(delete_path):
 					return
 				OS.move_to_trash(delete_path)

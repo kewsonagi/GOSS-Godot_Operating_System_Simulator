@@ -56,7 +56,7 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	if(data is Array[Node]):
 		var to: String = szFilePath
 		CopyPasteManager.CutMultiple(data)
-		CopyPasteManager.paste_folder(to)
+		CopyPasteManager.paste_folder("%s%s" % [szStartingDrivePath, to])
 		BaseFileManager.RefreshAllFileManagers()
 		# for file: Node in data as Array[Node]:
 		# 	if(file and !file.is_queued_for_deletion() and file is BaseFile):

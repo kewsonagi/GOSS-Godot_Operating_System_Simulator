@@ -14,5 +14,7 @@ colorBGTaskbar = Color(0.6623414, 0.49803263, 0, 1)
 colorBGWindow = Color(0.85820913, 0.00026183127, 0.7753662, 1)
 colorBGTitle = Color(0.28167343, 0.22368535, 1, 1)
 customWindowTitle = null
+borderless = true
 bGame = true
+category = "Games"
 metadata/_custom_type_script = "uid://db3jxs22pw5gq"

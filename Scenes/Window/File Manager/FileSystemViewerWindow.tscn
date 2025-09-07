@@ -1,8 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://i03dt4l5msgl"]
+[gd_scene load_steps=18 format=3 uid="uid://i03dt4l5msgl"]
 
 [ext_resource type="PackedScene" uid="uid://cojrqff5vocjv" path="res://Scenes/Window/DialogWindow.tscn" id="1_x38k2"]
+[ext_resource type="Script" uid="uid://1uemcsi7uijm" path="res://Scenes/Window/File Manager/FileExplorer.gd" id="2_3wuvg"]
 [ext_resource type="Texture2D" uid="uid://bsh2ulbkq6car" path="res://Art/GuiAssets/Retro Icons 256px 002/Layer 9.png" id="2_frqx2"]
 [ext_resource type="PackedScene" uid="uid://ufo3bc72b2rq" path="res://Scenes/Window/File Manager/FileVSystemViewer.tscn" id="3_07uop"]
+[ext_resource type="Texture2D" uid="uid://cb53yfm7flywj" path="res://Art/Icons/Software_Window_Minimize_Button.png" id="4_p1h8g"]
+[ext_resource type="Texture2D" uid="uid://8irmdvudmbv" path="res://Art/Icons/Software_Window_Fullscreen_Mode_Select_2.png" id="5_ex0nk"]
+[ext_resource type="Texture2D" uid="uid://bd8n4be7b4478" path="res://Art/shaded/30-x-mark.png" id="6_tfws1"]
+[ext_resource type="Texture2D" uid="uid://cssnsu03d5qwm" path="res://examples/icon_texture/icons/actions/info.svg" id="7_o47rw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq0su"]
 content_margin_left = 0.0
@@ -14,14 +19,61 @@ draw_center = false
 corner_detail = 5
 shadow_color = Color(0, 0, 0, 0.0784314)
 
-[node name="Window" instance=ExtResource("1_x38k2")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4otup"]
+bg_color = Color(0.31995022, 0.000473029, 0.4316635, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gbvfj"]
+bg_color = Color(0.38720447, 0.19885829, 0.50041085, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 10
+corner_radius_top_right = 1
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 1
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_es3h4"]
+bg_color = Color(0, 0, 0, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_epasn"]
+bg_color = Color(0.4, 0.4, 0.4, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iro1c"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3xsn"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.392157)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jljmq"]
+bg_color = Color(1, 0.247059, 0.188235, 0.588235)
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3pwt"]
+bg_color = Color(0.666667, 0, 0, 0.392157)
+corner_radius_top_right = 5
+
+[node name="Window" node_paths=PackedStringArray("fileManager", "addressBarInput") instance=ExtResource("1_x38k2")]
 custom_minimum_size = Vector2(250, 250)
-anchors_preset = 8
 offset_left = -267.5
 offset_top = -228.5
 offset_right = 532.5
 offset_bottom = 351.5
 theme_override_styles/panel = SubResource("StyleBoxFlat_wq0su")
+script = ExtResource("2_3wuvg")
+fileManager = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/FileManagerWindow")
+addressBarInput = NodePath("SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Navigation Bar/HBoxContainer/Title Text")
 
 [node name="SubViewport" parent="SubViewportContainer" index="0"]
 size = Vector2i(800, 580)
@@ -63,52 +115,122 @@ offset_bottom = 2.5
 windowTitle = NodePath("../Top Bar/Title Text")
 parentWindow = NodePath("../../../../..")
 
-[node name="Resize Spots" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="2"]
+[node name="Navigation Bar" type="Panel" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="2"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 30.0
+offset_bottom = 60.0
+grow_horizontal = 2
+pivot_offset = Vector2(390, 15)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_4otup")
+
+[node name="HBoxContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Navigation Bar" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 80
+
+[node name="Title Text" type="LineEdit" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Navigation Bar/HBoxContainer" index="0"]
+self_modulate = Color(1, 1, 1, 0.57254905)
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_gbvfj")
+text = "File Path"
+placeholder_text = "Enter Path"
+alignment = 1
+caret_blink = true
+
+[node name="Minimize Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Navigation Bar/HBoxContainer" index="1"]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_es3h4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_epasn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_iro1c")
+icon = ExtResource("4_p1h8g")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Maximize Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Navigation Bar/HBoxContainer" index="2"]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_constants/icon_max_width = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_es3h4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_epasn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_iro1c")
+icon = ExtResource("5_ex0nk")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Close Button" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Navigation Bar/HBoxContainer" index="3"]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_i3xsn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jljmq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_g3pwt")
+icon = ExtResource("6_tfws1")
+icon_alignment = 1
+expand_icon = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Navigation Bar" index="1"]
+visible = false
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -15.0
+offset_right = 128.0
+offset_bottom = 11.0
+grow_vertical = 2
+
+[node name="Home" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Navigation Bar/HBoxContainer2" index="0"]
+texture_filter = 6
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_i3xsn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jljmq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_g3pwt")
+icon = ExtResource("7_o47rw")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Back" type="Button" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Navigation Bar/HBoxContainer2" index="1"]
+custom_minimum_size = Vector2(40, 24)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(0.6886501, 0.7359163, 0.8594238, 1)
+theme_override_colors/icon_pressed_color = Color(0.55145574, 0.6175318, 0.9393671, 1)
+theme_override_colors/icon_hover_color = Color(0.6001294, 0.73128843, 0.9390657, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.13756527, 0.5412501, 0.99999994, 1)
+icon = ExtResource("2_frqx2")
+expand_icon = true
+
+[node name="Resize Spots" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="3"]
 visible = true
 
-[node name="Resize Drag SpotTopRight" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="0"]
-anchors_preset = 1
-offset_left = -23.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 23.000008
-
-[node name="Resize Drag SpotBottomLeft" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="2"]
-anchors_preset = 2
-offset_left = 0.0
-offset_top = -23.0
-offset_right = 23.0
-offset_bottom = 0.0
-
-[node name="Resize Drag Spot Left" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="4"]
-anchors_preset = 9
-offset_left = 0.0
-offset_bottom = 0.0
-
-[node name="Resize Drag Spot Right" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="6"]
-anchors_preset = 11
-offset_left = 0.0
-offset_bottom = 0.0
-
-[node name="Resize Drag Spot Bottom" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="8"]
-anchors_preset = 12
-offset_top = 0.0
-offset_bottom = 0.0
-
-[node name="Resize Drag Spot Top" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="10"]
-anchors_preset = 10
-offset_bottom = 0.0
-
-[node name="Resize Drag Spot" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Resize Spots" index="14"]
-anchors_preset = 3
-offset_left = -23.0
-offset_top = -23.0
-offset_right = 0.0
-offset_bottom = 0.0
-
-[node name="DialogControls" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="3"]
+[node name="DialogControls" parent="SubViewportContainer/SubViewport/MarginContainer/TransitionNode" index="4"]
 visible = false
-anchors_preset = 15
 offset_top = 0.0
 
 [connection signal="pressed" from="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/Top Bar/Back" to="SubViewportContainer/SubViewport/MarginContainer/TransitionNode/FileManagerWindow" method="_on_back_button_pressed"]

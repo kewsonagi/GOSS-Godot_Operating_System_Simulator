@@ -54,8 +54,8 @@ func _ready() -> void:
 	clickHandler.LeftClickRelease.connect(LeftClickReleased)
 	clickHandler.RightClickRelease.connect(RightClickReleased)
 	clickHandler.MiddleButtonRelease.connect(MiddleClickReleased)
-	#clickHandler.LeftClick.connect(LeftClickStart)
-	#clickHandler.RightClick.connect(RightClickStart)
+	clickHandler.LeftClick.connect(LeftClickStart)
+	clickHandler.RightClick.connect(RightClickStart)
 	#clickHandler.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	ShowHBar(false)
@@ -407,10 +407,42 @@ func LeftClickStart() -> void:
 	vStartDragPosition = get_global_mouse_position() - UtilityHelper.GetDesktopRect().position
 	dragRect.position = vStartDragPosition
 
+	for child: Node in currentChildren:
+		if !child or child.is_queued_for_deletion():
+			pass
+
+		var childRect: Rect2
+		childRect.position = child.position
+		childRect.size = child.size
+		if childRect.has_point(vStartDragPosition):
+			selectedItems.clear()
+			selectedItems.append(child)
+			bDraggingOld = true # we are starting a drag ontop a currently selected child
+			selectedItemsPrev.clear()
+			selectedItemsPrev.append(child)
+			# DraggingSelectedBegin.emit(selectedItems)
+			break
+
 
 func RightClickStart() -> void:
 	vStartDragPosition = get_global_mouse_position() - UtilityHelper.GetDesktopRect().position
 	dragRect.position = vStartDragPosition
+
+	for child: Node in currentChildren:
+		if !child or child.is_queued_for_deletion():
+			pass
+
+		var childRect: Rect2
+		childRect.position = child.position
+		childRect.size = child.size
+		if childRect.has_point(vStartDragPosition):
+			selectedItems.clear()
+			selectedItems.append(child)
+			bDraggingOld = true # we are starting a drag ontop a currently selected child
+			selectedItemsPrev.clear()
+			selectedItemsPrev.append(child)
+			# DraggingSelectedBegin.emit(selectedItems)
+			break
 
 
 func LeftClickReleased() -> void:

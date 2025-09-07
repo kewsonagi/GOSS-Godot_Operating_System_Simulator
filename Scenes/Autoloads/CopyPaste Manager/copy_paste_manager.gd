@@ -57,7 +57,9 @@ func cut_file(file: BaseFile) -> void:
 
 ## Pastes the folder, caling paste_folder_copy() or paste_folder_cut() depending on the state selected
 func paste_folder(to_path: String) -> void:
-	var toPath: String = "%s%s/" % [ResourceManager.GetPathToUserFiles(), to_path]
+	var toPath: String = to_path
+	# if(!toPath.contains(":/")):
+	# 	toPath = "%s%s/" % [ResourceManager.GetPathToUserFiles(), to_path]
 	var packedFiles: PackedStringArray = []
 	var fromPath: String;
 
@@ -70,15 +72,20 @@ func paste_folder(to_path: String) -> void:
 			if(file and !file.is_queued_for_deletion() and file is BaseFile):
 				var f: BaseFile = file
 				if(f):
+					if(!toPath.contains(":/")):
+						toPath = "%s%s/" % [f.szStartingDrivePath, to_path]
 					if(f.eFileType == BaseFile.E_FILE_TYPE.FOLDER):
-						fromPath = "%s%s" % [ResourceManager.GetPathToUserFiles(), f.szFilePath]
+						fromPath = "%s%s" % [f.szStartingDrivePath, f.szFilePath]
 					else:
 						if(!f.szFilePath.is_empty()):
-							fromPath = "%s%s/%s" % [ResourceManager.GetPathToUserFiles(), f.szFilePath, f.szFileName]
+							fromPath = "%s%s/%s" % [f.szStartingDrivePath, f.szFilePath, f.szFileName]
 						else:
-							fromPath = "%s%s" % [ResourceManager.GetPathToUserFiles(), f.szFileName]
+							fromPath = "%s%s" % [f.szStartingDrivePath, f.szFileName]
 					packedFiles.append(fromPath)
 	
+	print(toPath)
+	if(!toPath.ends_with("/")):
+		toPath = "%s/" % toPath
 	if state == StateEnum.COPY:
 		CopyAllFilesOrFolders(packedFiles, toPath, true, false)
 					
@@ -130,16 +137,18 @@ func CopyAllFilesOrFolders(files: PackedStringArray, to: String = "user://files/
 							else:
 								DirAccess.rename_absolute(nextFilePathOnSystem, nextFilePath)
 			if(override or !FileAccess.file_exists("%s%s" % [to,filename])):
-				if(!cut):
-					DirAccess.copy_absolute(thisFile, "%s%s" % [to,filename])
-				else:
-					DirAccess.rename_absolute(thisFile, "%s%s" % [to,filename])
+				if(FileAccess.file_exists(thisFile)):
+					if(!cut):
+						DirAccess.copy_absolute(thisFile, "%s%s" % [to,filename])
+					else:
+						DirAccess.rename_absolute(thisFile, "%s%s" % [to,filename])
 		else:
 			if(override or !FileAccess.file_exists("%s%s" % [to,filename])):
-				if(!cut):
-					DirAccess.copy_absolute(thisFile, "%s%s" % [to,filename])
-				else:
-					DirAccess.rename_absolute(thisFile, "%s%s" % [to,filename])
+				if(FileAccess.file_exists(thisFile)):
+					if(!cut):
+						DirAccess.copy_absolute(thisFile, "%s%s" % [to,filename])
+					else:
+						DirAccess.rename_absolute(thisFile, "%s%s" % [to,filename])
 		if(cut):
 			dirToDelete.reverse()
 			for dir in dirToDelete:

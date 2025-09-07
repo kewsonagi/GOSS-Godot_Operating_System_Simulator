@@ -38,7 +38,6 @@ offset_left = 10.0
 offset_right = 90.0
 offset_bottom = 110.0
 size_flags_horizontal = 4
-mouse_filter = 1
 script = ExtResource("1_s1cio")
 eFileType = 3
 fileIcon = ExtResource("2_m7au3")

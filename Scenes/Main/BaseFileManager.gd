@@ -7,7 +7,6 @@ class_name BaseFileManager
 @export var windowTitle: RichTextLabel
 @export var szFilePath: String
 var directories: PackedStringArray
-var itemLocations: Dictionary = {}
 @export var startingUserDirectory: String = ProjectSettings.globalize_path("user://files/")
 @export var baseFile: PackedScene # = preload("res://Scenes/Desktop/TextFile.tscn")
 @export var folderFile: PackedScene # = preload("res://Scenes/Desktop/FolderFile.tscn")
@@ -17,6 +16,8 @@ var itemLocations: Dictionary = {}
 @export var packFileExtension: PackedStringArray = ["tres", "res"]
 static var masterFileManagerList: Array[BaseFileManager]
 @export var parentWindow: FakeWindow
+
+var fileHistory: Array[String]
 
 signal RightClickMenuOpened
 
@@ -33,16 +34,15 @@ func _ready() -> void:
 	RightClickEnd.connect(RightClickedSelection)
 
 func populate_file_manager() -> void:
-	itemLocations.clear()
 	RefreshManager()
 
-func RefreshManager() -> void:
+func GotoDirectory(path: String) -> void:
 	ClearAll()
 	directories.clear()
-	if(!DirAccess.dir_exists_absolute("%s%s" % [startingUserDirectory, szFilePath])):
+	if(!DirAccess.dir_exists_absolute(path)):
+		path = startingUserDirectory
 		szFilePath = ""
-	directories = DirAccess.get_directories_at("%s%s" % [startingUserDirectory, szFilePath])
-	#itemLocations.clear()
+	directories = DirAccess.get_directories_at(path)
 	if (directories):
 		for folder_name in directories:
 			if szFilePath.is_empty():
@@ -51,7 +51,7 @@ func RefreshManager() -> void:
 				PopulateWithFolder(folder_name, "%s/%s" % [szFilePath, folder_name])
 	
 	directories.clear()
-	directories = DirAccess.get_files_at("%s%s" % [startingUserDirectory, szFilePath])
+	directories = DirAccess.get_files_at(path)
 	for file_name: String in directories:
 		var filetype: BaseFile.E_FILE_TYPE = BaseFile.E_FILE_TYPE.UNKNOWN
 		if(file_name.get_extension() == appFileExtension):
@@ -60,7 +60,7 @@ func RefreshManager() -> void:
 			filetype = BaseFile.E_FILE_TYPE.PCK
 		PopulateWithFile(file_name, szFilePath, filetype)
 	
-	if(!DirAccess.dir_exists_absolute("%s%s" % [startingUserDirectory, szFilePath])):
+	if(!DirAccess.dir_exists_absolute(path)):
 		if(parentWindow):
 			parentWindow._on_close_button_pressed()
 			return
@@ -72,6 +72,9 @@ func RefreshManager() -> void:
 	if(windowTitle):
 		windowTitle.text = "%s" % [szFilePath]
 
+func RefreshManager() -> void:
+	GotoDirectory("%s%s" % [startingUserDirectory, szFilePath])
+
 func PopulateWithFolder(fileName: String, path: String) -> void:
 	for folder: Node in currentChildren:
 		var f: BaseFile = folder as BaseFile
@@ -81,9 +84,9 @@ func PopulateWithFolder(fileName: String, path: String) -> void:
 	var fileType: BaseFile.E_FILE_TYPE = BaseFile.E_FILE_TYPE.FOLDER
 	folder.szFileName = fileName
 	folder.szFilePath = path
+	folder.szStartingDrivePath = startingUserDirectory
 	folder.eFileType = fileType
 	AddChild(folder)
-	itemLocations["%s%s" % [path, fileName]] = Vector2(0, 0)
 
 func PopulateWithFile(fileName: String, path: String, fileType: BaseFile.E_FILE_TYPE) -> void:
 	#avoid duplicate files
@@ -113,9 +116,9 @@ func PopulateWithFile(fileName: String, path: String, fileType: BaseFile.E_FILE_
 
 	file.szFileName = fileName
 	file.szFilePath = path
+	file.szStartingDrivePath = startingUserDirectory
 	file.eFileType = fileType
 	AddChild(file)
-	itemLocations["%s%s" % [path, fileName]] = Vector2(0, 0)
 
 
 ## Sorts all folders to their correct positions. 
@@ -177,7 +180,6 @@ func delete_file_with_name(file_name: String) -> void:
 			continue
 		
 		if child.szFileName == file_name:
-			itemLocations.erase(child.szFileName)
 			RemoveChild(child)
 			child.queue_free()
 	
@@ -272,7 +274,7 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	if(data is Array[Node]):
 		var to: String = szFilePath
 		CopyPasteManager.CutMultiple(data)
-		CopyPasteManager.paste_folder(to)
+		CopyPasteManager.paste_folder("%s%s" % [startingUserDirectory, to])
 		BaseFileManager.RefreshAllFileManagers()
 
 
@@ -307,32 +309,49 @@ func HandleRightClick() -> void:
 	RClickMenuManager.instance.AddMenuItem("Properties", Properties)
 
 	RightClickMenuOpened.emit()
-	for item: BaseFile in filesSelected:
-		item.show_selected_highlight()
+
+	var item: BaseFile
+	if(filesSelected and !filesSelected.is_empty()):
+		for i: int in filesSelected.size():
+			if(filesSelected[i] and !filesSelected[i].is_queued_for_deletion()):
+				item = filesSelected[i]
+				item.show_selected_highlight()
 
 func CopyFiles() -> void:
 	CopyPasteManager.CopyMultiple(filesSelected)
-	for item: BaseFile in filesSelected:
-		item.show_selected_highlight()
+	var item: BaseFile
+	for i: int in filesSelected.size():
+		if(filesSelected[i] and !filesSelected[i].is_queued_for_deletion()):
+			item = filesSelected[i]
+			item.show_selected_highlight()
+
 func CutFiles() -> void:
 	CopyPasteManager.CutMultiple(filesSelected)
-	for item: BaseFile in filesSelected:
-		item.show_selected_highlight()
+	var item: BaseFile
+	for i: int in filesSelected.size():
+		if(filesSelected[i] and !filesSelected[i].is_queued_for_deletion()):
+			item = filesSelected[i]
+			item.show_selected_highlight()
 
 func ShowRenameDialog() -> void:
+	var item: BaseFile
 	if(filesSelected.size()>0):
 		for file: BaseFile in filesSelected:
 			if(file):
 				file.ShowRenameDialog()
 				break;
-	for item: BaseFile in filesSelected:
-		item.show_selected_highlight()
+	for i: int in filesSelected.size():
+		if(filesSelected[i] and !filesSelected[i].is_queued_for_deletion()):
+			item = filesSelected[i]
+			item.show_selected_highlight()
 
 func OpenFiles() -> void:
 	if(filesSelected.size()>0):
-		for file: BaseFile in filesSelected:
-			if(file):
-				file.OpenThis()
+		var item: BaseFile
+		for i: int in filesSelected.size():
+			if(filesSelected[i] and !filesSelected[i].is_queued_for_deletion()):
+				item = filesSelected[i]
+				item.OpenThis()
 
 func NewFolder() -> void:
 	var dialog:DialogBox = DialogManager.instance.CreateInputDialog("New Folder", "Accept", "Cancel", "NewName", "New Folder Copy")
@@ -344,7 +363,7 @@ func NewFolder() -> void:
 	)
 
 func Paste() -> void:
-	CopyPasteManager.paste_folder(szFilePath)
+	CopyPasteManager.paste_folder("%s%s" % [startingUserDirectory, szFilePath])
 	BaseFileManager.RefreshAllFileManagers()
 
 func NewFile() -> void:
@@ -371,14 +390,22 @@ var filesSelected: Array[Node]
 var bDraggingRMB: bool
 func CopySelection() -> void:
 	CopyPasteManager.CopyMultiple(filesSelected)
+	filesSelected.clear()
+
 func CutSelection() -> void:
 	CopyPasteManager.CutMultiple(filesSelected)
+	filesSelected.clear()
+
 
 func RightClickedSelection(selection: Array[Node]) -> void:
-	if(!selection):
+	filesSelected.clear()
+	if(!selection or selection.is_empty()):
 		HandleRightClick()
 	elif(!selection.is_empty()):
-		filesSelected = selection
+		for file: BaseFile in BaseFile.selectedFiles:
+			file.show_selected_highlight()
+
+		filesSelected.append_array(selection)
 		RClickMenuManager.instance.ShowMenu("File Manager Menu", self)
 		RClickMenuManager.instance.AddMenuItem("Open All", OpenSelection, ResourceManager.GetResource("Open"))
 		RClickMenuManager.instance.AddMenuItem("Copy", CopySelection, ResourceManager.GetResource("Copy"))
@@ -392,6 +419,7 @@ func OpenSelection() -> void:
 		if(file and file is BaseFile):
 			var theFile: BaseFile = file as BaseFile
 			theFile.OpenThis()
+	filesSelected.clear()
 
 func AskBeforeDelete() -> void:
 	grabedFiles.clear()
@@ -414,6 +442,8 @@ func AskBeforeDelete() -> void:
 				firstValid.DeleteFile()
 		return).bind(self)
 	)
+	filesSelected.clear()
+
 
 func ClearSelection(items: Array[Node]) -> void:
 	for item in items:
@@ -431,15 +461,16 @@ func DragSelectingItems(items: Array[Node], itemsOld: Array[Node]) -> void:
 			file.show_selected_highlight()
 #drag ended on the selected items
 func DragSelectingItemsEnded(items: Array[Node]) -> void:
+	for item in items:
+		if(item is BaseFile):
+			var file: BaseFile = item
+			file.show_selected_highlight()
+
 	if(clickHandler.bRMB):
 		if(items.is_empty()):
 			HandleRightClick()
 		else:
 			RightClickedSelection(items)
-	for item in items:
-		if(item is BaseFile):
-			var file: BaseFile = item
-			file.show_selected_highlight()
 
 #dragging a selection of currently selected items
 func DragSelectedItemsBegin(items: Array[Node]) -> void:

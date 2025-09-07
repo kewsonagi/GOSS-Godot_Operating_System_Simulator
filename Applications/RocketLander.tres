@@ -16,4 +16,5 @@ colorBGTitle = Color(0.28167343, 0.22368535, 1, 1)
 customWindowTitle = null
 borderless = true
 bGame = true
+category = "Games"
 metadata/_custom_type_script = "uid://db3jxs22pw5gq"

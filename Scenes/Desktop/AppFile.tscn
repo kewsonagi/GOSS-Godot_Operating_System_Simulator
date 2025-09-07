@@ -33,11 +33,11 @@ bg_color = Color(0, 0, 0, 0.784314)
 [node name="Folder" type="Control" node_paths=PackedStringArray("hoverHighlightControl", "selectedHighlightControl", "fileTexture", "doubleClickTimer", "titleEditBox", "fileTitleControl") groups=["folder"]]
 custom_minimum_size = Vector2(80, 110)
 layout_mode = 3
-offset_left = 10.0
-offset_right = 90.0
+anchors_preset = 0
+offset_right = 80.0
 offset_bottom = 110.0
 size_flags_horizontal = 4
-mouse_filter = 1
+mouse_filter = 2
 script = ExtResource("1_y26pf")
 eFileType = 5
 fileIcon = ExtResource("2_qyhvn")

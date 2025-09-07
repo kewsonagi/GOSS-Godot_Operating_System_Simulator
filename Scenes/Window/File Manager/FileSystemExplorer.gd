@@ -2,6 +2,8 @@ extends BaseFileManager
 class_name FileManagerWindow
 
 ## The file manager window.
+signal ChangedDirectory(newDir: String)
+signal BackButtonPressed()
 
 func _ready() -> void:
 	if(parentWindow and parentWindow.creationData.has("StartPath")):
@@ -17,6 +19,20 @@ func _ready() -> void:
 	clickHandler.BackButtonPressed.connect(_on_back_button_pressed)
 	populate_file_manager()
 	UtilityHelper.instance.CallOnDelay(0.05, RefreshManager)
+
+func GotoAddressAbsolute(path: String) -> void:
+	if !path.is_empty():
+		startingUserDirectory = path
+		szFilePath = ""
+	
+	if(windowTitle):
+		windowTitle.text = "%s" % [path]
+	
+	GotoDirectory(path)
+	
+	if(parentWindow):
+		parentWindow.select_window(true)
+	ChangedDirectory.emit(path)
 
 func reload_window(folder_path: String) -> void:
 	# Reload the same path if not given folder_path
@@ -39,6 +55,7 @@ func reload_window(folder_path: String) -> void:
 	
 	if(parentWindow):
 		parentWindow.select_window(true)
+	ChangedDirectory.emit(folder_path)
 
 func HandleRightClick() -> void:
 	super.HandleRightClick()
@@ -53,5 +70,6 @@ func _on_back_button_pressed() -> void:
 
 	split_path.remove_at(split_path.size() - 1)
 	szFilePath = "/".join(split_path)
+	BackButtonPressed.emit()
 	
 	reload_window(szFilePath)

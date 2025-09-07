@@ -15,4 +15,5 @@ colorBGWindow = Color(0.46251708, 4.8371403e-05, 0.39894298, 1)
 colorBGTitle = Color(0.28167343, 0.22368535, 1, 1)
 customWindowTitle = null
 bGame = true
+category = "Games"
 metadata/_custom_type_script = "uid://db3jxs22pw5gq"
