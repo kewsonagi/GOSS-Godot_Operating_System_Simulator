@@ -44,8 +44,8 @@ func RegisterBuiltinApps() -> void:
 			UtilityHelper.CopyFile(fullIconPath, fullExternalIconPath)
 			#res = ResourceLoader.load("%s/%s" % [pathToApps.get_base_dir(), app])
 			res = AppManager.LoadAppManifest(fullExternalIconPath)
-			res.path = ProjectSettings.globalize_path(res.path)
 			if(res):
+				res.path = ProjectSettings.globalize_path(res.path)
 				AppManager.RegisterApp(app.get_file().get_basename(), res as AppManifest)
 	# for app: AppManifest in defaultApps:
 	# 	AppManager.RegisterApp(app.key, app)
@@ -61,7 +61,7 @@ static func GetListOfAppsAvailable() -> Array[AppManifest]:
 	return appsList
 
 static func RegisterApp(key: String, resource: AppManifest) -> void:
-	if (!registeredApps.has(key)):
+	if (!registeredApps.has(key) and resource):
 		#if this item is already registered under a different name, assign it that index and dont make a new one
 		appsList.append(resource)
 		registeredApps[key] = appsList.size() - 1

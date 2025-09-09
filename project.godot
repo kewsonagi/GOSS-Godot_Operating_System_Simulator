@@ -55,9 +55,6 @@ GlobalValues="*res://Scenes/Autoloads/GlobalValues/global_values.tscn"
 CopyPasteManager="*res://Scenes/Autoloads/CopyPaste Manager/copy_paste_manager.tscn"
 NotificationManager="*res://Scenes/Autoloads/Notification Manager/notification_manager.tscn"
 HotkeyManager="res://Scenes/Autoloads/Hotkey Manager/hotkey_manager.tscn"
-TransitionManager="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldTransition_Manager.gd"
-UnderworldGlobal="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldGlobal.gd"
-UnderworldQuest="*res://Games/UnderworldPlatformer/GlobalScripts/UnderworldQuestManager.gd"
 
 [debug]
 

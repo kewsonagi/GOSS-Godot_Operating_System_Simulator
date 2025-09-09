@@ -1,18 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://dvv2n4mg78jpi"]
+[gd_scene load_steps=2 format=3 uid="uid://dvv2n4mg78jpi"]
 
 [ext_resource type="Script" uid="uid://b82otbvmn0x4e" path="res://Scenes/Autoloads/ApplicationManager/AppManager.gd" id="1_hw3pv"]
-[ext_resource type="Script" uid="uid://db3jxs22pw5gq" path="res://Scenes/Autoloads/ApplicationManager/AppManifest.gd" id="2_2txsx"]
-[ext_resource type="Resource" uid="uid://be5mg7ubu51eq" path="res://Applications/FileExplorer.tres" id="3_unbg3"]
-[ext_resource type="Resource" uid="uid://cala6b4lqju67" path="res://Applications/ImageViewer.tres" id="4_5dvng"]
-[ext_resource type="Resource" uid="uid://c7j3x4eo71p0o" path="res://Applications/TextViewer.tres" id="5_m7qth"]
-[ext_resource type="Resource" uid="uid://dyhdrmst0ttih" path="res://Applications/BitBoy.tres" id="6_xwymq"]
-[ext_resource type="Resource" uid="uid://v5dp6lf82mti" path="res://Applications/CubeSpinner.tres" id="7_71600"]
-[ext_resource type="Resource" uid="uid://d0jky5nhx2n3i" path="res://Applications/Pong.tres" id="8_nguee"]
-[ext_resource type="Resource" uid="uid://t1usst3ls0p0" path="res://Applications/RocketLander.tres" id="9_wq78t"]
-[ext_resource type="Resource" uid="uid://bcpgw0j03150k" path="res://Applications/Snake.tres" id="10_l58bf"]
-[ext_resource type="Resource" uid="uid://dl6udafi08isr" path="res://Applications/Tetris.tres" id="11_xn5vd"]
-[ext_resource type="Resource" uid="uid://dxil1k88nr3ry" path="res://Applications/Underworld.tres" id="12_xgora"]
-[ext_resource type="Resource" uid="uid://c7clplyn1ybrv" path="res://Applications/SceneViewer.tres" id="13_iycbc"]
 
 [node name="AppManager" type="Control"]
 layout_mode = 3
@@ -24,4 +12,3 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_hw3pv")
 pathToApps = "res://Applications/"
-defaultApps = Array[ExtResource("2_2txsx")]([ExtResource("3_unbg3"), ExtResource("4_5dvng"), ExtResource("5_m7qth"), ExtResource("6_xwymq"), ExtResource("7_71600"), ExtResource("8_nguee"), ExtResource("9_wq78t"), ExtResource("10_l58bf"), ExtResource("11_xn5vd"), ExtResource("12_xgora"), ExtResource("13_iycbc")])

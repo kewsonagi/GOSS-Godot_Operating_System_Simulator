@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bpbv25ikclf2d"]
+[gd_scene load_steps=34 format=3 uid="uid://bpbv25ikclf2d"]
 
 [ext_resource type="Theme" uid="uid://b3klx57slj0l3" path="res://Art/soft_retro/soft_retro.tres" id="1_gj165"]
 [ext_resource type="PackedScene" uid="uid://da4oly47yx3ja" path="res://Scenes/Taskbar/start_menu_option.tscn" id="2_amen2"]
@@ -9,8 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://lmxmnq0enui8" path="res://Games/Cube Scene/boot.tscn" id="7_edn4x"]
 [ext_resource type="PackedScene" uid="uid://1mg6dmwk6m1b" path="res://Games/RocketLander/boot.tscn" id="8_b3epv"]
 [ext_resource type="Texture2D" uid="uid://ct0c60k3q1y7x" path="res://Games/RocketLander/assets/images/main_menu.jpg" id="9_b0ovt"]
-[ext_resource type="PackedScene" uid="uid://w1l6tjahy86p" path="res://Games/UnderworldPlatformer/boot.tscn" id="10_ako6f"]
-[ext_resource type="Texture2D" uid="uid://bolksinmvxt0v" path="res://Games/UnderworldPlatformer/Arta/Tiles/Transparent/tile_0243.png" id="11_codup"]
 [ext_resource type="PackedScene" uid="uid://b76r00gtgrncy" path="res://Games/PebbleCalculator/boot.tscn" id="12_w43n6"]
 [ext_resource type="Texture2D" uid="uid://blo1afxx8ll7m" path="res://Games/PebbleCalculator/assets/title_demo.png" id="13_wbc7p"]
 [ext_resource type="PackedScene" uid="uid://dujib0uv126o2" path="res://Games/minesweeper/boot.tscn" id="14_t7vek"]
@@ -93,6 +91,7 @@ offset_bottom = 616.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0bho0")
 
 [node name="Panel" type="Panel" parent="StartMenuAnchor/Start Menu"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -153,14 +152,6 @@ gameScene = ExtResource("8_b3epv")
 title_text = "Rocket Lander"
 description_text = "Rocket Lander mocup"
 programIcon = ExtResource("9_b0ovt")
-
-[node name="UnderworldPlatformer" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_amen2")]
-layout_mode = 2
-game_scene = "res://Games/UnderworldPlatformer/boot.tscn"
-gameScene = ExtResource("10_ako6f")
-title_text = "Underworld tales"
-description_text = "Underworld platformer with inverting worlds"
-programIcon = ExtResource("11_codup")
 
 [node name="Calculator" parent="StartMenuAnchor/Start Menu/Panel/VBoxContainer" instance=ExtResource("2_amen2")]
 layout_mode = 2

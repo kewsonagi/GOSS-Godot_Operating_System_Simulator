@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dlchsrtufo30l"]
+[gd_scene load_steps=29 format=3 uid="uid://dlchsrtufo30l"]
 
 [ext_resource type="Script" uid="uid://baqft1svk6o2i" path="res://Scenes/Widgets/StartWidget.gd" id="1_ebf78"]
 [ext_resource type="Texture2D" uid="uid://bvvdctur6sisw" path="res://icon.svg" id="2_7mume"]
@@ -17,8 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://lmxmnq0enui8" path="res://Games/Cube Scene/boot.tscn" id="15_3cb4l"]
 [ext_resource type="PackedScene" uid="uid://1mg6dmwk6m1b" path="res://Games/RocketLander/boot.tscn" id="16_q2d35"]
 [ext_resource type="Texture2D" uid="uid://ct0c60k3q1y7x" path="res://Games/RocketLander/assets/images/main_menu.jpg" id="17_splho"]
-[ext_resource type="PackedScene" uid="uid://w1l6tjahy86p" path="res://Games/UnderworldPlatformer/boot.tscn" id="18_aal8m"]
-[ext_resource type="Texture2D" uid="uid://bolksinmvxt0v" path="res://Games/UnderworldPlatformer/Arta/Tiles/Transparent/tile_0243.png" id="19_u3qkt"]
 [ext_resource type="PackedScene" uid="uid://b76r00gtgrncy" path="res://Games/PebbleCalculator/boot.tscn" id="20_fpesh"]
 [ext_resource type="Texture2D" uid="uid://blo1afxx8ll7m" path="res://Games/PebbleCalculator/assets/title_demo.png" id="21_kml8d"]
 [ext_resource type="PackedScene" uid="uid://dujib0uv126o2" path="res://Games/minesweeper/boot.tscn" id="22_8qm33"]
@@ -180,6 +178,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Panel" type="Panel" parent="TransformNode/Control/Start Menu"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -188,6 +187,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="GridContainer" parent="TransformNode/Control/Start Menu/Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -201,6 +201,7 @@ theme_override_constants/v_separation = 0
 columns = 3
 
 [node name="Godotris Option" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+visible = false
 layout_mode = 2
 game_scene = "res://Games/Godotris/Game/boot.tscn"
 gameScene = ExtResource("11_5p4dx")
@@ -208,6 +209,7 @@ title_text = "Godotris"
 description_text = "Stack blocks, clear lines!"
 
 [node name="Bit Boy" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+visible = false
 layout_mode = 2
 game_scene = "res://Games/Super Bit Boy/boot.tscn"
 gameScene = ExtResource("12_t5vt4")
@@ -215,6 +217,7 @@ title_text = "1 Bit Boy"
 description_text = "Bit Boy platform adventure"
 
 [node name="Snake Option" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+visible = false
 layout_mode = 2
 game_scene = "res://Games/Snake/boot.tscn"
 gameScene = ExtResource("13_y3drq")
@@ -222,6 +225,7 @@ title_text = "Snake"
 description_text = "Eat fruit, grow long!"
 
 [node name="Pong Option" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+visible = false
 layout_mode = 2
 game_scene = "res://Games/Pong/boot.tscn"
 gameScene = ExtResource("14_wpyr3")
@@ -229,6 +233,7 @@ title_text = "Pong"
 description_text = "Timeless Classic"
 
 [node name="Cube Scene Option" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+visible = false
 layout_mode = 2
 game_scene = "res://Games/Cube Scene/boot.tscn"
 gameScene = ExtResource("15_3cb4l")
@@ -236,6 +241,7 @@ title_text = "Cube Scene"
 description_text = "THE CUBE. THE CUBE. THE CUBE."
 
 [node name="Rocket Lander" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+visible = false
 layout_mode = 2
 game_scene = "res://Games/RocketLander/boot.tscn"
 gameScene = ExtResource("16_q2d35")
@@ -243,15 +249,8 @@ title_text = "Rocket Lander"
 description_text = "Rocket Lander mocup"
 programIcon = ExtResource("17_splho")
 
-[node name="UnderworldPlatformer" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
-layout_mode = 2
-game_scene = "res://Games/UnderworldPlatformer/boot.tscn"
-gameScene = ExtResource("18_aal8m")
-title_text = "Underworld tales"
-description_text = "Underworld platformer with inverting worlds"
-programIcon = ExtResource("19_u3qkt")
-
 [node name="Calculator" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+visible = false
 layout_mode = 2
 game_scene = "res://Scenes/PebbleCalculator/boot.tscn"
 gameScene = ExtResource("20_fpesh")
@@ -261,6 +260,7 @@ programIcon = ExtResource("21_kml8d")
 use_generic_pause_menu = false
 
 [node name="Minesweeper" parent="TransformNode/Control/Start Menu/Panel/VBoxContainer" instance=ExtResource("10_usyxf")]
+visible = false
 layout_mode = 2
 game_scene = "res://Games/minesweeper/boot.tscn"
 gameScene = ExtResource("22_8qm33")
